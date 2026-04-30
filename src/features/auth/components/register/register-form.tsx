@@ -1,6 +1,6 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
-import { useRegister } from '@/src/features/auth/hooks/useRegister'
+import { useRegister } from '@/src/features/auth/hooks/register/useRegister'
 import type { RegisterFormData } from '@/src/features/auth/schemas/register.schema'
 import { RegisterSchema, toRegisterRequest } from '@/src/features/auth/schemas/register.schema'
 import type { RegisterPageProps } from '@/src/features/auth/type'

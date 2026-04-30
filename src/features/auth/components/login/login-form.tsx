@@ -1,38 +1,23 @@
 'use client'
 
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useForm } from 'react-hook-form'
-import { useLogin } from '@/src/features/auth/hooks/useLogin'
-import type { LoginFormData } from '@/src/features/auth/schemas/login.schema'
-import { LoginSchema, toLoginRequest } from '@/src/features/auth/schemas/login.schema'
+import { useLoginForm } from '@/src/features/auth/hooks/login/useLoginForm'
 import type { LoginPageProps } from '@/src/features/auth/type'
+import { Button, Form, FormField, FormMessage } from '@/src/shared/components'
 
-export default function LoginPage({ onSuccess }: LoginPageProps) {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<LoginFormData>({
-    resolver: zodResolver(LoginSchema),
-  })
-
-  const mutation = useLogin({ onSuccess })
-
-  const onSubmit = (data: LoginFormData) => {
-    mutation.mutate(data)
-  }
+export default function LoginForm({ onSuccess }: LoginPageProps) {
+  const { form, onSubmit, formError, isLoading } = useLoginForm({ onSuccess })
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <h1>Login</h1>
+    <Form form={form} onSubmit={onSubmit} className='space-y-5'>
+      {formError && <FormMessage>{formError}</FormMessage>}
 
-      <input placeholder='email' {...register('email')} />
-      {errors.email && <p>{errors.email.message}</p>}
+      <FormField name='email' label='Email' type='email' placeholder='you@example.com' required />
 
-      <input placeholder='password' type='password' {...register('password')} />
-      {errors.password && <p>{errors.password.message}</p>}
+      <FormField name='password' label='Password' type='password' placeholder='••••••••' required />
 
-      <button type='submit'>Login</button>
-    </form>
+      <Button type='submit' fullWidth isLoading={isLoading} loadingText='Signing in...'>
+        Sign in
+      </Button>
+    </Form>
   )
 }

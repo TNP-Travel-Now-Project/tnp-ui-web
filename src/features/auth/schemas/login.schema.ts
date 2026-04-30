@@ -18,8 +18,3 @@ export const LoginSchema = z.object({
 })
 
 export type LoginFormData = z.infer<typeof LoginSchema>
-
-export const toLoginRequest = (data: LoginFormData): LoginRequest => ({
-  email: data.email,
-  password: data.password,
-})
