@@ -1,7 +1,6 @@
 export type LoginRequest = {
   email: string
   password: string
-  rememberMe: boolean
 }
 
 export type LoginResponse = {
@@ -12,5 +11,27 @@ export type LoginResponse = {
 }
 
 export type LoginPageProps = {
+  onSuccess: () => void
+}
+
+export type RegisterRequest = {
+  firstName: string
+  lastName: string
+  userName: string
+  email: string
+  password: string
+  confirmPassword: string
+  phoneNumber: string
+  dateOfBirth: string
+}
+
+export type RegisterResponse = {
+  userId: string
+  fullName: string
+  email: string
+  createdAt: string
+}
+
+export type RegisterPageProps = {
   onSuccess: () => void
 }

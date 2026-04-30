@@ -1,16 +1,9 @@
 'use client'
+
 import { useRouter } from 'next/navigation'
+import RegisterForm from '@/src/features/auth/components/register/register-form'
 
 export default function RegisterPage() {
   const route = useRouter()
-
-  return (
-    <>
-      <h1>Da vao trang dang ky</h1>
-
-      <button type='button' onClick={() => route.push('/order')}>
-        don hang
-      </button>
-    </>
-  )
+  return <RegisterForm onSuccess={() => route.push('/order')} />
 }
