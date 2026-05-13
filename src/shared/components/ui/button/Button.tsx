@@ -1,67 +1,53 @@
-import type { ButtonHTMLAttributes, ReactNode } from 'react'
-import { forwardRef } from 'react'
-import {
-  type ButtonVariantProps,
-  buttonVariants,
-} from '@/src/shared/components/ui/button/button.variants'
-import { cn } from '@/src/shared/lib/utils/cn'
+import { Button as AntButton, type ButtonProps as AntButtonProps } from 'antd'
+import type React from 'react'
+import { cn } from '@/shared/lib/utils/cn'
+import styles from './Button.module.scss'
 
-// 1️⃣ INTERFACES - Định nghĩa props
-interface ButtonProps
-  extends ButtonHTMLAttributes<HTMLButtonElement>, // ← Kế thừa props HTML (onClick, disabled...)
-    ButtonVariantProps {
-  // ← Kế thừa variant props (variant, size...)
-  isLoading?: boolean // Đang loading?
-  loadingText?: ReactNode // Text hiển thị khi loading
-  children: ReactNode // Nội dung button
+export type ButtonType = 'fill' | 'outline' | 'secondary' | 'cancel'
+export type IconPosition = 'left' | 'right'
+export type ButtonSize = 'small' | 'medium' | 'large'
+
+export type ButtonProps = Omit<AntButtonProps, 'icon' | 'iconPosition' | 'size'> & {
+  buttonType?: ButtonType
+  icon?: React.ReactNode
+  iconPosition?: IconPosition
+  size?: ButtonSize
 }
 
-/**
- * Button Component
- * Design system button with variant + loading support
- * Fully accessible and ref-forward compatible
- *
- * Features:
- * - Variant system (variant, size, fullWidth)
- * - Loading state with disabled protection
- * - Supports loading text fallback
- * - Fully ref-compatible (forwardRef)
- *
- * @example
- * <Button variant="primary" isLoading>
- *   Submit
- * </Button>
- */
-export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  (
-    {
-      className,
-      variant,
-      size,
-      fullWidth,
-      isLoading = false,
-      loadingText,
-      disabled,
-      children,
-      ...props
-    },
-    ref,
-  ) => {
-    const isDisabled = disabled || isLoading
+const Button: React.FC<ButtonProps> = ({
+  className,
+  children,
+  buttonType = 'fill',
+  icon,
+  iconPosition = 'left',
+  size = 'medium',
+  ...props
+}) => {
+  const variantClass = styles[buttonType]
 
-    const content = isLoading ? (loadingText ?? children) : children
+  const sizeClass = styles[size]
 
-    return (
-      <button
-        ref={ref}
-        className={cn(buttonVariants({ variant, size, fullWidth, isLoading }), className)}
-        disabled={isDisabled}
-        {...props}
-      >
-        {content}
-      </button>
-    )
-  },
-)
+  const antdType = buttonType === 'fill' ? 'primary' : 'default'
 
-Button.displayName = 'Button'
+  const buttonClass = cn(styles.button, variantClass, sizeClass, className)
+
+  return (
+    <AntButton
+      type={antdType}
+      className={buttonClass}
+      icon={iconPosition === 'left' ? icon : undefined}
+      {...props}
+    >
+      {iconPosition === 'right' && icon ? (
+        <span className={styles.content}>
+          {children}
+          {icon}
+        </span>
+      ) : (
+        children
+      )}
+    </AntButton>
+  )
+}
+
+export default Button

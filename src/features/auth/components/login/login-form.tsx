@@ -1,8 +1,9 @@
 'use client'
 
-import { useLoginForm } from '@/src/features/auth/hooks/login/useLoginForm'
-import type { LoginPageProps } from '@/src/features/auth/type'
-import { Button, Form, FormField, FormMessage } from '@/src/shared/components'
+import { useLoginForm } from '@/features/auth/hooks/login/useLoginForm'
+import type { LoginPageProps } from '@/features/auth/type'
+import { Button } from '@/shared/components/ui'
+import { Form, FormField, FormMessage } from '@/shared/components/form'
 
 export default function LoginForm({ onSuccess }: LoginPageProps) {
   const { form, onSubmit, formError, isLoading } = useLoginForm({ onSuccess })

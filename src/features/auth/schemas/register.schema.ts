@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import type { RegisterRequest } from '@/src/features/auth/type'
+import type { RegisterRequest } from '@/features/auth/type'
 
 export const RegisterSchema = z
   .object({

@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { getCSRFToken } from '@/src/shared/lib/csrf'
+import { getCSRFToken } from '@/shared/lib/csrf'
 
 const api = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,

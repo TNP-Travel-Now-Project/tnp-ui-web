@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query'
-import type { LoginPageProps, LoginRequest } from '@/src/features/auth//type'
-import { loginApi } from '@/src/features/auth/api/login.api'
+import type { LoginPageProps, LoginRequest } from '@/features/auth//type'
+import { loginApi } from '@/features/auth/api/login.api'
 
 export const useLogin = ({ onSuccess }: LoginPageProps) => {
   return useMutation({

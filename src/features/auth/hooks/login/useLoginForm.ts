@@ -1,10 +1,10 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { useLogin } from '@/src/features/auth/hooks/login/useLogin'
-import type { LoginFormData } from '@/src/features/auth/schemas/login.schema'
-import { LoginSchema } from '@/src/features/auth/schemas/login.schema'
-import type { LoginPageProps } from '@/src/features/auth/type'
+import { useLogin } from '@/features/auth/hooks/login/useLogin'
+import type { LoginFormData } from '@/features/auth/schemas/login.schema'
+import { LoginSchema } from '@/features/auth/schemas/login.schema'
+import type { LoginPageProps } from '@/features/auth/type'
 
 export function useLoginForm({ onSuccess }: LoginPageProps) {
   const [formError, setFormError] = useState<string | null>(null)

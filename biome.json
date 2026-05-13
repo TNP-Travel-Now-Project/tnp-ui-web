@@ -39,5 +39,22 @@
         "organizeImports": "on"
       }
     }
-  }
+  },
+  "overrides": [
+    {
+      "includes": ["src/shared/components/index.ts"],
+
+      "formatter": {
+        "enabled": false
+      },
+
+      "linter": {
+        "enabled": false
+      },
+
+      "assist": {
+        "enabled": false
+      }
+    }
+  ]
 }

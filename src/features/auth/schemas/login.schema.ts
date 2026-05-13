@@ -1,5 +1,4 @@
 import { z } from 'zod'
-import type { LoginRequest } from '@/src/features/auth/type'
 
 export const LoginSchema = z.object({
   email: z.email({ message: 'Invalid email address' }),

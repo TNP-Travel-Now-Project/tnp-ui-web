@@ -1,0 +1,157 @@
+.tabsContainer {
+  width: 100%;
+}
+
+.tabs {
+  .ant-tabs-nav {
+    margin-bottom: 16px;
+    
+    &::before {
+      border-bottom: 1px solid #f0f0f0;
+    }
+  }
+  
+  .ant-tabs-tab {
+    padding: 8px 16px;
+    margin: 0 16px 0 0;
+    border-radius: 6px 6px 0 0;
+    transition: all 0.3s ease;
+    
+    &:hover {
+      color: #1890ff;
+    }
+    
+    &.ant-tabs-tab-active {
+      background: #f0f8ff;
+      border-color: #1890ff;
+      
+      .ant-tabs-tab-btn {
+        color: #1890ff;
+        font-weight: 500;
+      }
+    }
+  }
+  
+  .ant-tabs-content-holder {
+    padding: 16px 0;
+  }
+  
+  .ant-tabs-tabpane {
+    min-height: 200px;
+  }
+}
+
+.tabLabel {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.tabIcon {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+}
+
+// Card variant
+.tabs[data-type="card"] {
+  .ant-tabs-nav {
+    margin-bottom: 0;
+    
+    &::before {
+      display: none;
+    }
+  }
+  
+  .ant-tabs-tab {
+    border: 1px solid #d9d9d9;
+    border-bottom: none;
+    background: #fafafa;
+    margin: 0 2px 0 0;
+    
+    &:hover {
+      color: #1890ff;
+      background: #f0f8ff;
+    }
+    
+    &.ant-tabs-tab-active {
+      background: white;
+      border-bottom-color: white;
+      
+      .ant-tabs-tab-btn {
+        color: #1890ff;
+      }
+    }
+  }
+  
+  .ant-tabs-content-holder {
+    border: 1px solid #d9d9d9;
+    border-top: none;
+    padding: 16px;
+    background: white;
+  }
+}
+
+// Line variant
+.tabs[data-type="line"] {
+  .ant-tabs-nav {
+    &::before {
+      border-bottom: 2px solid #f0f0f0;
+    }
+  }
+  
+  .ant-tabs-tab {
+    border: none;
+    background: transparent;
+    
+    &.ant-tabs-tab-active {
+      background: transparent;
+      
+      .ant-tabs-tab-btn {
+        color: #1890ff;
+        font-weight: 500;
+      }
+    }
+  }
+  
+  .ant-tabs-ink-bar {
+    background: #1890ff;
+    height: 2px;
+  }
+}
+
+// Size variations
+.tabs[data-size="small"] {
+  .ant-tabs-tab {
+    padding: 6px 12px;
+    font-size: 14px;
+  }
+}
+
+.tabs[data-size="large"] {
+  .ant-tabs-tab {
+    padding: 12px 20px;
+    font-size: 16px;
+  }
+}
+
+// Centered tabs
+.tabs[data-centered="true"] {
+  .ant-tabs-nav {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .tabs {
+    .ant-tabs-tab {
+      padding: 6px 12px;
+      margin: 0 8px 0 0;
+      font-size: 14px;
+    }
+    
+    .ant-tabs-content-holder {
+      padding: 12px 0;
+    }
+  }
+}

@@ -1,7 +1,7 @@
 'use client'
 
 import { useRouter } from 'next/navigation'
-import RegisterForm from '@/src/features/auth/components/register/register-form'
+import RegisterForm from '@/features/auth/components/register/register-form'
 
 export default function RegisterPage() {
   const route = useRouter()

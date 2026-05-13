@@ -2,7 +2,7 @@
 
 // import type { Metadata } from 'next'
 import { useRouter } from 'next/navigation'
-import LoginForm from '@/src/features/auth/components/login/login-form'
+import LoginForm from '@/features/auth/components/login/login-form'
 
 // export const metadata: Metadata = {
 //   title: 'Authentication | Sign Up',
