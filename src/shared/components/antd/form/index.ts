@@ -1,16 +1,11 @@
-// src/shared/components/form/index.ts
 export { FormActions } from './FormActions'
-// Export FormCard nếu dùng
-export { default as FormCard } from './FormCard'
 export { FormCheckbox } from './FormCheckbox'
 export { FormDatePicker } from './FormDatePicker'
 export { FormField } from './FormField'
 export { FormGroup } from './FormGroup'
-export { FormInput } from './FormInput'
 export { FormMessage } from './FormMessage'
 export { FormPassword } from './FormPassword'
 export { FormRadio } from './FormRadio'
 export { FormSelect } from './FormSelect'
-export { FormSkeleton } from './FormSkeleton'
-export { FormTextarea } from './FormTextarea'
+export { FormTextArea } from './FormTextArea'
 export { FormUpload } from './FormUpload'

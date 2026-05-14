@@ -1,8 +1,11 @@
-// components/Feedback/index.ts
+// src/shared/components/feedback/index.ts
 
+export { Alert } from './Alert'
 export { EmptyState } from './EmptyState'
 export { Loading } from './Loading'
-export { default as Toast } from './Toast' // Export Toast = message
+// Skeleton
+export { Skeleton } from './Skeleton'
+export { default as Toast } from './Toast'
 
-// Nếu bạn có types.ts thì giữ lại
-export type { ToastType } from './types' // Có thể giữ hoặc xóa nếu không dùng
+// Export types
+export type { ToastType } from './types'
