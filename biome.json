@@ -42,7 +42,7 @@
   },
   "overrides": [
     {
-      "includes": ["src/shared/components/index.ts"],
+      "includes": ["src/shared/components/index.ts", "src/app.globals.css"],
 
       "formatter": {
         "enabled": false

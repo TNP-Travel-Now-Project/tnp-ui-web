@@ -3,6 +3,7 @@
 import { Dialog as DialogPrimitive } from '@base-ui/react/dialog'
 import { XIcon } from 'lucide-react'
 import type * as React from 'react'
+import { isValidElement } from 'react'
 import { cn } from '@/lib/utils'
 import { Button } from '@/shared/components/ui/actions/button'
 
@@ -10,8 +11,21 @@ function Dialog({ ...props }: DialogPrimitive.Root.Props) {
   return <DialogPrimitive.Root data-slot='dialog' {...props} />
 }
 
-function DialogTrigger({ ...props }: DialogPrimitive.Trigger.Props) {
-  return <DialogPrimitive.Trigger data-slot='dialog-trigger' {...props} />
+interface DialogTriggerProps
+  extends Omit<
+    React.ComponentPropsWithoutRef<typeof DialogPrimitive.Trigger>,
+    'children' | 'render'
+  > {
+  asChild?: boolean
+  children?: React.ReactNode
+}
+
+function DialogTrigger({ asChild = false, children, ...props }: DialogTriggerProps) {
+  if (asChild && isValidElement(children)) {
+    return <DialogPrimitive.Trigger {...props} render={children} />
+  }
+
+  return <DialogPrimitive.Trigger {...props}>{children}</DialogPrimitive.Trigger>
 }
 
 function DialogPortal({ ...props }: DialogPrimitive.Portal.Props) {

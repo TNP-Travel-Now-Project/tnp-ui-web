@@ -2,15 +2,38 @@
 
 import { Popover as PopoverPrimitive } from '@base-ui/react/popover'
 import type * as React from 'react'
-
+import { isValidElement } from 'react'
 import { cn } from '@/lib/utils'
+
+/* ====================== PopoverTrigger ====================== */
+interface PopoverTriggerProps
+  extends Omit<
+    React.ComponentPropsWithoutRef<typeof PopoverPrimitive.Trigger>,
+    'children' | 'render'
+  > {
+  asChild?: boolean
+  children?: React.ReactNode
+}
+
+function PopoverTrigger({ asChild = false, children, ...props }: PopoverTriggerProps) {
+  // Nếu dùng asChild → dùng render prop của Base UI
+  if (asChild && isValidElement(children)) {
+    return (
+      <PopoverPrimitive.Trigger
+        {...props}
+        render={children} // ← Đây là cách Base UI hỗ trợ
+      />
+    )
+  }
+
+  // Mặc định render button
+  return <PopoverPrimitive.Trigger {...props}>{children}</PopoverPrimitive.Trigger>
+}
+
+/* ====================== Các component khác ====================== */
 
 function Popover({ ...props }: PopoverPrimitive.Root.Props) {
   return <PopoverPrimitive.Root data-slot='popover' {...props} />
-}
-
-function PopoverTrigger({ ...props }: PopoverPrimitive.Trigger.Props) {
-  return <PopoverPrimitive.Trigger data-slot='popover-trigger' {...props} />
 }
 
 function PopoverContent({
