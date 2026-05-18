@@ -94,7 +94,7 @@ const Breadcrumb = ({
 
   return (
     <ShadcnBreadcrumb className={cn(className)} {...props}>
-       <BreadcrumbList>{renderItems()}</BreadcrumbList>
+      <BreadcrumbList>{renderItems()}</BreadcrumbList>
     </ShadcnBreadcrumb>
   )
 }

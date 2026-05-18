@@ -1,5 +1,5 @@
 export * from './common'
-export * from './form'
+export * from './form/Form'
 export * from './data-display'
 export * from './feedback'
 export * from './layout'

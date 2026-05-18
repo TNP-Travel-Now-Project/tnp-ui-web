@@ -18,16 +18,16 @@ const ThemeProvider = ({
   ...props
 }: ThemeProviderProps) => {
   return (
-    //   <NextThemesProvider
-    //     attribute={attribute}
-    //     defaultTheme={defaultTheme}
-    //     enableSystem={enableSystem}
-    //     disableTransitionOnChange={disableTransitionOnChange}
-    //     storageKey={storageKey}
-    //     {...props} // cho phép override
-    //   >
-    //   </NextThemesProvider>
-    children
+    <NextThemesProvider
+      attribute={attribute}
+      defaultTheme={defaultTheme}
+      enableSystem={enableSystem}
+      disableTransitionOnChange={disableTransitionOnChange}
+      storageKey={storageKey}
+      {...props} // cho phép override
+    >
+      {children}
+    </NextThemesProvider>
   )
 }
 

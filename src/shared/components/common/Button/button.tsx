@@ -10,6 +10,7 @@ export interface ButtonProps
     VariantProps<typeof buttonVariants> {
   buttonType?: 'fill' | 'outline' | 'ghost' | 'cancel' | 'danger' | 'success'
   loading?: boolean
+  loadingText?: React.ReactNode
   icon?: React.ReactNode
   iconPosition?: 'left' | 'right'
 }
@@ -22,6 +23,7 @@ const Button = ({
   children,
   className,
   disabled,
+  loadingText,
   ...props
 }: ButtonProps) => {
   const variantMap: Record<
@@ -59,7 +61,7 @@ const Button = ({
       {loading && <Loader2 className='mr-2 h-4 w-4 animate-spin' />}
       {!loading && icon && iconPosition === 'left' && <span className='mr-2'>{icon}</span>}
 
-      {children}
+      {loading ? loadingText || children : children}
 
       {!loading && icon && iconPosition === 'right' && <span className='ml-2'>{icon}</span>}
     </ShadcnButton>

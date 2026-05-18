@@ -1,7 +1,8 @@
 'use client'
 
-import { Check, Edit, Eye, Mail, Search, Settings, Trash } from 'lucide-react'
+import { Check, Edit, Eye, Mail, Save, Search, Settings, Trash, X } from 'lucide-react'
 import { useState } from 'react'
+import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 // Common Components
 import Avatar from '@/shared/components/common/Avatar/avatar'
@@ -15,6 +16,20 @@ import StatusBadge from '@/shared/components/data-display/StatusBadge/status-bad
 import { type Column, TablePagination } from '@/shared/components/data-display/Table'
 import { Table } from '@/shared/components/data-display/Table/table'
 import { type TagItem, TagList } from '@/shared/components/data-display/TagList'
+// Form Components
+import { FormActions } from '@/shared/components/form/FormActions'
+import { FormCard } from '@/shared/components/form/FormCard'
+import { FormCheckbox } from '@/shared/components/form/FormCheckbox'
+import { FormDatePicker } from '@/shared/components/form/FormDatePicker'
+import { FormGroup } from '@/shared/components/form/FormGroup'
+import { FormInput } from '@/shared/components/form/FormInput'
+import { FormMessageLegacy } from '@/shared/components/form/FormMessage'
+import { FormPassword } from '@/shared/components/form/FormPassword'
+import { FormRadio } from '@/shared/components/form/FormRadio'
+import { FormSelect } from '@/shared/components/form/FormSelect'
+import { FormSkeleton } from '@/shared/components/form/FormSkeleton'
+import { FormTextarea } from '@/shared/components/form/FormTextarea'
+import { FormUpload } from '@/shared/components/form/FormUpload'
 // Feedback Components
 import { Alert } from '@/shared/components/feedback/Alert'
 import { EmptyState } from '@/shared/components/feedback/EmptyState'
@@ -55,6 +70,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '@/shared/components/overlay/Tooltip'
+import { Form } from '@/shared/components/form/Form'
 
 export default function Home() {
   const [search, setSearch] = useState('')
@@ -63,6 +79,24 @@ export default function Home() {
   const [confirmOpen, setConfirmOpen] = useState(false)
   const [deleteOpen, setDeleteOpen] = useState(false)
   const [sheetOpen, setSheetOpen] = useState(false)
+
+  // Form
+  const form = useForm({
+    defaultValues: {
+      email: '',
+      password: '',
+      bio: '',
+      dob: '',
+      gender: 'male' as string,
+      city: '' as string,
+      agree: false,
+      avatar: null,
+    },
+  })
+
+  const onSubmit = (data: unknown) => {
+    toast.success('Form submitted: ' + JSON.stringify(data))
+  }
 
   // Breadcrumb items
   const breadcrumbItems: BreadcrumbItemProps[] = [
@@ -366,6 +400,104 @@ export default function Home() {
           <Skeleton className='h-4 w-50' />
           <Skeleton className='h-4 w-full' />
         </div>
+      </section>
+
+      {/* SECTION: Form Components */}
+      <section className='space-y-6'>
+        <h2 className='text-xl font-bold'>Form Components</h2>
+
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-6'>
+            <FormCard
+              title='Thông tin cá nhân'
+              description='Sử dụng react-hook-form với Zod validation'
+            >
+              <div className='grid grid-cols-2 gap-4'>
+                <FormInput
+                  name='email'
+                  control={form.control}
+                  label='Email'
+                  placeholder='example@email.com'
+                  type='email'
+                />
+                <FormPassword
+                  name='password'
+                  control={form.control}
+                  label='Mật khẩu'
+                  placeholder='Nhập mật khẩu'
+                />
+              </div>
+
+              <FormTextarea
+                name='bio'
+                control={form.control}
+                label='Giới thiệu'
+                placeholder='Viết vài dòng về bản thân...'
+                rows={3}
+              />
+            </FormCard>
+
+            <FormCard title='Thông tin bổ sung'>
+              <div className='grid grid-cols-2 gap-4'>
+                <FormDatePicker name='dob' control={form.control} label='Ngày sinh' />
+                <FormSelect
+                  name='city'
+                  control={form.control}
+                  label='Thành phố'
+                  placeholder='Chọn thành phố'
+                  options={[
+                    { value: 'hanoi', label: 'Hà Nội' },
+                    { value: 'hcm', label: 'Hồ Chí Minh' },
+                    { value: 'danang', label: 'Đà Nẵng' },
+                  ]}
+                />
+              </div>
+
+              <FormRadio
+                name='gender'
+                control={form.control}
+                label='Giới tính'
+                options={[
+                  { value: 'male', label: 'Nam' },
+                  { value: 'female', label: 'Nữ' },
+                  { value: 'other', label: 'Khác' },
+                ]}
+              />
+            </FormCard>
+
+            <FormCard>
+              <FormGroup label='Cài đặt tài khoản'>
+                <FormCheckbox
+                  name='agree'
+                  control={form.control}
+                  label='Đồng ý nhận thông tin khuyến mãi'
+                />
+
+                <FormUpload
+                  name='avatar'
+                  control={form.control}
+                  label='Ảnh đại diện'
+                  accept='image/*'
+                />
+              </FormGroup>
+
+              <FormMessageLegacy message='Lưu ý: các trường có dấu * là bắt buộc' />
+
+              <FormActions align='right'>
+                <Button type='button' buttonType='outline' icon={<X className='size-4' />}>
+                  Huỷ
+                </Button>
+                <Button type='submit' buttonType='fill' icon={<Save className='size-4' />}>
+                  Lưu
+                </Button>
+              </FormActions>
+            </FormCard>
+
+            <FormCard title='Loading skeleton'>
+              <FormSkeleton fields={3} labelWidth='w-20' />
+            </FormCard>
+          </form>
+        </Form>
       </section>
     </div>
   )

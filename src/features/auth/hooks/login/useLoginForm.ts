@@ -36,6 +36,6 @@ export function useLoginForm({ onSuccess }: LoginPageProps) {
     form,
     onSubmit,
     formError,
-    isLoading: mutation.isPending,
+    isPending: mutation.isPending,
   }
 }
