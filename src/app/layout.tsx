@@ -2,7 +2,7 @@ import './globals.css'
 import { Inter } from 'next/font/google'
 import Providers from '@/app/provider'
 import { cn } from '@/lib/utils'
-import { Toaster } from '@/shared/components/feedback/Toast'
+import { Toaster } from '@/components/feedback/Toast'
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-sans' })
 

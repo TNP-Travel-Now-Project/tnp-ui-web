@@ -11,9 +11,9 @@ import {
   FormLabel,
   FormMessage,
 } from '@/shared/components/form/Form/form'
-import second from '@/shared/components/form/Form'
-import { Input } from '@/shared/components/common/Input'
-import { Button } from '@/shared/components/common/Button'
+import second from '@/components/form/Form'
+import { Input } from '@/components/common/Input'
+import { Button } from '@/components/common/Button'
 import { AirVent } from 'lucide-react'
 
 export default function LoginForm({ onSuccess }: LoginPageProps) {

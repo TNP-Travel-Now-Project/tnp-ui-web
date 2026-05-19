@@ -5,41 +5,41 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 // Common Components
-import Avatar from '@/shared/components/common/Avatar/avatar'
-import Badge from '@/shared/components/common/Badge/badge'
-import Button from '@/shared/components/common/Button/button'
-import Input from '@/shared/components/common/Input/input'
-import SearchInput from '@/shared/components/common/SearchInput/searchInput'
-import ActionDropdown from '@/shared/components/data-display/ActionDropdown/action-dropdown'
-import StatusBadge from '@/shared/components/data-display/StatusBadge/status-badge'
+import Avatar from '@/components/common/Avatar/avatar'
+import Badge from '@/components/common/Badge/badge'
+import Button from '@/components/common/Button/button'
+import Input from '@/components/common/Input/input'
+import SearchInput from '@/components/common/SearchInput/searchInput'
+import ActionDropdown from '@/components/data-display/ActionDropdown/action-dropdown'
+import StatusBadge from '@/components/data-display/StatusBadge/status-badge'
 // Data Display Components
-import { type Column, TablePagination } from '@/shared/components/data-display/Table'
-import { Table } from '@/shared/components/data-display/Table/table'
-import { type TagItem, TagList } from '@/shared/components/data-display/TagList'
+import { type Column, TablePagination } from '@/components/data-display/Table'
+import { Table } from '@/components/data-display/Table/table'
+import { type TagItem, TagList } from '@/components/data-display/TagList'
 // Form Components
-import { FormActions } from '@/shared/components/form/FormActions'
-import { FormCard } from '@/shared/components/form/FormCard'
-import { FormCheckbox } from '@/shared/components/form/FormCheckbox'
-import { FormDatePicker } from '@/shared/components/form/FormDatePicker'
-import { FormGroup } from '@/shared/components/form/FormGroup'
-import { FormInput } from '@/shared/components/form/FormInput'
-import { FormMessageLegacy } from '@/shared/components/form/FormMessage'
-import { FormPassword } from '@/shared/components/form/FormPassword'
-import { FormRadio } from '@/shared/components/form/FormRadio'
-import { FormSelect } from '@/shared/components/form/FormSelect'
-import { FormSkeleton } from '@/shared/components/form/FormSkeleton'
-import { FormTextarea } from '@/shared/components/form/FormTextarea'
-import { FormUpload } from '@/shared/components/form/FormUpload'
+import { FormActions } from '@/components/form/FormActions'
+import { FormCard } from '@/components/form/FormCard'
+import { FormCheckbox } from '@/components/form/FormCheckbox'
+import { FormDatePicker } from '@/components/form/FormDatePicker'
+import { FormGroup } from '@/components/form/FormGroup'
+import { FormInput } from '@/components/form/FormInput'
+import { FormMessageLegacy } from '@/components/form/FormMessage'
+import { FormPassword } from '@/components/form/FormPassword'
+import { FormRadio } from '@/components/form/FormRadio'
+import { FormSelect } from '@/components/form/FormSelect'
+import { FormSkeleton } from '@/components/form/FormSkeleton'
+import { FormTextarea } from '@/components/form/FormTextarea'
+import { FormUpload } from '@/components/form/FormUpload'
 // Feedback Components
-import { Alert } from '@/shared/components/feedback/Alert'
-import { EmptyState } from '@/shared/components/feedback/EmptyState'
-import { Loading } from '@/shared/components/feedback/Loading'
-import { Progress } from '@/shared/components/feedback/Progress'
-import { Skeleton } from '@/shared/components/feedback/Skeleton'
+import { Alert } from '@/components/feedback/Alert'
+import { EmptyState } from '@/components/feedback/EmptyState'
+import { Loading } from '@/components/feedback/Loading'
+import { Progress } from '@/components/feedback/Progress'
+import { Skeleton } from '@/components/feedback/Skeleton'
 // Navigation Components
-import { Breadcrumb, type BreadcrumbItemProps } from '@/shared/components/navigation/Breadcrumb'
-import { Pagination } from '@/shared/components/navigation/Pagination'
-import { type TabItem, Tabs } from '@/shared/components/navigation/Tabs'
+import { Breadcrumb, type BreadcrumbItemProps } from '@/components/navigation/Breadcrumb'
+import { Pagination } from '@/components/navigation/Pagination'
+import { type TabItem, Tabs } from '@/components/navigation/Tabs'
 // Overlay Components
 import {
   ConfirmDialog,
@@ -50,27 +50,23 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '@/shared/components/overlay/Dialog'
-import {
-  HoverCard,
-  HoverCardContent,
-  HoverCardTrigger,
-} from '@/shared/components/overlay/HoverCard'
-import { Popover, PopoverContent, PopoverTrigger } from '@/shared/components/overlay/Popover'
+} from '@/components/overlay/Dialog'
+import { HoverCard, HoverCardContent, HoverCardTrigger } from '@/components/overlay/HoverCard'
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/overlay/Popover'
 import {
   Sheet,
   SheetContent,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from '@/shared/components/overlay/Sheet'
+} from '@/components/overlay/Sheet'
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from '@/shared/components/overlay/Tooltip'
-import { Form } from '@/shared/components/form/Form'
+} from '@/components/overlay/Tooltip'
+import { Form } from '@/components/form/Form'
 
 export default function Home() {
   const [search, setSearch] = useState('')
