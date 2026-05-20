@@ -1,7 +1,7 @@
 import axios from 'axios'
+import { ApiError } from '@/lib/api-error'
 import { config } from '@/lib/config'
 import { getCSRFToken } from '@/lib/csrf'
-import { ApiError } from '@/lib/api-error'
 
 /**
  * Axios instance dùng chung cho toàn bộ ứng dụng
