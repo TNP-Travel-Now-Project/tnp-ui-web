@@ -320,7 +320,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* SECTION: Overlay Components */}
+      SECTION: Overlay Components
       <section className='space-y-4'>
         <h2 className='text-xl font-bold'>Overlay Components</h2>
 

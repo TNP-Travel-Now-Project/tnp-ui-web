@@ -9,6 +9,7 @@ interface ContactProps {
   onRegister: () => void
   isLoggedIn: boolean
   onMenuClick: () => void
+  onNavigateHome?: () => void
 }
 
 export default function Contact({
@@ -17,6 +18,7 @@ export default function Contact({
   onRegister,
   isLoggedIn,
   onMenuClick,
+  onNavigateHome,
 }: ContactProps) {
   return (
     <div className='min-h-screen bg-white font-sans'>
@@ -26,6 +28,7 @@ export default function Contact({
         isLoggedIn={isLoggedIn}
         onLoginClick={onLogin}
         onRegisterClick={onRegister}
+        onNavigateHome={onNavigateHome}
       />
 
       <main className='pt-12 pb-20'>

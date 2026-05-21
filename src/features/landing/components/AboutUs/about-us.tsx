@@ -24,6 +24,7 @@ interface AboutUsProps {
   isLoggedIn: boolean
   onContactClick: () => void
   onMenuClick: () => void
+  onNavigateHome?: () => void
 }
 
 export default function AboutUs({
@@ -33,6 +34,7 @@ export default function AboutUs({
   isLoggedIn,
   onContactClick,
   onMenuClick,
+  onNavigateHome,
 }: AboutUsProps) {
   const [isReadMore, setIsReadMore] = useState(false)
   return (
@@ -43,6 +45,7 @@ export default function AboutUs({
         isLoggedIn={isLoggedIn}
         onLoginClick={onLogin}
         onRegisterClick={onRegister}
+        onNavigateHome={onNavigateHome}
       />
 
       <main className='pt-12 pb-20'>

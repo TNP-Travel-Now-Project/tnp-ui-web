@@ -1,34 +1,16 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { useAuth } from '@/shared/components/providers'
 import Sidebar from '@/shared/components/layout/Sidebar/Sidebar'
-import GuestLanding from '@/features/landing/components/GuestLanding/guest-landing'
+import { AboutUs } from '@/features/landing/components'
 import { AuthModal } from '@/features/auth/components/AuthModal'
 
-export default function HomePage() {
-  const { isAuthenticated, isLoading } = useAuth()
+export default function AboutPage() {
   const router = useRouter()
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false)
   const [authInitialTab, setAuthInitialTab] = useState<'login' | 'register'>('login')
-
-  useEffect(() => {
-    if (!isLoading && isAuthenticated) {
-      router.replace('/dashboard')
-    }
-  }, [isAuthenticated, isLoading, router])
-
-  if (isLoading) {
-    return (
-      <div className='flex items-center justify-center min-h-screen bg-white'>
-        <div className='w-10 h-10 border-2 border-primary border-t-transparent rounded-full animate-spin' />
-      </div>
-    )
-  }
-
-  if (isAuthenticated) return null
 
   return (
     <>
@@ -37,21 +19,28 @@ export default function HomePage() {
         onClose={() => setIsSidebarOpen(false)}
         onToggle={() => setIsSidebarOpen(!isSidebarOpen)}
         isLoggedIn={false}
-        currentPage='landing'
+        currentPage='about'
         onNavigateLanding={() => router.push('/')}
         onNavigateAbout={() => router.push('/about')}
         onNavigateContact={() => router.push('/contact')}
       />
-      <GuestLanding
-        onLogin={() => router.push('/login')}
-        onRegister={() => router.push('/register')}
+      <AboutUs
+        onBack={() => router.push('/')}
+        onLogin={() => {
+          setAuthInitialTab('login')
+          setIsAuthModalOpen(true)
+        }}
+        onRegister={() => {
+          setAuthInitialTab('register')
+          setIsAuthModalOpen(true)
+        }}
+        isLoggedIn={false}
+        onContactClick={() => router.push('/contact')}
         onMenuClick={() => setIsSidebarOpen(!isSidebarOpen)}
-        onNavigateAbout={() => router.push('/about')}
         onNavigateHome={() => {
           setIsSidebarOpen(false)
-          window.scrollTo({ top: 0, behavior: 'smooth' })
+          router.push('/')
         }}
-        onNavigateContact={() => router.push('/contact')}
       />
       <AuthModal
         isOpen={isAuthModalOpen}

@@ -27,6 +27,9 @@ export interface HeaderProps {
   onProfileClick: () => void
   onLoginClick?: () => void
   onRegisterClick?: () => void
+  onNavigateHome?: () => void
+  onNavigateAbout?: () => void
+  onNavigateContact?: () => void
   isLoggedIn?: boolean
   showNotification?: boolean
   showNav?: boolean
@@ -38,6 +41,9 @@ export default function Header({
   onProfileClick,
   onLoginClick,
   onRegisterClick,
+  onNavigateHome,
+  onNavigateAbout,
+  onNavigateContact,
   isLoggedIn,
   showNotification,
   showNav = true,
@@ -53,7 +59,7 @@ export default function Header({
           <Menu size={20} />
         </Button>
         <Button
-          onClick={() => (window as any).dispatchEvent(new CustomEvent('nav-landing'))}
+          onClick={onNavigateHome}
           className='hidden lg:flex items-center gap-2'
         >
           {showNav ? (
@@ -75,21 +81,21 @@ export default function Header({
       {showNav ? (
         <nav className='hidden lg:flex items-center justify-center flex-1 gap-12'>
           <Button
-            onClick={() => (window as any).dispatchEvent(new CustomEvent('nav-landing'))}
+            onClick={onNavigateHome}
             className='text-sm font-bold text-slate-500 hover:text-primary transition-colors py-2 relative group'
           >
             Trang chủ
             <span className='absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full'></span>
           </Button>
           <Button
-            onClick={() => (window as any).dispatchEvent(new CustomEvent('nav-about'))}
+            onClick={onNavigateAbout}
             className='text-sm font-bold text-slate-500 hover:text-primary transition-colors py-2 relative group'
           >
             Chúng tôi
             <span className='absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full'></span>
           </Button>
           <Button
-            onClick={() => (window as any).dispatchEvent(new CustomEvent('nav-contact'))}
+            onClick={onNavigateContact}
             className='text-sm font-bold text-slate-500 hover:text-primary transition-colors py-2 relative group'
           >
             Liên hệ
