@@ -2,6 +2,7 @@
 
 import { CheckIcon, ChevronRightIcon } from 'lucide-react'
 import type * as React from 'react'
+import { cn } from '@/lib/utils'
 import {
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
@@ -17,7 +18,6 @@ import {
   DropdownMenu as ShadcnDropdownMenu,
   DropdownMenuItem as ShadcnDropdownMenuItem,
 } from '@/shared/components/ui/navigation/dropdown-menu'
-import { cn } from '@/lib/utils'
 
 export interface DropdownMenuItemProps {
   /** Nội dung hiển thị */

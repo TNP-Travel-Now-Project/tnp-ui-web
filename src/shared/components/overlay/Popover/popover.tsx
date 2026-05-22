@@ -1,12 +1,12 @@
 'use client'
 import { Slot } from '@radix-ui/react-slot'
 import type * as React from 'react'
+import { cn } from '@/lib/utils'
 import {
   PopoverContent,
   PopoverTrigger,
   Popover as ShadcnPopover,
 } from '@/shared/components/ui/overlay/popover'
-import { cn } from '@/lib/utils'
 
 export interface PopoverProps extends React.ComponentProps<typeof ShadcnPopover> {
   /** Align popover */

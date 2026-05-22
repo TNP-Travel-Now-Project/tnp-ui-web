@@ -1,4 +1,4 @@
-import { Wallet, Calendar, MessageCircle } from 'lucide-react'
+import { Calendar, Globe, Heart, MessageCircle, ShieldCheck, Wallet } from 'lucide-react'
 
 export const features = [
   {
@@ -118,5 +118,26 @@ export const timelineTrips = [
     desc: 'Truy cập lịch trình ngoại tuyến, chia chi phí thời gian thực và lưu trữ mọi thứ ở một nơi duy nhất. Hãy tập trung vào những khoảnh khắc đáng nhớ thay vì lo lắng về hậu cần.',
     img: 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?q=80&w=2021&auto=format&fit=crop',
     align: 'left',
+  },
+]
+
+export const missionValues = [
+  {
+    icon: Globe,
+    style: 'w-8 h-8 text-blue-500',
+    title: 'Tầm nhìn toàn cầu',
+    desc: 'Mang giải pháp công nghệ du lịch Việt vươn tầm thế giới, giúp mọi người dễ dàng khám phá bất cứ đâu.',
+  },
+  {
+    icon: ShieldCheck,
+    style: 'w-8 h-8 text-emerald-500',
+    title: 'Tin cậy & Minh bạch',
+    desc: 'Đảm bảo mọi khoản chi phí và thông tin đều rõ ràng, tạo sự tin tưởng tuyệt đối giữa các thành viên.',
+  },
+  {
+    icon: Heart,
+    style: 'w-8 h-8 text-rose-500',
+    title: 'Gắn kết cộng đồng',
+    desc: 'Bất kể bạn là ai, chudu4be luôn hỗ trợ bạn tạo nên những kỷ niệm đáng nhớ nhất cùng những người thân yêu.',
   },
 ]

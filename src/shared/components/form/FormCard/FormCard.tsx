@@ -1,6 +1,7 @@
 'use client'
 
 import type * as React from 'react'
+import { cn } from '@/lib/utils'
 import {
   Card,
   CardContent,
@@ -8,7 +9,6 @@ import {
   CardHeader,
   CardTitle,
 } from '@/shared/components/ui/layout/card'
-import { cn } from '@/lib/utils'
 
 interface FormCardProps extends Omit<React.ComponentProps<'div'>, 'title'> {
   title?: React.ReactNode

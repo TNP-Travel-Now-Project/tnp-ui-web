@@ -1,28 +1,29 @@
-import React, { useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { AnimatePresence, motion } from 'framer-motion'
 import {
-  X,
-  TrendingUp,
-  PlusCircle,
-  Train,
+  AlertCircle,
+  Calculator,
+  Calendar,
+  CheckCircle2,
   Coffee,
   Hotel,
-  Utensils,
-  Navigation2,
-  ShoppingBag,
-  Wallet,
-  Calendar,
   MapPin,
-  UserPlus,
+  Navigation2,
   Plus,
+  PlusCircle,
+  ShoppingBag,
+  Train,
   Trash2,
-  Calculator,
-  CheckCircle2,
-  AlertCircle,
+  TrendingUp,
+  UserPlus,
+  Utensils,
+  Wallet,
+  X,
 } from 'lucide-react'
+import type React from 'react'
+import { useState } from 'react'
+import { Button, Input } from '@/shared/components'
 import { useToast } from '@/shared/hook/useToast'
 import SplitCostModal from '../SplitCostModal/SplitCostModal'
-import { Button, Input } from '@/shared/components'
 
 export default function TripExpenseModal({
   onClose,

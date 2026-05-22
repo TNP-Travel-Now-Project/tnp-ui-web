@@ -3,6 +3,7 @@
 import { ChevronRightIcon, HomeIcon } from 'lucide-react'
 import Link from 'next/link'
 import type * as React from 'react'
+import { cn } from '@/lib/utils'
 import {
   BreadcrumbItem,
   BreadcrumbLink,
@@ -11,7 +12,6 @@ import {
   BreadcrumbSeparator,
   Breadcrumb as ShadcnBreadcrumb,
 } from '@/shared/components/ui/navigation/breadcrumb'
-import { cn } from '@/lib/utils'
 
 export interface BreadcrumbItemProps {
   label: string

@@ -281,7 +281,6 @@ export default function Home() {
           <Avatar src='' alt='User' size='lg' fallback='LG' status='online' />
         </div>
       </section>
-
       {/* SECTION: Navigation Components */}
       <section className='space-y-4'>
         <h2 className='text-xl font-bold'>Navigation Components</h2>
@@ -319,7 +318,6 @@ export default function Home() {
           />
         </div>
       </section>
-
       SECTION: Overlay Components
       <section className='space-y-4'>
         <h2 className='text-xl font-bold'>Overlay Components</h2>
@@ -397,7 +395,6 @@ export default function Home() {
           </HoverCard>
         </div>
       </section>
-
       {/* SECTION: Data Display Components */}
       <section className='space-y-4'>
         <h2 className='text-xl font-bold'>Data Display Components</h2>
@@ -438,7 +435,6 @@ export default function Home() {
           />
         </div>
       </section>
-
       {/* SECTION: Feedback Components */}
       <section className='space-y-4'>
         <h2 className='text-xl font-bold'>Feedback Components</h2>
@@ -482,7 +478,6 @@ export default function Home() {
           <Skeleton className='h-4 w-full' />
         </div>
       </section>
-
       {/* SECTION: Form Components */}
       <section className='space-y-6'>
         <h2 className='text-xl font-bold'>Form Components</h2>

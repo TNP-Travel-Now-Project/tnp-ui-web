@@ -1,6 +1,6 @@
 'use client'
-import { Button } from '@/shared/components/ui/actions/button'
 import { cn } from '@/lib/utils'
+import { Button } from '@/shared/components/ui/actions/button'
 
 export interface EmptyStateProps extends React.HTMLAttributes<HTMLDivElement> {
   icon?: React.ReactNode

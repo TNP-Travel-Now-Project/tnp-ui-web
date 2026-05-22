@@ -1,31 +1,36 @@
+import { Button } from '@base-ui/react'
+import { AnimatePresence, motion } from 'framer-motion'
 import {
-  Calendar,
-  MapPin,
-  Settings,
-  UserPlus,
-  Wallet,
-  Users,
-  Receipt,
-  Edit,
-  Info,
-  Compass,
-  ChevronRight,
-  Sun,
-  Coffee,
-  Utensils,
-  Hotel,
-  Landmark,
-  HandCoins,
-  MessageCircle,
-  Share2,
-  Trash2,
-  FileText,
-  X,
-  Plus,
-  TrendingUp,
-  Clock,
   Calculator,
+  Calendar,
+  ChevronRight,
+  Clock,
+  Coffee,
+  Compass,
+  Edit,
+  FileText,
+  HandCoins,
+  Hotel,
+  Info,
+  Landmark,
+  MapPin,
+  MessageCircle,
+  Plus,
+  Receipt,
+  Settings,
+  Share2,
+  Sun,
+  Trash2,
+  TrendingUp,
+  UserPlus,
+  Users,
+  Utensils,
+  Wallet,
+  X,
 } from 'lucide-react'
+import React, { useState } from 'react'
+import { AddPlaceModal } from '@/features/trip/components/AddPlaceModal'
+import { Input } from '@/shared/components'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -33,16 +38,11 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/shared/components/ui/navigation/dropdown-menu'
-import { motion, AnimatePresence } from 'framer-motion'
-import { TripDetailData } from '@/shared/types'
-import { useToast } from '@/shared/hook/useToast'
-import React, { useState } from 'react'
-import { AddPlaceModal } from '@/features/trip/components/AddPlaceModal'
-import TripExpenseModal from '../TripExpenseModal/TripExpenseModal'
 import { useModalScrollLock } from '@/shared/hook/useModalScrollLock'
+import { useToast } from '@/shared/hook/useToast'
+import type { TripDetailData } from '@/shared/types'
 import SplitCostModal from '../SplitCostModal/SplitCostModal'
-import { Button } from '@base-ui/react'
-import { Input } from '@/shared/components'
+import TripExpenseModal from '../TripExpenseModal/TripExpenseModal'
 
 interface TripDetailProps {
   trip: TripDetailData

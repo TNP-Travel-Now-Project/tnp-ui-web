@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import { Users, ArrowRight, Sparkles, Star, CheckCircle2 } from 'lucide-react'
+import { ArrowRight, CheckCircle2, Sparkles, Star, Users } from 'lucide-react'
 import { Badge, Button } from '@/shared/components/common'
 
 export default function HeroSection({ onLogin }: { onLogin: () => void }) {

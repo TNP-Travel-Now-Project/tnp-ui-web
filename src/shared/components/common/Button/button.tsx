@@ -2,8 +2,8 @@
 
 import type { VariantProps } from 'class-variance-authority'
 import { Loader2 } from 'lucide-react'
-import { buttonVariants, Button as ShadcnButton } from '@/shared/components/ui/actions/button'
 import { cn } from '@/lib/utils'
+import { buttonVariants, Button as ShadcnButton } from '@/shared/components/ui/actions/button'
 
 export interface ButtonProps
   extends React.ComponentProps<typeof ShadcnButton>,

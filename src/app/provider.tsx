@@ -1,6 +1,6 @@
 'use client'
 
-import { QueryProvider, ThemeProvider, AuthProvider } from '@/shared/components/providers'
+import { AuthProvider, QueryProvider, ThemeProvider } from '@/shared/components/providers'
 
 export default function Provider({ children }: { children: React.ReactNode }) {
   return (

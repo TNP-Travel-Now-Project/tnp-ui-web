@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import type * as React from 'react'
+import { cn } from '@/lib/utils'
 import {
   NavigationMenuContent,
   NavigationMenuItem,
@@ -10,7 +11,6 @@ import {
   NavigationMenuTrigger,
   NavigationMenu as ShadcnNavigationMenu,
 } from '@/shared/components/ui/navigation/navigation-menu'
-import { cn } from '@/lib/utils'
 
 export interface NavigationMenuChildItemProps {
   /** Label hiển thị */

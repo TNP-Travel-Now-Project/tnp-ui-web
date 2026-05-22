@@ -1,15 +1,16 @@
-import React, { useState } from 'react'
+import { X } from 'lucide-react'
+import type React from 'react'
+import { useState } from 'react'
+import { Button, Input } from '@/shared/components/common'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/shared/components/navigation'
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogHeader,
   DialogTitle,
-  DialogDescription,
 } from '@/shared/components/overlay'
-import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/shared/components/navigation'
-import { Button, Input } from '@/shared/components/common'
 import { Label } from '@/shared/components/ui/form/label'
-import { X } from 'lucide-react'
 
 interface AuthModalProps {
   isOpen: boolean

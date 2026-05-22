@@ -1,24 +1,24 @@
-import { useState, useRef, ChangeEvent, useEffect } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { AnimatePresence, motion } from 'framer-motion'
 import {
-  X,
-  User,
-  Shield,
-  Wallet,
   Bell,
   Camera,
-  Lock,
-  Smartphone,
   CreditCard,
+  Globe,
+  Info,
+  Languages,
+  Lock,
   Mail,
   MessageSquare,
-  Info,
+  Moon,
   Plus,
   Settings as SettingsIcon,
-  Globe,
-  Moon,
-  Languages,
+  Shield,
+  Smartphone,
+  User,
+  Wallet,
+  X,
 } from 'lucide-react'
+import { type ChangeEvent, useEffect, useRef, useState } from 'react'
 import { DatePickerWithTime } from '@/shared/components/composite/DatePickerWithTime'
 import { Popover, PopoverContent, PopoverTrigger } from '@/shared/components/overlay'
 import { useModalScrollLock } from '@/shared/hook/useModalScrollLock'

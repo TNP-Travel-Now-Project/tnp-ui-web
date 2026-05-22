@@ -1,2 +1,2 @@
-export { WelcomeHero } from './WelcomeHero'
 export { DashboardView } from './DashboardView'
+export { WelcomeHero } from './WelcomeHero'

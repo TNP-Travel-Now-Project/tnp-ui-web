@@ -1,24 +1,24 @@
-import { motion, AnimatePresence } from 'framer-motion'
+import { AnimatePresence, motion } from 'framer-motion'
 import {
-  Search,
+  Calculator,
+  Calendar,
+  Camera,
+  Coffee,
+  Hotel,
+  Info,
+  Landmark,
   MapPin,
   Navigation2,
-  Wallet,
-  Calculator,
-  Info,
   Plus,
-  X,
-  Coffee,
-  Utensils,
-  Hotel,
-  Landmark,
+  Search,
   Sparkles,
-  Camera,
-  Calendar,
   UserPlus,
+  Utensils,
+  Wallet,
+  X,
 } from 'lucide-react'
-import { Button } from '@/shared/components'
 import { useState } from 'react'
+import { Button } from '@/shared/components'
 import { useToast } from '@/shared/hook/useToast'
 
 const ITINERARY_TYPES = [

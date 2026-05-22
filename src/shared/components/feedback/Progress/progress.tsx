@@ -1,4 +1,5 @@
 'use client'
+import { cn } from '@/lib/utils'
 import {
   ProgressIndicator,
   ProgressLabel,
@@ -6,7 +7,6 @@ import {
   Progress as ShadcnProgress,
   ProgressValue as ShadcnProgressValue,
 } from '@/shared/components/ui/feedback/progress'
-import { cn } from '@/lib/utils'
 
 export interface ProgressProps extends React.ComponentProps<typeof ShadcnProgress> {
   label?: string

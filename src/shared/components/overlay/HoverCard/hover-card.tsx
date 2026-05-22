@@ -1,12 +1,12 @@
 'use client'
 
 import type * as React from 'react'
+import { cn } from '@/lib/utils'
 import {
   HoverCardContent,
   HoverCardTrigger,
   HoverCard as ShadcnHoverCard,
 } from '@/shared/components/ui/overlay/hover-card'
-import { cn } from '@/lib/utils'
 
 export interface HoverCardProps extends React.ComponentProps<typeof ShadcnHoverCard> {
   /** Delay duration in ms */

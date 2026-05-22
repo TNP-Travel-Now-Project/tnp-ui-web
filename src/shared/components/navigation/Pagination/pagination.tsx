@@ -2,13 +2,13 @@
 
 import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react'
 import type * as React from 'react'
+import { cn } from '@/lib/utils'
 import {
   PaginationContent,
   PaginationEllipsis,
   PaginationItem,
   Pagination as ShadcnPagination,
 } from '@/shared/components/ui/navigation/pagination'
-import { cn } from '@/lib/utils'
 
 export interface PaginationProps extends React.ComponentProps<typeof ShadcnPagination> {
   /** Trang hiện tại (1-based) */

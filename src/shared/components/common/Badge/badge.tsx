@@ -1,7 +1,7 @@
 'use client'
 import type { VariantProps } from 'class-variance-authority'
-import { badgeVariants } from '@/shared/components/ui/layout/badge'
 import { cn } from '@/lib/utils'
+import { badgeVariants } from '@/shared/components/ui/layout/badge'
 
 export interface BadgeProps
   extends React.HTMLAttributes<HTMLDivElement>,

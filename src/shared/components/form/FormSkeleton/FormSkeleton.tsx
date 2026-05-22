@@ -1,8 +1,8 @@
 'use client'
 
 import type * as React from 'react'
-import { Skeleton } from '@/shared/components/ui/feedback/skeleton'
 import { cn } from '@/lib/utils'
+import { Skeleton } from '@/shared/components/ui/feedback/skeleton'
 
 interface FormSkeletonProps extends React.ComponentProps<'div'> {
   fields?: number

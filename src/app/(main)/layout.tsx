@@ -1,14 +1,14 @@
 'use client'
 
-import { useState, useRef } from 'react'
-import { usePathname, useSearchParams, useRouter } from 'next/navigation'
-import { Plus } from 'lucide-react'
 import { motion } from 'framer-motion'
-import { useAuth } from '@/shared/components/providers'
-import Sidebar from '@/shared/components/layout/Sidebar/Sidebar'
-import Header from '@/shared/components/layout/Header/Header'
+import { Plus } from 'lucide-react'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
+import { useRef, useState } from 'react'
 import { ProfileModal } from '@/features/auth/components/ProfileModal'
 import { Button } from '@/shared/components/common'
+import Header from '@/shared/components/layout/Header/Header'
+import Sidebar from '@/shared/components/layout/Sidebar/Sidebar'
+import { useAuth } from '@/shared/components/providers'
 
 const tripDetailTabs = ['Tổng quan', 'Lịch trình', 'Chi phí', 'Trò chuyện', 'Thành viên']
 
@@ -77,9 +77,7 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
                   key={tab}
                   onClick={() => handleTabClick(tab)}
                   className={`relative p-1 h-full text-xs sm:text-sm font-bold transition-all whitespace-nowrap flex items-center ${
-                    activeTab === tab
-                      ? 'text-primary'
-                      : 'text-outline/70 hover:text-on-surface'
+                    activeTab === tab ? 'text-primary' : 'text-outline/70 hover:text-on-surface'
                   }`}
                 >
                   {tab}
@@ -125,9 +123,7 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
           </div>
         )}
 
-        <main className='p-4 md:p-10 pb-24 lg:pb-16 max-w-7xl mx-auto w-full'>
-          {children}
-        </main>
+        <main className='p-4 md:p-10 pb-24 lg:pb-16 max-w-7xl mx-auto w-full'>{children}</main>
 
         {isDashboard && (
           <motion.button

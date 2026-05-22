@@ -1,7 +1,7 @@
 'use client'
 
-import { useState } from 'react'
 import { useParams, useRouter, useSearchParams } from 'next/navigation'
+import { useState } from 'react'
 import { TripDetail } from '@/features/trip/components'
 import { MOCK_DETAIL } from '@/shared/lib/mock-data'
 

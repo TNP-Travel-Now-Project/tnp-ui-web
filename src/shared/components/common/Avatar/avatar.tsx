@@ -1,11 +1,11 @@
 'use client'
 
+import { cn } from '@/lib/utils'
 import {
   AvatarFallback,
   AvatarImage,
   Avatar as ShadcnAvatar,
 } from '@/shared/components/ui/layout/avatar'
-import { cn } from '@/lib/utils'
 
 export interface AvatarProps extends React.ComponentProps<typeof ShadcnAvatar> {
   src?: string

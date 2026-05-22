@@ -2,6 +2,7 @@
 
 import { cva, type VariantProps } from 'class-variance-authority'
 import type * as React from 'react'
+import { cn } from '@/lib/utils'
 import {
   Tabs as ShadcnTabs,
   TabsContent,
@@ -9,7 +10,6 @@ import {
   TabsTrigger,
   type tabsListVariants,
 } from '@/shared/components/ui/navigation/tabs'
-import { cn } from '@/lib/utils'
 
 export interface TabItem {
   /** Giá trị của tab */

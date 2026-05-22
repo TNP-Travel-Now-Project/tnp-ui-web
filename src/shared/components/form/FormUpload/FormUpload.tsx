@@ -3,6 +3,7 @@
 import { Upload, X } from 'lucide-react'
 import { useRef } from 'react'
 import type { Control, FieldPath, FieldValues } from 'react-hook-form'
+import { cn } from '@/lib/utils'
 import {
   FormControl,
   FormField,
@@ -10,7 +11,6 @@ import {
   FormLabel,
   FormMessage,
 } from '@/shared/components/form/Form'
-import { cn } from '@/lib/utils'
 
 interface FormUploadProps<TFieldValues extends FieldValues, TName extends FieldPath<TFieldValues>> {
   control: Control<TFieldValues>

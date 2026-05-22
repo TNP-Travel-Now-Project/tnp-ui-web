@@ -1,5 +1,5 @@
-import { Skeleton as ShadcnSkeleton } from '@/shared/components/ui/feedback/skeleton'
 import { cn } from '@/lib/utils'
+import { Skeleton as ShadcnSkeleton } from '@/shared/components/ui/feedback/skeleton'
 
 export interface SkeletonProps extends React.ComponentProps<typeof ShadcnSkeleton> {
   width?: string | number

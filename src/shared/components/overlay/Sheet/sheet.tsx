@@ -2,6 +2,7 @@
 
 import { XIcon } from 'lucide-react'
 import type * as React from 'react'
+import { cn } from '@/lib/utils'
 import {
   Sheet as ShadcnSheet,
   SheetContent,
@@ -11,7 +12,6 @@ import {
   SheetTitle,
   SheetTrigger,
 } from '@/shared/components/ui/overlay/sheet'
-import { cn } from '@/lib/utils'
 
 export interface SheetProps extends React.ComponentProps<typeof ShadcnSheet> {
   /** Modal mode */

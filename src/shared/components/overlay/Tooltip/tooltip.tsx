@@ -1,13 +1,13 @@
 'use client'
 
 import type * as React from 'react'
+import { cn } from '@/lib/utils'
 import {
   Tooltip as ShadcnTooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
 } from '@/shared/components/ui/overlay/tooltip'
-import { cn } from '@/lib/utils'
 
 export interface TooltipProps extends React.ComponentProps<typeof ShadcnTooltip> {
   /** Delay duration in ms */

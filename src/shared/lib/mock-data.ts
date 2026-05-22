@@ -1,4 +1,4 @@
-import { Trip, SummaryStat, TripDetailData } from '@/shared/types'
+import type { SummaryStat, Trip, TripDetailData } from '@/shared/types'
 
 export const MOCK_TRIPS: Trip[] = [
   {
@@ -186,5 +186,3 @@ export const SUMMARY_STATS: SummaryStat[] = [
     icon: 'star',
   },
 ]
-
-

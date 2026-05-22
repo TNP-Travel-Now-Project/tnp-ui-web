@@ -7,9 +7,5 @@ export default function TripItineraryPage() {
   const params = useParams()
   const router = useRouter()
 
-  return (
-    <TripItineraryBuild
-      onBack={() => router.push(`/trips/${params.id}/planning`)}
-    />
-  )
+  return <TripItineraryBuild onBack={() => router.push(`/trips/${params.id}/planning`)} />
 }

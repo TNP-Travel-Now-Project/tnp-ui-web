@@ -1,25 +1,25 @@
-import { motion, AnimatePresence } from 'framer-motion'
+import { AnimatePresence, motion } from 'framer-motion'
 import {
-  Search,
+  Calculator,
+  Calendar,
+  Camera,
+  Coffee,
+  Hotel,
+  Info,
+  Landmark,
   MapPin,
   Navigation2,
-  Wallet,
-  Calculator,
-  Info,
   Plus,
-  X,
-  Coffee,
-  Utensils,
-  Hotel,
-  Landmark,
+  Search,
   Sparkles,
-  Camera,
-  Calendar,
   UserPlus,
+  Utensils,
+  Wallet,
+  X,
 } from 'lucide-react'
-import { Toaster } from '@/shared/components/feedback/Toast'
-import { Button } from '@/shared/components'
 import { useState } from 'react'
+import { Button } from '@/shared/components'
+import { Toaster } from '@/shared/components/feedback/Toast'
 
 const ITINERARY_TYPES = [
   { id: 'cafe', label: 'Cà phê', icon: Coffee, color: 'bg-emerald-100 text-emerald-700' },

@@ -2,6 +2,7 @@
 
 import { XIcon } from 'lucide-react'
 import type * as React from 'react'
+import { cn } from '@/lib/utils'
 import Button from '@/shared/components/common/Button/button'
 import {
   DialogContent,
@@ -11,7 +12,6 @@ import {
   DialogTrigger,
   Dialog as ShadcnDialog,
 } from '@/shared/components/ui/overlay/dialog'
-import { cn } from '@/lib/utils'
 
 export interface DialogProps extends React.ComponentProps<typeof ShadcnDialog> {
   /** Hiển thị nút đóng */

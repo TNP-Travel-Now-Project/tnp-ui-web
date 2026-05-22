@@ -2,8 +2,8 @@
 
 import { MoreHorizontalIcon } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
-import { Button } from '@/shared/components/ui/actions/button'
 import { cn } from '@/lib/utils'
+import { Button } from '@/shared/components/ui/actions/button'
 
 export interface ActionItem {
   /** Unique key */

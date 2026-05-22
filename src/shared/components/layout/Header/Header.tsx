@@ -1,18 +1,7 @@
 import { AnimatePresence, motion } from 'framer-motion'
-import {
-  Bell,
-  HelpCircle,
-  Info,
-  LogOut,
-  Menu,
-  MessageSquare,
-  Plane,
-  Search,
-  Settings,
-  Shield,
-  Star,
-  User,
-} from 'lucide-react'
+import { Bell, Info, Menu, MessageSquare, Plane, Star } from 'lucide-react'
+import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import type React from 'react'
 import { useState } from 'react'
 import { Button } from '@/shared/components/common/Button'
@@ -23,43 +12,37 @@ import {
 } from '@/shared/components/ui/navigation/dropdown-menu'
 
 export interface HeaderProps {
-  onMenuClick: () => void
-  onProfileClick: () => void
-  onLoginClick?: () => void
-  onRegisterClick?: () => void
-  onNavigateHome?: () => void
-  onNavigateAbout?: () => void
-  onNavigateContact?: () => void
   isLoggedIn?: boolean
   showNotification?: boolean
   showNav?: boolean
   children?: React.ReactNode
+
+  onNavigateLanding: () => void
 }
 
 export default function Header({
-  onMenuClick,
-  onProfileClick,
-  onLoginClick,
-  onRegisterClick,
-  onNavigateHome,
-  onNavigateAbout,
-  onNavigateContact,
   isLoggedIn,
   showNotification,
   showNav = true,
   children,
+  onNavigateLanding,
 }: HeaderProps) {
+  const router = useRouter()
+
   return (
     <header className='h-16 w-full border-b border-[#d6d0cc]/50 sticky top-0 z-40 bg-white/80 backdrop-blur-md flex justify-between items-center px-4 lg:px-8 shadow-sm transition-all duration-300'>
       <div className={`flex items-center gap-3 ${showNav ? 'flex-1 lg:flex-none' : 'flex-none'}`}>
         <Button
-          onClick={onMenuClick}
+          variant='link'
+          onClick={onNavigateLanding}
           className='lg:hidden p-2 text-outline-variant hover:text-on-surface'
         >
           <Menu size={20} />
         </Button>
+
         <Button
-          onClick={onNavigateHome}
+          variant='link'
+          onClick={onNavigateLanding}
           className='hidden lg:flex items-center gap-2'
         >
           {showNav ? (
@@ -68,6 +51,7 @@ export default function Header({
             <div className='flex items-center gap-2'>
               <div className='p-1 bg-primary rounded-[4px] text-white flex-shrink-0'>
                 <Plane size={16} />
+                workbench.browser.openLocalhostLinks
               </div>
               <span className='text-xl font-bold whitespace-nowrap'>
                 <span className='text-tertiary'>chudu</span>
@@ -81,21 +65,21 @@ export default function Header({
       {showNav ? (
         <nav className='hidden lg:flex items-center justify-center flex-1 gap-12'>
           <Button
-            onClick={onNavigateHome}
+            onClick={() => router.push('/')}
             className='text-sm font-bold text-slate-500 hover:text-primary transition-colors py-2 relative group'
           >
             Trang chủ
             <span className='absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full'></span>
           </Button>
           <Button
-            onClick={onNavigateAbout}
+            onClick={() => router.push('/about')}
             className='text-sm font-bold text-slate-500 hover:text-primary transition-colors py-2 relative group'
           >
             Chúng tôi
             <span className='absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full'></span>
           </Button>
           <Button
-            onClick={onNavigateContact}
+            onClick={() => router.push('/contact')}
             className='text-sm font-bold text-slate-500 hover:text-primary transition-colors py-2 relative group'
           >
             Liên hệ
@@ -112,13 +96,13 @@ export default function Header({
         {!isLoggedIn ? (
           <div className='flex items-center gap-1 sm:gap-4'>
             <Button
-              onClick={onLoginClick}
+              onClick={() => router.push('/login')}
               className='px-4 py-2 text-xs sm:text-sm font-bold text-on-surface hover:text-[#FF6B00] transition-colors'
             >
               Đăng nhập
             </Button>
             <Button
-              onClick={onRegisterClick}
+              onClick={() => router.push('/register')}
               className='px-5 py-2 text-xs sm:text-sm font-bold bg-[#1D1D1F] text-white rounded-full shadow-lg shadow-black/10 hover:opacity-90 transition-all active:scale-95 whitespace-nowrap'
             >
               Đăng ký

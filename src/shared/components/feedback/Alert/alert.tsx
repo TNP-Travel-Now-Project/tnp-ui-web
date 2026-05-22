@@ -1,11 +1,11 @@
 'use client'
+import { cn } from '@/lib/utils'
 import {
   AlertAction,
   AlertDescription,
   AlertTitle,
   Alert as ShadcnAlert,
 } from '@/shared/components/ui/feedback/alert'
-import { cn } from '@/lib/utils'
 
 type AlertVariant = 'default' | 'destructive' | 'success' | 'warning' | 'info'
 

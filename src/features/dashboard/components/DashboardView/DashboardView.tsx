@@ -1,9 +1,9 @@
-import { Trip, SummaryStat } from '@/shared/types'
-import { TripCard } from '@/features/trip/components/TripCard'
-import { SummaryCard } from '@/shared/components/composite'
-import { Button } from '@/shared/components/common'
-import { ArrowRight, Plus } from 'lucide-react'
 import { motion } from 'framer-motion'
+import { ArrowRight, Plus } from 'lucide-react'
+import { TripCard } from '@/features/trip/components/TripCard'
+import { Button } from '@/shared/components/common'
+import { SummaryCard } from '@/shared/components/composite'
+import type { SummaryStat, Trip } from '@/shared/types'
 
 interface DashboardViewProps {
   trips: Trip[]
@@ -54,11 +54,7 @@ export function DashboardView({
 
         <div className='grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-6'>
           {trips.map((trip) => (
-            <div
-              key={trip.id}
-              onClick={() => onTripSelect(trip.id)}
-              className='cursor-pointer'
-            >
+            <div key={trip.id} onClick={() => onTripSelect(trip.id)} className='cursor-pointer'>
               <TripCard trip={trip} />
             </div>
           ))}

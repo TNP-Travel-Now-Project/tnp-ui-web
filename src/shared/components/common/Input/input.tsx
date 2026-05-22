@@ -1,7 +1,7 @@
 'use client'
 import { Loader2 } from 'lucide-react'
-import { Input as ShadcnInput } from '@/shared/components/ui/form/input'
 import { cn } from '@/lib/utils'
+import { Input as ShadcnInput } from '@/shared/components/ui/form/input'
 
 export interface InputProps extends React.ComponentProps<typeof ShadcnInput> {
   /** Icon bên trái input */
