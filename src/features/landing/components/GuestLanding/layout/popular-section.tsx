@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import { planedUps } from '@/features/landing/constants/landing.constant'
+import { planedUps } from '@/features/landing/constants/guest.constant'
 
 interface PopularSectionProps {
   setActivePlace: (idx: number | null) => void

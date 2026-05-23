@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import { missionValues } from '@/features/landing/constants/landing.constant'
+import { missionValues } from '@/features/landing/constants/guest.constant'
 
 export default function MissionSection() {
   return (

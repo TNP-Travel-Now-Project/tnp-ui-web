@@ -1,7 +1,5 @@
 import { AnimatePresence, motion } from 'framer-motion'
 import { Bell, Info, Menu, MessageSquare, Plane, Star } from 'lucide-react'
-import Link from 'next/link'
-import { useRouter } from 'next/navigation'
 import type React from 'react'
 import { useState } from 'react'
 import { Button } from '@/shared/components/common/Button'
@@ -10,6 +8,7 @@ import {
   DropdownMenuContent,
   DropdownMenuTrigger,
 } from '@/shared/components/ui/navigation/dropdown-menu'
+import { notifications } from '@/shared/constaints/header.constaint'
 
 export interface HeaderProps {
   isLoggedIn?: boolean
@@ -18,6 +17,11 @@ export interface HeaderProps {
   children?: React.ReactNode
 
   onNavigateLanding: () => void
+  onNavigateAbout?: () => void
+  onNavigateContact?: () => void
+  onNavigateLogin?: () => void
+  onNavigateRegister?: () => void
+  onToggleSidebar?: () => void
 }
 
 export default function Header({
@@ -26,15 +30,18 @@ export default function Header({
   showNav = true,
   children,
   onNavigateLanding,
+  onNavigateAbout,
+  onNavigateContact,
+  onNavigateLogin,
+  onNavigateRegister,
+  onToggleSidebar,
 }: HeaderProps) {
-  const router = useRouter()
-
   return (
     <header className='h-16 w-full border-b border-[#d6d0cc]/50 sticky top-0 z-40 bg-white/80 backdrop-blur-md flex justify-between items-center px-4 lg:px-8 shadow-sm transition-all duration-300'>
       <div className={`flex items-center gap-3 ${showNav ? 'flex-1 lg:flex-none' : 'flex-none'}`}>
         <Button
           variant='link'
-          onClick={onNavigateLanding}
+          onClick={onToggleSidebar}
           className='lg:hidden p-2 text-outline-variant hover:text-on-surface'
         >
           <Menu size={20} />
@@ -49,7 +56,7 @@ export default function Header({
             <span className='text-2xl font-black text-primary tracking-tight'>chudu4be</span>
           ) : (
             <div className='flex items-center gap-2'>
-              <div className='p-1 bg-primary rounded-[4px] text-white flex-shrink-0'>
+              <div className='p-1 bg-primary rounded-1 text-white shrink-0'>
                 <Plane size={16} />
                 workbench.browser.openLocalhostLinks
               </div>
@@ -64,27 +71,30 @@ export default function Header({
 
       {showNav ? (
         <nav className='hidden lg:flex items-center justify-center flex-1 gap-12'>
-          <Button
-            onClick={() => router.push('/')}
+          <button
+            type='button'
+            onClick={onNavigateLanding}
             className='text-sm font-bold text-slate-500 hover:text-primary transition-colors py-2 relative group'
           >
             Trang chủ
             <span className='absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full'></span>
-          </Button>
-          <Button
-            onClick={() => router.push('/about')}
+          </button>
+          <button
+            type='button'
+            onClick={onNavigateAbout}
             className='text-sm font-bold text-slate-500 hover:text-primary transition-colors py-2 relative group'
           >
             Chúng tôi
             <span className='absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full'></span>
-          </Button>
-          <Button
-            onClick={() => router.push('/contact')}
+          </button>
+          <button
+            type='button'
+            onClick={onNavigateContact}
             className='text-sm font-bold text-slate-500 hover:text-primary transition-colors py-2 relative group'
           >
             Liên hệ
             <span className='absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full'></span>
-          </Button>
+          </button>
         </nav>
       ) : (
         <div className='flex-1 hidden lg:flex justify-start h-full items-center ml-8 gap-1 pl-8 border-l border-slate-100'>
@@ -96,13 +106,13 @@ export default function Header({
         {!isLoggedIn ? (
           <div className='flex items-center gap-1 sm:gap-4'>
             <Button
-              onClick={() => router.push('/login')}
+              onClick={onNavigateLogin}
               className='px-4 py-2 text-xs sm:text-sm font-bold text-on-surface hover:text-[#FF6B00] transition-colors'
             >
               Đăng nhập
             </Button>
             <Button
-              onClick={() => router.push('/register')}
+              onClick={onNavigateRegister}
               className='px-5 py-2 text-xs sm:text-sm font-bold bg-[#1D1D1F] text-white rounded-full shadow-lg shadow-black/10 hover:opacity-90 transition-all active:scale-95 whitespace-nowrap'
             >
               Đăng ký
@@ -111,7 +121,7 @@ export default function Header({
         ) : (
           <DropdownMenu trigger={<Button variant='outline'>Open menu</Button>}>
             <DropdownMenuTrigger asChild>
-              <Button className='p-2 text-outline hover:text-primary transition-all rounded-[4px] hover:bg-surface-container relative outline-none ring-0'>
+              <Button className='p-2 text-outline hover:text-primary transition-all rounded-1 hover:bg-surface-container relative outline-none ring-0'>
                 <Bell size={20} />
                 {showNotification && (
                   <span className='absolute top-1.5 right-1.5 w-2 h-2 bg-error rounded-full ring-2 ring-white animate-pulse' />
@@ -120,7 +130,7 @@ export default function Header({
             </DropdownMenuTrigger>
             <DropdownMenuContent
               align='end'
-              className='w-[calc(100vw-32px)] sm:w-[400px] p-0 rounded-3xl shadow-2xl border-outline-variant/30 overflow-hidden'
+              className='w-[calc(100vw-32px)] sm:w-100 p-0 rounded-3xl shadow-2xl border-outline-variant/30 overflow-hidden'
             >
               <NotificationPanel />
             </DropdownMenuContent>
@@ -133,45 +143,6 @@ export default function Header({
 
 function NotificationPanel() {
   const [activeTab, setActiveTab] = useState<'all' | 'trip'>('all')
-
-  const notifications = {
-    all: [
-      {
-        id: 1,
-        title: 'Ưu đãi đặt phòng',
-        desc: 'Giảm 20% cho thành viên Vàng tại các khách sạn Phú Quốc.',
-        time: '2 giờ trước',
-        icon: Star,
-        color: 'text-yellow-600 bg-yellow-100',
-      },
-      {
-        id: 2,
-        title: 'Cập nhật hệ thống',
-        desc: 'Bản cập nhật v2.4 đã sẵn sàng với tính năng chia hóa đơn tự động.',
-        time: '5 giờ trước',
-        icon: Info,
-        color: 'text-blue-600 bg-blue-100',
-      },
-    ],
-    trip: [
-      {
-        id: 3,
-        title: 'Ăn tối hải sản',
-        desc: 'Hoạt động "Ăn tối hải sản" sẽ bắt đầu trong 15 phút nữa.',
-        time: 'Ngay bây giờ',
-        icon: Bell,
-        color: 'text-secondary bg-secondary/10',
-      },
-      {
-        id: 4,
-        title: 'Chi phí mới',
-        desc: 'Linh Nguyễn đã thêm chi phí mới: "Vé cáp treo Hòn Thơm".',
-        time: '10 phút trước',
-        icon: MessageSquare,
-        color: 'text-primary bg-primary/10',
-      },
-    ],
-  }
 
   return (
     <div className='flex flex-col bg-white'>
@@ -194,7 +165,7 @@ function NotificationPanel() {
           </Button>
         </div>
       </div>
-      <div className='max-h-[300px] sm:max-h-[400px] overflow-y-auto no-scrollbar overscroll-contain'>
+      <div className='max-h-75 sm:max-h-100 overflow-y-auto no-scrollbar overscroll-contain'>
         <AnimatePresence mode='wait'>
           <motion.div
             key={activeTab}
@@ -212,7 +183,7 @@ function NotificationPanel() {
                 >
                   <div className='flex gap-3 sm:gap-4'>
                     <div className={`p-2 sm:p-2.5 rounded-xl ${notif.color} shrink-0 h-fit`}>
-                      <Icon size={16} className='sm:size-[18px]' />
+                      <Icon size={16} className='sm:size-4' />
                     </div>
                     <div className='flex-1 min-w-0'>
                       <div className='flex justify-between items-start mb-1'>

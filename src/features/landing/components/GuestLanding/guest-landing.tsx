@@ -6,6 +6,7 @@ import HeroSection from '@/features/landing/components/GuestLanding/layout/hero-
 import PopularSection from '@/features/landing/components/GuestLanding/layout/popular-section'
 import TestimonialsSection from '@/features/landing/components/GuestLanding/layout/testimonials-section'
 import TimeLineSection from '@/features/landing/components/GuestLanding/layout/timeline-section'
+import PageShell from '@/shared/components/layout/page-shell'
 
 interface GuestLandingProps {
   onLogin: () => void
@@ -16,7 +17,7 @@ export default function GuestLanding({ onLogin, onNavigateAbout }: GuestLandingP
   const [activePlace, setActivePlace] = useState<number | null>(null)
 
   return (
-    <div className='min-h-screen bg-background font-sans'>
+    <PageShell>
       <HeroSection onLogin={onLogin} />
 
       <PopularSection setActivePlace={setActivePlace} activePlace={activePlace} />
@@ -30,6 +31,6 @@ export default function GuestLanding({ onLogin, onNavigateAbout }: GuestLandingP
       <CTASection onLogin={onLogin} />
 
       <FooterSection onNavigateAbout={onNavigateAbout} />
-    </div>
+    </PageShell>
   )
 }

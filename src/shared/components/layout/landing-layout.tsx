@@ -1,28 +1,26 @@
 'use client'
 
-import { useRouter } from 'next/navigation'
-import { useEffect, useState } from 'react'
 import { AuthModal } from '@/features/auth/components/AuthModal'
-import Sidebar from '@/shared/components/layout/Sidebar/Sidebar'
-import { useAuth } from '@/shared/components/providers'
-import Header from './Header/Header'
+import Sidebar from '@/shared/components/layout/Sidebar'
+import { useLandingLayoutController } from '@/shared/hook/useLandingLayoutController'
+import Header from './Header'
 
-interface LandingProps {
-  children?: React.ReactNode
-}
-
-export default function LandingLayout({ children }: LandingProps) {
-  const router = useRouter()
-  const { isAuthenticated, isLoading } = useAuth()
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false)
-  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false)
-  const [authInitialTab, setAuthInitialTab] = useState<'login' | 'register'>('login')
-
-  useEffect(() => {
-    if (!isLoading && isAuthenticated) {
-      router.replace('/dashboard')
-    }
-  }, [isAuthenticated, isLoading, router])
+export default function LandingLayout({ children }: { children?: React.ReactNode }) {
+  const {
+    isLoading,
+    isAuthenticated,
+    isSidebarOpen,
+    isSidebarCollapsed,
+    isAuthModalOpen,
+    authInitialTab,
+    setIsAuthModalOpen,
+    setAuthInitialTab,
+    handleSidebarNavigate,
+    closeSidebar,
+    toggleSidebar,
+    toggleSidebarCollapsed,
+    navigate,
+  } = useLandingLayoutController()
 
   if (isLoading) {
     return (
@@ -36,24 +34,36 @@ export default function LandingLayout({ children }: LandingProps) {
 
   return (
     <>
-      <Sidebar
-        isOpen={isSidebarOpen}
-        onClose={() => setIsSidebarOpen(false)}
-        onToggle={() => setIsSidebarOpen(!isSidebarOpen)}
-        isLoggedIn={false}
-        currentPage='landing'
-        onNavigateLanding={() => router.push('/')}
-        onNavigateAbout={() => router.push('/about')}
-        onNavigateContact={() => router.push('/contact')}
-      />
-      <Header onNavigateLanding={() => router.push('/')} isLoggedIn={false} />
+      <div className='lg:flex'>
+        <Sidebar
+          isOpen={isSidebarOpen}
+          isCollapsed={isSidebarCollapsed}
+          onClose={closeSidebar}
+          onToggleCollapse={toggleSidebarCollapsed}
+          isLoggedIn={false}
+          currentPage='landing'
+          onNavigateItem={handleSidebarNavigate}
+          onBrandClick={navigate.home}
+        />
+        <div className='flex-1 min-w-0'>
+          <Header
+            onNavigateLanding={navigate.home}
+            onNavigateAbout={navigate.about}
+            onNavigateContact={navigate.contact}
+            onNavigateLogin={navigate.login}
+            onNavigateRegister={navigate.register}
+            onToggleSidebar={toggleSidebar}
+            isLoggedIn={false}
+          />
 
-      <main className='min-h-screen bg-background'>{children}</main>
+          <main className='min-h-screen bg-white'>{children}</main>
+        </div>
+      </div>
 
       <AuthModal
         isOpen={isAuthModalOpen}
         onClose={() => setIsAuthModalOpen(false)}
-        onSuccess={() => router.refresh()}
+        onSuccess={navigate.refresh}
         initialTab={authInitialTab}
       />
     </>

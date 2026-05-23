@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
 import Image from 'next/image'
-import { timelineTrips } from '@/features/landing/constants/landing.constant'
+import { timelineTrips } from '@/features/landing/constants/guest.constant'
 
 export default function TimeLineSection() {
   return (

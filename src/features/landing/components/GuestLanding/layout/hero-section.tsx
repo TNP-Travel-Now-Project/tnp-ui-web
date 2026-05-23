@@ -6,7 +6,7 @@ export default function HeroSection({ onLogin }: { onLogin: () => void }) {
   return (
     <section
       id='home'
-      className='relative pt-28 pb-20 md:pt-36 md:pb-32 overflow-hidden flex items-center min-h-[90vh]'
+      className='relative pt-28 pb-20 md:pt-20 md:pb-32 overflow-hidden flex items-center min-h-[90vh]'
     >
       <div className='absolute top-1/4 left-0 w-72 h-72 bg-blue-400/20 rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-blob'></div>
       <div className='absolute top-1/3 right-1/4 w-96 h-96 bg-purple-400/20 rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-blob animation-delay-2000'></div>

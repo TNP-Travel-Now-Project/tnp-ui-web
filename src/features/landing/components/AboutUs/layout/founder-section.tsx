@@ -58,7 +58,7 @@ export default function FounderSection() {
           </blockquote>
           <div className='space-y-4 text-slate-600 font-medium text-sm sm:text-base relative'>
             <div
-              className={`overflow-hidden transition-all duration-500 ${isReadMore ? 'max-h-[1000px]' : 'max-h-[4.5em]'}`}
+              className={`overflow-hidden transition-all duration-500 ${isReadMore ? 'max-h-250' : 'max-h-[4.5em]'}`}
             >
               <p>
                 Tôi tin rằng du lịch là cách tốt nhất để chúng ta thấu hiểu bản thân và kết nối sâu

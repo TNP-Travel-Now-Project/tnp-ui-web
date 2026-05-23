@@ -1,0 +1,80 @@
+'use client'
+
+import { useRouter } from 'next/navigation'
+import { useCallback, useEffect, useState } from 'react'
+import { useAuth } from '@/shared/components/providers'
+
+export function useLandingLayoutController() {
+  const router = useRouter()
+  const { isAuthenticated, isLoading } = useAuth()
+
+  // Mobile drawer visibility
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false)
+  // Desktop compact mode
+  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false)
+
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false)
+  const [authInitialTab, setAuthInitialTab] = useState<'login' | 'register'>('login')
+
+  useEffect(() => {
+    if (!isLoading && isAuthenticated) {
+      router.replace('/dashboard')
+    }
+  }, [isAuthenticated, isLoading, router])
+
+  const handleSidebarNavigate = useCallback(
+    (itemId: string) => {
+      const section = document.getElementById(itemId)
+      if (section) {
+        section.scrollIntoView({ behavior: 'smooth' })
+      } else if (itemId === 'about') {
+        router.push('/about')
+      } else if (itemId === 'contact') {
+        router.push('/contact')
+      } else if (itemId === 'landing') {
+        router.push('/')
+      }
+      setIsSidebarOpen(false)
+    },
+    [router],
+  )
+
+  const closeSidebar = useCallback(() => setIsSidebarOpen(false), [])
+
+  const toggleSidebar = useCallback(() => setIsSidebarOpen((prev) => !prev), [])
+
+  const toggleSidebarCollapsed = useCallback(() => {
+    setIsSidebarOpen(false)
+    setIsSidebarCollapsed((prev) => !prev)
+  }, [])
+
+  const goHome = useCallback(() => router.push('/'), [router])
+  const goAbout = useCallback(() => router.push('/about'), [router])
+  const goContact = useCallback(() => router.push('/contact'), [router])
+  const goLogin = useCallback(() => router.push('/login'), [router])
+  const goRegister = useCallback(() => router.push('/register'), [router])
+  const refresh = useCallback(() => router.refresh(), [router])
+
+  return {
+    isLoading,
+    isAuthenticated,
+    isSidebarOpen,
+    isSidebarCollapsed,
+    isAuthModalOpen,
+    authInitialTab,
+    setIsAuthModalOpen,
+    setAuthInitialTab,
+    handleSidebarNavigate,
+    closeSidebar,
+    toggleSidebar,
+    toggleSidebarCollapsed,
+    navigate: {
+      home: goHome,
+      about: goAbout,
+      contact: goContact,
+      login: goLogin,
+      register: goRegister,
+      refresh,
+    },
+  }
+}

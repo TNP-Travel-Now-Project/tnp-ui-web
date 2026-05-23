@@ -1,4 +1,4 @@
-import { faqs } from '@/features/landing/constants/landing.constant'
+import { faqs } from '@/features/landing/constants/guest.constant'
 import {
   Accordion,
   AccordionContent,

@@ -6,8 +6,8 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { useRef, useState } from 'react'
 import { ProfileModal } from '@/features/auth/components/ProfileModal'
 import { Button } from '@/shared/components/common'
-import Header from '@/shared/components/layout/Header/Header'
-import Sidebar from '@/shared/components/layout/Sidebar/Sidebar'
+import Header from '@/shared/components/layout/Header'
+import Sidebar from '@/shared/components/layout/Sidebar'
 import { useAuth } from '@/shared/components/providers'
 
 const tripDetailTabs = ['Tổng quan', 'Lịch trình', 'Chi phí', 'Trò chuyện', 'Thành viên']

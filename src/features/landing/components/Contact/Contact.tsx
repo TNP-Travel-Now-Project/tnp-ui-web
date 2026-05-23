@@ -1,12 +1,14 @@
 import { motion } from 'framer-motion'
 import { ArrowLeft } from 'lucide-react'
+import PageContainer from '@/shared/components/layout/page-container'
+import PageShell from '@/shared/components/layout/page-shell'
 import FormColumns from './layout/form-columns'
 import InfoColumns from './layout/info-columns'
 
 export default function Contact({ onBack }: { onBack: () => void }) {
   return (
-    <div className='min-h-screen bg-white font-sans'>
-      <main className='pt-12 pb-20'>
+    <PageShell>
+      <PageContainer>
         <div className='container max-w-6xl mx-auto px-5'>
           <button
             type='button'
@@ -41,11 +43,11 @@ export default function Contact({ onBack }: { onBack: () => void }) {
             </div>
           </div>
         </div>
-      </main>
+      </PageContainer>
 
       <footer className='py-10 text-center text-slate-400 text-sm font-medium border-t border-slate-50'>
         © chudu4be - Luôn sẵn sàng hỗ trợ bạn
       </footer>
-    </div>
+    </PageShell>
   )
 }

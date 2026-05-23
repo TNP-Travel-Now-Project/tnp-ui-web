@@ -1,84 +1,35 @@
 import { AnimatePresence, motion } from 'framer-motion'
-import {
-  ChevronLeft,
-  ChevronRight,
-  Compass,
-  HelpCircle,
-  Home,
-  Info,
-  LayoutDashboard,
-  LogOut,
-  Luggage,
-  Menu,
-  MessageSquare,
-  Phone,
-  Plane,
-  Settings,
-  Sparkles,
-  Star,
-  Wallet,
-  X,
-} from 'lucide-react'
+import { ChevronLeft, ChevronRight, LogOut, Plane, Settings, X } from 'lucide-react'
+import Image from 'next/image'
 import { Button } from '@/shared/components/common/Button'
-
-const loggedInNavItems = [
-  { id: 'trips', label: 'Chuyến đi của tôi', icon: Luggage, active: true },
-  { id: 'explore', label: 'Khám phá', icon: Compass },
-  { id: 'messages', label: 'Tin nhắn', icon: MessageSquare },
-  { id: 'overview', label: 'Tổng quan', icon: LayoutDashboard },
-  { id: 'expenses', label: 'Chi tiêu', icon: Wallet },
-]
-
-const guestLandingNavItems = [
-  { id: 'popular-places', label: 'Cảm hứng', icon: Sparkles },
-  { id: 'how-it-works', label: 'Cách dùng', icon: Compass },
-  { id: 'testimonials', label: 'Đánh giá', icon: Star },
-  { id: 'faq', label: 'Câu hỏi thường gặp', icon: HelpCircle },
-]
-
-const guestGeneralNavItems = [
-  { id: 'landing', label: 'Trang chủ', icon: Home },
-  { id: 'about', label: 'Giới thiệu', icon: Info },
-  { id: 'contact', label: 'Liên hệ', icon: Phone },
-]
+import { guestGeneralNavItems, guestLandingNavItems, loggedInNavItems } from '@/shared/constaints'
 
 interface SidebarProps {
   isOpen: boolean
+  isCollapsed?: boolean
   onClose: () => void
-  onToggle?: () => void
+  onToggleCollapse?: () => void
   onProfileClick?: () => void
   onSettingsClick?: () => void
   isLoggedIn?: boolean
   currentPage?: 'landing' | 'about' | 'contact'
-  onNavigateLanding?: () => void
-  onNavigateAbout?: () => void
-  onNavigateContact?: () => void
+  onNavigateItem?: (id: string) => void
+  onBrandClick?: () => void
 }
 
 export default function Sidebar({
   isOpen,
+  isCollapsed = false,
   onClose,
-  onToggle,
+  onToggleCollapse,
   onProfileClick,
   onSettingsClick,
   isLoggedIn = true,
   currentPage = 'landing',
-  onNavigateLanding,
-  onNavigateAbout,
-  onNavigateContact,
+  onNavigateItem,
+  onBrandClick,
 }: SidebarProps) {
-  const isExpanded = isLoggedIn ? isOpen : true
-
-  const handleGuestLinkClick = (id: string) => {
-    if (currentPage === 'landing') {
-      document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
-    } else {
-      if (id === 'landing' && onNavigateLanding) onNavigateLanding()
-      if (id === 'about' && onNavigateAbout) onNavigateAbout()
-      if (id === 'contact' && onNavigateContact) onNavigateContact()
-    }
-    onClose()
-  }
+  const isExpanded = isOpen || !isCollapsed
 
   const navItems = isLoggedIn
     ? loggedInNavItems
@@ -102,11 +53,9 @@ export default function Sidebar({
       </AnimatePresence>
 
       <aside
-        className={`h-screen border-r border-[#d6d0cc]/50 fixed left-0 top-0 bg-white shadow-[2px_0_12px_-4px_rgba(0,0,0,0.05)] flex flex-col p-4 z-50 transition-all duration-300 transform ${
-          isLoggedIn
-            ? `lg:translate-x-0 ${isOpen ? 'translate-x-0 w-72' : 'lg:w-20 w-72 -translate-x-full'}`
-            : `${isOpen ? 'translate-x-0 w-72' : '-translate-x-full w-72'}`
-        }`}
+        className={`h-screen border-r border-[#d6d0cc]/50 lg:sticky lg:top-0 fixed left-0 top-0 bg-white shadow-[2px_0_12px_-4px_rgba(0,0,0,0.05)] flex flex-col p-4 z-50 transition-all duration-300 transform lg:translate-x-0 w-72 ${
+          isOpen ? 'translate-x-0' : '-translate-x-full'
+        } ${isCollapsed ? 'lg:w-20' : ''}`}
       >
         <div
           className={`mb-10 mt-2 flex items-center gap-2 ${isExpanded ? 'justify-between px-2' : 'justify-center transition-all'}`}
@@ -114,10 +63,12 @@ export default function Sidebar({
           {isLoggedIn ? (
             <Button onClick={onProfileClick} className='flex items-center gap-3 text-left group'>
               <div className='w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold overflow-hidden border-2 border-primary/20 shrink-0'>
-                <img
-                  src='https://api.dicebear.com/7.x/avataaars/svg?seed=Felix'
+                <Image
+                  fill
                   alt='Avatar'
                   className='w-full h-full object-cover'
+                  src='https://api.dicebear.com/7.x/avataaars/svg?seed=Felix'
+                  sizes='(max-width: 640px) 100vw,(max-width: 1024px) 50vw, 33vw'
                 />
               </div>
               {isExpanded && (
@@ -136,8 +87,8 @@ export default function Sidebar({
               )}
             </Button>
           ) : (
-            <Button onClick={onNavigateLanding} className='flex items-center gap-2 text-left'>
-              <div className='p-1.5 bg-primary rounded-[4px] text-white flex-shrink-0'>
+            <Button onClick={onBrandClick} className='flex items-center gap-2 text-left'>
+              <div className='p-1.5 bg-primary rounded-1 text-white shrink-0'>
                 <Plane size={24} className='transform -rotate-45' />
               </div>
               {isExpanded && (
@@ -160,14 +111,12 @@ export default function Sidebar({
             </Button>
           )}
 
-          {isLoggedIn && (
-            <Button
-              onClick={onToggle || onClose}
-              className='absolute -right-4 top-8 w-8 h-8 rounded-lg bg-white border border-slate-200 text-slate-500 hover:text-primary hover:border-primary shadow-md flex items-center justify-center transition-all z-[60]'
-            >
-              {isExpanded ? <ChevronLeft size={20} /> : <ChevronRight size={20} />}
-            </Button>
-          )}
+          <Button
+            onClick={onToggleCollapse || onClose}
+            className='absolute -right-4 top-5 w-8 h-8 rounded-lg bg-white border border-slate-200 text-slate-500 hover:text-primary hover:border-primary shadow-md flex items-center justify-center transition-all z-[60]'
+          >
+            {isExpanded ? <ChevronLeft size={20} /> : <ChevronRight size={20} />}
+          </Button>
 
           {!isLoggedIn && isExpanded && (
             <Button
@@ -183,7 +132,7 @@ export default function Sidebar({
           {navItems.map((item) => (
             <motion.button
               key={item.id}
-              onClick={() => (isLoggedIn ? null : handleGuestLinkClick(item.id))}
+              onClick={() => (isLoggedIn ? null : onNavigateItem?.(item.id))}
               whileTap={{ scale: 0.98 }}
               className={`w-full flex items-center rounded-xl transition-all duration-300 text-left ${
                 isExpanded ? 'px-4 py-3 gap-4' : 'px-0 py-3 justify-center'
@@ -195,7 +144,7 @@ export default function Sidebar({
             >
               <item.icon
                 size={22}
-                className={`flex-shrink-0 ${(isLoggedIn && (item as any).active) || (!isLoggedIn && currentPage === item.id) ? 'text-primary' : 'text-slate-400 group-hover:text-primary'}`}
+                className={`shrink-0 ${(isLoggedIn && (item as any).active) || (!isLoggedIn && currentPage === item.id) ? 'text-primary' : 'text-slate-400 group-hover:text-primary'}`}
               />
               {isExpanded && (
                 <motion.span
@@ -219,14 +168,14 @@ export default function Sidebar({
                 onClick={onSettingsClick}
                 className={`w-full flex items-center rounded-xl transition-all text-slate-600 hover:text-primary hover:bg-slate-50 ${isExpanded ? 'px-4 py-3 gap-4' : 'px-0 py-3 justify-center'}`}
               >
-                <Settings size={20} className='flex-shrink-0' />
+                <Settings size={20} className='shrink-0' />
                 {isExpanded && <span className='text-sm font-bold whitespace-nowrap'>Cài đặt</span>}
               </Button>
               <a
                 href='#sidebar'
                 className={`flex items-center rounded-xl transition-all text-rose-500 hover:bg-rose-50 ${isExpanded ? 'px-4 py-3 gap-4' : 'px-0 py-3 justify-center'}`}
               >
-                <LogOut size={20} className='flex-shrink-0' />
+                <LogOut size={20} className='shrink-0' />
                 {isExpanded && (
                   <span className='text-sm font-bold whitespace-nowrap'>Đăng xuất</span>
                 )}
