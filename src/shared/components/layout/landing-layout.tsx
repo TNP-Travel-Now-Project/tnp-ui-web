@@ -11,6 +11,8 @@ export default function LandingLayout({ children }: { children?: React.ReactNode
     isAuthenticated,
     isSidebarOpen,
     isSidebarCollapsed,
+    isShowNav,
+    isHiddenLogo,
     isAuthModalOpen,
     authInitialTab,
     setIsAuthModalOpen,
@@ -47,16 +49,16 @@ export default function LandingLayout({ children }: { children?: React.ReactNode
         />
         <div className='flex-1 min-w-0'>
           <Header
+            showNav={isShowNav}
+            hiddenLogo={isHiddenLogo}
             onNavigateLanding={navigate.home}
-            onNavigateAbout={navigate.about}
-            onNavigateContact={navigate.contact}
             onNavigateLogin={navigate.login}
             onNavigateRegister={navigate.register}
             onToggleSidebar={toggleSidebar}
             isLoggedIn={false}
           />
 
-          <main className='min-h-screen bg-white'>{children}</main>
+          <main>{children}</main>
         </div>
       </div>
 

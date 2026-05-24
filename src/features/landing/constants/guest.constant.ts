@@ -141,3 +141,54 @@ export const missionValues = [
     desc: 'Bất kể bạn là ai, chudu4be luôn hỗ trợ bạn tạo nên những kỷ niệm đáng nhớ nhất cùng những người thân yêu.',
   },
 ]
+
+export const testimonials_data = [
+  {
+    id: '01',
+    name: 'Jack Kelly',
+    role: 'Giám đốc Colorlib',
+    rating: 5,
+    avatar:
+      'https://images.unsplash.com/photo-1531123897727-8f129e1688ce?q=80&w=2000&auto=format&fit=crop',
+    testimonial:
+      '"Trải nghiệm camping và đặt phòng homestay chưa bao giờ mượt mà đến thế. Hệ thống xử lý thông tin nhanh, màu sắc giao diện mang phong cách rất thiên nhiên và thư thái."',
+    website: '#network',
+    hashtag: '#network',
+  },
+  {
+    id: '02',
+    name: 'Alex Morgan',
+    role: 'Quản lý Chudu4be',
+    rating: 5,
+    avatar:
+      'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=2000&auto=format&fit=crop',
+    testimonial:
+      '"Ứng dụng tuyệt vời, giao diện thân thiện với người dùng và hệ màu sắc rất dịu mắt. Toàn bộ đội ngũ của chúng tôi rất hài lòng khi hợp tác và sử dụng dịch vụ tại đây."',
+    website: '#alex-web',
+    hashtag: '#alex-tag',
+  },
+  {
+    id: '03',
+    name: 'Minh Trần',
+    role: 'Trưởng phòng Marketing',
+    rating: 4,
+    avatar:
+      'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=2000&auto=format&fit=crop',
+    testimonial:
+      '"Trải nghiệm camping và đặt phòng homestay chưa bao giờ mượt mà đến thế. Hệ thống xử lý thông tin nhanh, màu sắc giao diện mang phong cách rất thiên nhiên và thư thái."',
+    website: '#minh-web',
+    hashtag: '#minh-tag',
+  },
+  {
+    id: '04',
+    name: 'Sophia Nguyễn',
+    role: 'UI/UX Designer',
+    rating: 5,
+    avatar:
+      'https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=2000&auto=format&fit=crop',
+    testimonial:
+      '"Đánh giá cực cao việc áp dụng hệ màu OKLCH vào dự án này. Độ tương phản chữ rất tốt trên nền xanh sáng green-bright, layout chuẩn chỉ và các nút bấm tương tác mượt mà."',
+    website: '#sophia-web',
+    hashtag: '#sophia-tag',
+  },
+]

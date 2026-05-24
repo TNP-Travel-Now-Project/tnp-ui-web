@@ -94,7 +94,7 @@ export default function AddPlaceModal({ onClose }: { onClose: () => void }) {
   }
 
   return (
-    <div className='fixed inset-0 z-[100] flex items-center justify-center p-4'>
+    <div className='fixed inset-0 z-100 flex items-center justify-center p-4'>
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -118,7 +118,7 @@ export default function AddPlaceModal({ onClose }: { onClose: () => void }) {
               </h2>
 
               {/* Search Bar */}
-              <div className='relative group w-full sm:flex-1 sm:max-w-sm h-[40px]'>
+              <div className='relative group w-full sm:flex-1 sm:max-w-sm h-10p'>
                 <Search
                   size={16}
                   className='absolute left-4 top-1/2 -translate-y-1/2 text-outline/40 group-focus-within:text-primary transition-colors'
@@ -209,7 +209,7 @@ export default function AddPlaceModal({ onClose }: { onClose: () => void }) {
                   className='flex flex-col lg:flex-row flex-1 min-h-0 h-full'
                 >
                   {/* Map Area */}
-                  <div className='lg:w-[60%] h-[200px] sm:h-[300px] lg:h-full relative bg-surface-container/50 border-b lg:border-b-0 lg:border-r border-outline-variant/20 overflow-hidden shrink-0'>
+                  <div className='lg:w-[60%] h-50 sm:h-75 lg:h-full relative bg-surface-container/50 border-b lg:border-b-0 lg:border-r border-outline-variant/20 overflow-hidden shrink-0'>
                     <img
                       src='https://images.unsplash.com/photo-1524661135-423995f22d0b?q=80&w=1474&auto=format&fit=crop'
                       alt='Map'

@@ -8,7 +8,7 @@ interface PopularSectionProps {
 
 export default function PopularSection({ setActivePlace, activePlace }: PopularSectionProps) {
   return (
-    <section id='popular-places' className='bg-white'>
+    <section id='popular-places' className=' bg-white'>
       <div className='text-center py-16 px-4'>
         <p className='text-primary text-[10px] font-bold uppercase tracking-[0.2em] mb-4'>
           Khơi nguồn cảm hứng

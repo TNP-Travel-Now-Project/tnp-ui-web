@@ -13,7 +13,7 @@ export default function FooterSection({ onNavigateAbout }: { onNavigateAbout: ()
                 <div className='flex items-center md:justify-start gap-2'>
                   <span className='text-2xl font-black text-primary tracking-tight'>chudu4be</span>
                 </div>
-                <p className='text-slate-600 font-medium leading-relaxed max-w-[180px] sm:max-w-xs text-xs sm:text-sm md:text-base'>
+                <p className='text-slate-600 font-medium leading-relaxed max-w-45 sm:max-w-xs text-xs sm:text-sm md:text-base'>
                   Giải pháp lập kế hoạch du lịch nhóm hàng đầu Việt Nam.
                 </p>
               </div>
@@ -24,7 +24,7 @@ export default function FooterSection({ onNavigateAbout }: { onNavigateAbout: ()
                 onClick={onNavigateAbout}
                 className='flex items-center gap-3 sm:gap-4 p-3 sm:p-4 bg-white/50 rounded-2xl border border-white/80 shadow-sm cursor-pointer hover:bg-white hover:border-primary/30 transition-all group'
               >
-                <div className='relative w-10 h-10 sm:w-12 sm:h-12 rounded-full border-2 border-primary/20 p-0.5 overflow-hidden flex-shrink-0 group-hover:border-primary/50 transition-colors'>
+                <div className='relative w-10 h-10 sm:w-12 sm:h-12 rounded-full border-2 border-primary/20 p-0.5 overflow-hidden shrink-0 group-hover:border-primary/50 transition-colors'>
                   <Image
                     fill
                     src='/author.jpg'
@@ -115,7 +115,7 @@ export default function FooterSection({ onNavigateAbout }: { onNavigateAbout: ()
         </div>
 
         <div className='flex flex-col md:flex-row justify-between items-center text-slate-500 font-medium text-sm pt-8 border-t border-slate-200/60'>
-          <p>© 2024 chudu4be. All rights reserved. Travel smarter, together.</p>
+          <p>© chudu4be. All rights reserved. Travel smarter, together.</p>
           <div className='flex items-center gap-4 mt-6 md:mt-0'>
             <div className='w-9 h-9 rounded-full bg-white flex items-center justify-center text-slate-400 hover:text-primary cursor-pointer shadow-sm border border-slate-100'>
               <Plane size={15} />

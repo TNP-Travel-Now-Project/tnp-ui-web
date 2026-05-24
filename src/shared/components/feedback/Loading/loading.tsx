@@ -24,7 +24,14 @@ export const Loading = ({
   className,
   ...props
 }: LoadingProps) => {
-  const spinner = <Loader2 className={cn('animate-spin text-muted-foreground', sizeMap[size])} />
+  const spinner = (
+    <Loader2
+      className={cn(
+        'w-10 h-10 border-4 border-primary border-t-transparent rounded-full animate-spin',
+        sizeMap[size],
+      )}
+    />
+  )
 
   if (fullScreen) {
     return (
@@ -44,7 +51,7 @@ export const Loading = ({
   return (
     <div
       className={cn(
-        'flex flex-col items-center justify-center gap-3 py-8',
+        'flex items-center justify-center min-h-screen bg-white gap-3 py-8',
         inline && 'flex-row gap-2 py-0',
         className,
       )}

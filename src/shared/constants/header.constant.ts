@@ -1,5 +1,20 @@
 import { Bell, Info, MessageSquare, Star } from 'lucide-react'
 
+export const navItems = [
+  {
+    label: 'Trang chủ',
+    href: '/',
+  },
+  {
+    label: 'Chúng tôi',
+    href: '/about',
+  },
+  {
+    label: 'Liên hệ',
+    href: '/contact',
+  },
+]
+
 export const notifications = {
   all: [
     {

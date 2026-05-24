@@ -2,7 +2,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { ChevronLeft, ChevronRight, LogOut, Plane, Settings, X } from 'lucide-react'
 import Image from 'next/image'
 import { Button } from '@/shared/components/common/Button'
-import { guestGeneralNavItems, guestLandingNavItems, loggedInNavItems } from '@/shared/constaints'
+import { guestGeneralNavItems, guestLandingNavItems, loggedInNavItems } from '@/shared/constants'
 
 interface SidebarProps {
   isOpen: boolean
@@ -66,7 +66,7 @@ export default function Sidebar({
                 <Image
                   fill
                   alt='Avatar'
-                  className='w-full h-full object-cover'
+                  className='object-cover'
                   src='https://api.dicebear.com/7.x/avataaars/svg?seed=Felix'
                   sizes='(max-width: 640px) 100vw,(max-width: 1024px) 50vw, 33vw'
                 />
@@ -87,8 +87,13 @@ export default function Sidebar({
               )}
             </Button>
           ) : (
-            <Button onClick={onBrandClick} className='flex items-center gap-2 text-left'>
-              <div className='p-1.5 bg-primary rounded-1 text-white shrink-0'>
+            <Button
+              buttonType='outline'
+              onClick={onBrandClick}
+              className='flex items-center gap-2 text-left'
+              disabled
+            >
+              <div className='p-2.5 bg-primary rounded-xl text-white shrink-0'>
                 <Plane size={24} className='transform -rotate-45' />
               </div>
               {isExpanded && (
@@ -98,13 +103,13 @@ export default function Sidebar({
                   className='overflow-hidden flex flex-col'
                 >
                   <div className='text-xl font-bold whitespace-nowrap leading-none'>
-                    <span className='text-tertiary'>chudu</span>
+                    <span className='text-tertiary text-primary'>chudu</span>
                     <span className='text-primary font-extrabold uppercase tracking-tight'>
                       4be
                     </span>
                   </div>
-                  <div className='text-[10px] font-bold text-outline uppercase tracking-widest mt-0.5 whitespace-nowrap'>
-                    Lập kế hoạch nhóm
+                  <div className='text-[10px] font-bold text-primary-foreground uppercase tracking-widest mt-0.5 whitespace-nowrap'>
+                    Đâu đâu cũng là nhà
                   </div>
                 </motion.div>
               )}
@@ -113,7 +118,7 @@ export default function Sidebar({
 
           <Button
             onClick={onToggleCollapse || onClose}
-            className='absolute -right-4 top-5 w-8 h-8 rounded-lg bg-white border border-slate-200 text-slate-500 hover:text-primary hover:border-primary shadow-md flex items-center justify-center transition-all z-[60]'
+            className='absolute -right-4 top-6 w-8 h-8 rounded-lg bg-white border border-slate-200 text-slate-500 hover:text-primary hover:border-primary shadow-md flex items-center justify-center transition-all z-[60]'
           >
             {isExpanded ? <ChevronLeft size={20} /> : <ChevronRight size={20} />}
           </Button>

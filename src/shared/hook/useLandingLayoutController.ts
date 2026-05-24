@@ -11,7 +11,10 @@ export function useLandingLayoutController() {
   // Mobile drawer visibility
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
   // Desktop compact mode
-  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false)
+  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(true)
+
+  const [isShowNav, setIsShowNav] = useState(true)
+  const [isHiddenLogo, setIsHiddenLogo] = useState(true)
 
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false)
   const [authInitialTab, setAuthInitialTab] = useState<'login' | 'register'>('login')
@@ -46,11 +49,12 @@ export function useLandingLayoutController() {
   const toggleSidebarCollapsed = useCallback(() => {
     setIsSidebarOpen(false)
     setIsSidebarCollapsed((prev) => !prev)
+    // setIsShowNav((prev) => !prev)
+    setIsHiddenLogo((prev) => !prev)
   }, [])
 
   const goHome = useCallback(() => router.push('/'), [router])
   const goAbout = useCallback(() => router.push('/about'), [router])
-  const goContact = useCallback(() => router.push('/contact'), [router])
   const goLogin = useCallback(() => router.push('/login'), [router])
   const goRegister = useCallback(() => router.push('/register'), [router])
   const refresh = useCallback(() => router.refresh(), [router])
@@ -60,6 +64,8 @@ export function useLandingLayoutController() {
     isAuthenticated,
     isSidebarOpen,
     isSidebarCollapsed,
+    isShowNav,
+    isHiddenLogo,
     isAuthModalOpen,
     authInitialTab,
     setIsAuthModalOpen,
@@ -71,7 +77,6 @@ export function useLandingLayoutController() {
     navigate: {
       home: goHome,
       about: goAbout,
-      contact: goContact,
       login: goLogin,
       register: goRegister,
       refresh,

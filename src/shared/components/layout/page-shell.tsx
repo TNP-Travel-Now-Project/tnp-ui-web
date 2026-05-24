@@ -7,5 +7,9 @@ interface PageShellProps {
 }
 
 export default function PageShell({ children, className }: PageShellProps) {
-  return <div className={cn('min-h-screen bg-white', className)}>{children}</div>
+  return (
+    <div className={cn('relative min-h-screen overflow-hidden bg-transparent', className)}>
+      {children}
+    </div>
+  )
 }

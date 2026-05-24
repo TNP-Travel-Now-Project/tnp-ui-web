@@ -4,16 +4,19 @@ import PageContainer from '@/shared/components/layout/page-container'
 import PageShell from '@/shared/components/layout/page-shell'
 import FormColumns from './layout/form-columns'
 import InfoColumns from './layout/info-columns'
+import { BackgroundEffects } from '@/shared/components/effect'
 
 export default function Contact({ onBack }: { onBack: () => void }) {
   return (
     <PageShell>
+      <BackgroundEffects variant='nature' />
+
       <PageContainer>
-        <div className='container max-w-6xl mx-auto px-5'>
+        <div className='mb-12'>
           <button
             type='button'
             onClick={onBack}
-            className='flex items-center gap-2 text-slate-400 hover:text-primary transition-colors font-bold mb-8 group'
+            className='flex items-center gap-2 text-neutral-2 hover:text-primary transition-colors font-bold mb-12 pt-8 group'
           >
             <ArrowLeft className='w-5 h-5 group-hover:-translate-x-1 transition-transform' />
             Quay lại
@@ -26,10 +29,10 @@ export default function Contact({ onBack }: { onBack: () => void }) {
               transition={{ duration: 0.6 }}
               className='text-center md:text-left max-w-2xl'
             >
-              <h1 className='text-3xl md:text-4xl lg:text-5xl font-black text-slate-900 leading-tight mb-6'>
+              <h1 className='text-neutral-2 text-3xl md:text-4xl lg:text-5xl font-black leading-tight mb-6'>
                 Hãy kết nối với <span className='text-primary'>chudu4be</span>
               </h1>
-              <p className='text-slate-600 text-base md:text-lg font-medium leading-relaxed'>
+              <p className='text-neutral-20 text-base md:text-lg font-medium leading-relaxed'>
                 Bạn có thắc mắc, góp ý hay muốn hợp tác? Đội ngũ của chúng tôi luôn sẵn sàng hỗ trợ.
               </p>
             </motion.div>
@@ -46,7 +49,7 @@ export default function Contact({ onBack }: { onBack: () => void }) {
       </PageContainer>
 
       <footer className='py-10 text-center text-slate-400 text-sm font-medium border-t border-slate-50'>
-        © chudu4be - Luôn sẵn sàng hỗ trợ bạn
+        chudu4be - Luôn sẵn sàng hỗ trợ bạn
       </footer>
     </PageShell>
   )

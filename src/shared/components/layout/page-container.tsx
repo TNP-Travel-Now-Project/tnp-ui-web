@@ -8,6 +8,6 @@ interface PageContainerProps {
 
 export default function PageContainer({ children, className }: PageContainerProps) {
   return (
-    <div className={cn('container max-w-6xl mx-auto px-5 pt-12 pb-20', className)}>{children}</div>
+    <div className={cn('container max-w-6xl mx-auto', className)}>{children}</div>
   )
 }

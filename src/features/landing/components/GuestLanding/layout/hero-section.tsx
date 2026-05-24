@@ -1,6 +1,8 @@
 import { motion } from 'framer-motion'
 import { ArrowRight, CheckCircle2, Sparkles, Star, Users } from 'lucide-react'
+import Image from 'next/image'
 import { Badge, Button } from '@/shared/components/common'
+import PageContainer from '@/shared/components/layout/page-container'
 
 export default function HeroSection({ onLogin }: { onLogin: () => void }) {
   return (
@@ -8,12 +10,8 @@ export default function HeroSection({ onLogin }: { onLogin: () => void }) {
       id='home'
       className='relative pt-28 pb-20 md:pt-20 md:pb-32 overflow-hidden flex items-center min-h-[90vh]'
     >
-      <div className='absolute top-1/4 left-0 w-72 h-72 bg-blue-400/20 rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-blob'></div>
-      <div className='absolute top-1/3 right-1/4 w-96 h-96 bg-purple-400/20 rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-blob animation-delay-2000'></div>
-      <div className='absolute bottom-1/4 left-1/3 w-72 h-72 bg-emerald-400/20 rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-blob animation-delay-4000'></div>
-
-      <div className='container max-w-7xl mx-auto px-5 relative z-10'>
-        <div className='grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center'>
+      <PageContainer className='relative px-5 z-10'>
+        <div className='grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-14 items-center'>
           {/* Left Column: Content */}
           <div className='space-y-8 text-center lg:text-left order-1 lg:order-1'>
             <motion.div
@@ -24,7 +22,7 @@ export default function HeroSection({ onLogin }: { onLogin: () => void }) {
             >
               <Badge
                 variant='secondary'
-                className='px-4 h-[36px] items-center rounded-lg text-sm font-semibold flex gap-2 border-primary/20 bg-primary/5 text-primary shadow-sm hover:bg-primary/10 transition-colors'
+                className='px-4 h-9 items-center rounded-lg text-sm font-semibold flex gap-2 border-primary/20 bg-primary/5 text-primary shadow-sm hover:bg-primary/10 transition-colors'
               >
                 <Sparkles className='w-4 h-4' />
                 Công cụ đồng hành du lịch số #1 Việt Nam
@@ -35,10 +33,10 @@ export default function HeroSection({ onLogin }: { onLogin: () => void }) {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1 }}
-              className='text-4xl sm:text-5xl md:text-7xl lg:text-[74px] font-extrabold text-slate-900 tracking-tight leading-[1.1] lg:leading-[1.05]'
+              className='text-4xl sm:text-5xl md:text-7xl lg:text-[52px] font-extrabold text-neutral-10 tracking-tight leading-[1.1] lg:leading-[1.05]'
             >
               Mọi chuyến đi đều trở nên{' '}
-              <span className='text-transparent bg-clip-text bg-gradient-to-r from-primary to-violet-600'>
+              <span className='text-transparent bg-clip-text bg-linear-to-r from-primary to-violet-600'>
                 tuyệt vời hơn
               </span>{' '}
               khi đi cùng nhau.
@@ -48,7 +46,7 @@ export default function HeroSection({ onLogin }: { onLogin: () => void }) {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className='text-base md:text-xl text-slate-600 max-w-2xl mx-auto lg:mx-0 font-medium leading-relaxed'
+              className='text-base md:text-xl text-neutral-20 max-w-2xl mx-auto lg:mx-0 font-medium leading-relaxed'
             >
               Quản lý lịch trình, chia sẻ chi phí, và liên lạc không gián đoạn trong một nền tảng
               duy nhất. Tạm biệt những bảng tính rắc rối.
@@ -63,7 +61,7 @@ export default function HeroSection({ onLogin }: { onLogin: () => void }) {
               <Button
                 size='lg'
                 onClick={onLogin}
-                className='flex-1 sm:flex-none h-12 sm:h-14 px-4 sm:px-8 text-sm sm:text-base font-bold rounded-lg shadow-lg shadow-primary/30 hover:shadow-primary/50 transition-all group max-w-[200px]'
+                className='flex-1 sm:flex-none h-12 sm:h-14 px-4 sm:px-8 text-sm sm:text-base text-white font-bold rounded-lg shadow-lg shadow-primary/30 hover:shadow-primary/50 transition-all group max-w-45'
               >
                 Bắt đầu
                 <ArrowRight className='ml-1 sm:ml-2 w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform' />
@@ -71,7 +69,7 @@ export default function HeroSection({ onLogin }: { onLogin: () => void }) {
               <Button
                 size='lg'
                 variant='outline'
-                className='flex-1 sm:flex-none h-12 sm:h-14 px-4 sm:px-8 text-sm sm:text-base font-bold rounded-lg border-2 hover:bg-slate-50 transition-all max-w-[200px]'
+                className='flex-1 sm:flex-none h-12 sm:h-14 px-4 sm:px-8 text-sm sm:text-base font-bold rounded-lg border-2 hover:bg-slate-50 transition-all max-w-45'
                 onClick={() =>
                   document.getElementById('how-it-works')?.scrollIntoView({ behavior: 'smooth' })
                 }
@@ -117,21 +115,23 @@ export default function HeroSection({ onLogin }: { onLogin: () => void }) {
               transition={{ duration: 0.8, ease: 'easeOut' }}
               className='relative z-10'
             >
-              <div className='relative lg:w-[580px] rounded-2xl md:rounded-3xl p-2 md:p-3 bg-slate-900 shadow-2xl overflow-hidden ring-4 ring-slate-900/5'>
-                <div className='aspect-[4/3] rounded-xl md:rounded-2xl overflow-hidden bg-white shadow-inner relative'>
-                  <img
-                    src='https://www.asherfergusson.com/wp-content/uploads/2020/03/italy-landscape-1000x320.jpg'
+              <div className='relative lg:w-145 rounded-2xl md:rounded-3xl p-2 md:p-3 bg-slate-900 shadow-2xl overflow-hidden ring-4 ring-slate-900/5'>
+                <div className='aspect-4/3 rounded-xl md:rounded-2xl overflow-hidden bg-white shadow-inner relative'>
+                  <Image
+                    fill
+                    sizes='(max-width: 640px) 100vw,(max-width: 1024px) 50vw, 33vw'
+                    src=''
                     alt='App Interface'
-                    className='w-full lg:w-[556px] h-full object-cover opacity-95 transition-all duration-700 hover:scale-105'
+                    className='w-full lg:w-139 h-full object-cover opacity-95 transition-all duration-700 hover:scale-100'
                   />
                 </div>
               </div>
 
               {/* Floating Badges */}
               <motion.div
-                animate={{ y: [0, -10, 0] }}
-                // transition={{ repeat: Infinity, duration: 4, ease: 'easeInOut' }}
-                className='absolute -top-6 -right-6 md:-right-8 z-20 bg-white p-3 md:p-4 rounded-xl shadow-2xl flex items-center gap-3 border border-slate-100'
+                animate={{ y: [0, -15, 0] }}
+                transition={{ repeat: Infinity, duration: 4, ease: 'easeInOut', delay: 0.3 }}
+                className='absolute -top-6 -right-6 md:-right-20 z-20 bg-white p-3 md:p-4 rounded-xl shadow-2xl flex items-center gap-3 border border-slate-100'
               >
                 <div className='w-10 h-10 rounded-full bg-emerald-500 flex items-center justify-center text-white shadow-lg shadow-emerald-200'>
                   <CheckCircle2 size={20} />
@@ -144,7 +144,7 @@ export default function HeroSection({ onLogin }: { onLogin: () => void }) {
 
               <motion.div
                 animate={{ y: [0, 10, 0] }}
-                // transition={{ repeat: Infinity, duration: 5, ease: 'easeInOut', delay: 1 }}
+                transition={{ repeat: Infinity, duration: 5, ease: 'easeInOut', delay: 0.3 }}
                 className='absolute -bottom-6 -left-6 md:-left-8 z-20 bg-white p-3 md:p-4 rounded-xl shadow-2xl flex items-center gap-3 border border-slate-100'
               >
                 <div className='w-10 h-10 rounded-full bg-primary flex items-center justify-center text-white shadow-lg shadow-primary/20'>
@@ -157,11 +157,11 @@ export default function HeroSection({ onLogin }: { onLogin: () => void }) {
               </motion.div>
 
               {/* Decorative background element behind image */}
-              <div className='absolute -inset-4 bg-gradient-to-tr from-primary/20 to-violet-500/20 blur-2xl -z-10 rounded-[3rem]'></div>
+              <div className='absolute -inset-4 bg-linear-to-tr from-primary/20 to-violet-500/20 blur-2xl -z-10 rounded-[3rem]'></div>
             </motion.div>
           </div>
         </div>
-      </div>
+      </PageContainer>
     </section>
   )
 }
