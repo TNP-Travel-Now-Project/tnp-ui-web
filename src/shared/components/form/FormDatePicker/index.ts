@@ -1,1 +1,1 @@
-export { default as FormDatePicker } from './FormDatePicker'
+export { FormDatePicker } from './FormDatePicker'

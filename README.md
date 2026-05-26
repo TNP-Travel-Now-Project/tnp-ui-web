@@ -1,6 +1,6 @@
 # 🚀 Next.js Fullstack Frontend Setup (pnpm)
 
-A modern frontend boilerplate built with **Next.js App Router**, optimized for production with state management, data fetching, UI system, testing, and tooling.
+  A modern frontend boilerplate built with **Next.js App Router**, optimized for production with state management, data fetching, UI system, testing, and tooling.
 
 ---
 

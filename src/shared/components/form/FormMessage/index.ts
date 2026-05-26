@@ -1,1 +1,1 @@
-export { FormMessage } from './FormMessage'
+export { FormMessage as FormMessageLegacy } from './FormMessage'

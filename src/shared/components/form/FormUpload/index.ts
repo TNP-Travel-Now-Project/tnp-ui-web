@@ -1,1 +1,1 @@
-export { default as FormUpload } from './FormUpload'
+export { FormUpload } from './FormUpload'

@@ -1,29 +1,20 @@
-import { cn } from '@/shared/lib/utils/cn'
+'use client'
 
-/**
- * FormMessage Component
- * Displays form-level validation or error messages
- *
- * Features:
- * - Conditional rendering (null if empty)
- * - Error styling for form validation feedback
- * - Design-system consistent styling
- *
- * @example
- * <FormMessage>Email already exists</FormMessage>
- */
+import type * as React from 'react'
+import { cn } from '@/lib/utils'
 
-export interface FormMessageProps {
-  children?: React.ReactNode
-  className?: string
+interface FormMessageLegacyProps extends React.ComponentProps<'p'> {
+  message?: string
 }
 
-export function FormMessage({ children, className }: FormMessageProps) {
-  if (!children) return null
+export const FormMessage = ({ message, className, children, ...props }: FormMessageLegacyProps) => {
+  if (!message && !children) return null
 
   return (
-    <div className={cn('rounded-md bg-red-50 p-3 text-sm text-red-700', className)}>{children}</div>
+    <p className={cn('text-sm text-destructive', className)} {...props}>
+      {message || children}
+    </p>
   )
 }
 
-FormMessage.displayName = 'FormMessage'
+/* <FormMessageLegacy message='Vui lòng kiểm tra lại thông tin' /> */

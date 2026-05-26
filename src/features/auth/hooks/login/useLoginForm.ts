@@ -10,7 +10,7 @@ export function useLoginForm({ onSuccess }: LoginPageProps) {
   const [formError, setFormError] = useState<string | null>(null)
 
   const mutation = useLogin({ onSuccess })
-
+  
   const form = useForm<LoginFormData>({
     resolver: zodResolver(LoginSchema),
     mode: 'onBlur',
@@ -36,6 +36,6 @@ export function useLoginForm({ onSuccess }: LoginPageProps) {
     form,
     onSubmit,
     formError,
-    isLoading: mutation.isPending,
+    isPending: mutation.isPending,
   }
 }

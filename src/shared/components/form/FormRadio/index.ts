@@ -1,1 +1,1 @@
-export { default as FormRadio } from './FormRadio'
+export { FormRadio } from './FormRadio'

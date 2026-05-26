@@ -1,54 +1,79 @@
-import { Form, Input } from 'antd'
-import type React from 'react'
-import { type Control, Controller, type FieldError, type FieldValues } from 'react-hook-form'
+'use client'
 
-export interface FormPasswordProps {
-  name: string
-  control: Control<FieldValues>
+import { Eye, EyeOff } from 'lucide-react'
+import { useState } from 'react'
+import type { Control, FieldPath, FieldValues } from 'react-hook-form'
+
+import { Input } from '@/shared/components/common/Input'
+
+import {
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/shared/components/form/Form'
+
+interface FormPasswordProps<
+  TFieldValues extends FieldValues,
+  TName extends FieldPath<TFieldValues>,
+> {
+  control: Control<TFieldValues>
+  name: TName
   label?: React.ReactNode
-  required?: boolean
-  rules?: any
-  error?: FieldError | undefined
-  hint?: React.ReactNode
-  description?: React.ReactNode
-  inputProps?: React.ComponentProps<typeof Input.Password>
+  placeholder?: string
+  className?: string
+  inputClassName?: string
 }
 
-export const FormPassword: React.FC<FormPasswordProps> = ({
-  name,
+export const FormPassword = <
+  TFieldValues extends FieldValues,
+  TName extends FieldPath<TFieldValues>,
+>({
   control,
+  name,
   label,
-  required,
-  rules,
-  error,
-  hint,
-  description,
-  inputProps,
-}) => {
+  placeholder,
+  className,
+  inputClassName,
+}: FormPasswordProps<TFieldValues, TName>) => {
+  const [showPassword, setShowPassword] = useState(false)
+
   return (
-    <Form.Item
-      label={label}
-      required={required}
-      help={error ? error.message : hint}
-      validateStatus={error ? 'error' : undefined}
-      extra={description}
-      htmlFor={name}
-    >
-      <Controller
-        control={control}
-        name={name}
-        rules={rules}
-        render={({ field, fieldState }) => (
-          <Input.Password
-            {...field}
-            id={name}
-            status={fieldState.error ? 'error' : ''}
-            {...inputProps}
-          />
-        )}
-      />
-    </Form.Item>
+    <FormField
+      control={control}
+      name={name}
+      render={({ field }) => (
+        <FormItem className={className}>
+          {label && <FormLabel>{label}</FormLabel>}
+          <FormControl>
+            <Input
+              type={showPassword ? 'text' : 'password'}
+              placeholder={placeholder}
+              className={inputClassName}
+              rightIcon={
+                <button
+                  type='button'
+                  onClick={() => setShowPassword(!showPassword)}
+                  tabIndex={-1}
+                  className='text-muted-foreground hover:text-foreground'
+                >
+                  {showPassword ? <EyeOff className='h-4 w-4' /> : <Eye className='h-4 w-4' />}
+                </button>
+              }
+              {...field}
+            />
+          </FormControl>
+          <FormMessage />
+        </FormItem>
+      )}
+    />
   )
 }
 
-export default FormPassword
+/* <FormPassword
+  name='password'
+  control={form.control}
+  label='Mật khẩu'
+  placeholder='Nhập mật khẩu'
+/> */

@@ -1,69 +1,85 @@
-import { Form, Select } from 'antd'
-import type React from 'react'
-import {
-  type Control,
-  Controller,
-  type FieldError,
-  type FieldValues,
-  type Path,
-} from 'react-hook-form'
+'use client'
 
-export interface FormSelectProps<TFieldValues extends FieldValues = FieldValues> {
-  name: Path<TFieldValues>
-  control: Control<TFieldValues>
-  label?: React.ReactNode
-  required?: boolean
-  rules?: any
-  error?: FieldError | undefined
-  options: { label: React.ReactNode; value: any }[]
-  hint?: React.ReactNode
-  description?: React.ReactNode
-  selectProps?: React.ComponentProps<typeof Select>
+import type { Control, FieldPath, FieldValues } from 'react-hook-form'
+import {
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/shared/components/form/Form'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/shared/components/ui/form/select'
+
+interface SelectOption {
+  value: string
+  label: string
+  disabled?: boolean
 }
 
-export const FormSelect = <TFieldValues extends FieldValues = FieldValues>({
-  name,
+interface FormSelectProps<TFieldValues extends FieldValues, TName extends FieldPath<TFieldValues>> {
+  control: Control<TFieldValues>
+  name: TName
+  label?: React.ReactNode
+  placeholder?: string
+  options: SelectOption[]
+  className?: string
+  triggerClassName?: string
+}
+
+export const FormSelect = <
+  TFieldValues extends FieldValues,
+  TName extends FieldPath<TFieldValues>,
+>({
   control,
+  name,
   label,
-  required,
-  rules,
-  error,
+  placeholder,
   options,
-  hint,
-  description,
-  selectProps,
-}: FormSelectProps<TFieldValues>) => {
+  className,
+  triggerClassName,
+}: FormSelectProps<TFieldValues, TName>) => {
   return (
-    <Form.Item
-      label={label}
-      required={required}
-      help={error ? error.message : hint}
-      validateStatus={error ? 'error' : undefined}
-      extra={description}
-      htmlFor={name}
-    >
-      <Controller
-        control={control}
-        name={name}
-        rules={rules}
-        render={({ field, fieldState }) => (
-          <Select
-            {...field}
-            id={name}
-            status={fieldState.error ? 'error' : ''}
-            options={options}
-            {...selectProps}
-            onChange={(value, option) => {
-              field.onChange(value)
-              if (selectProps && selectProps.onChange) {
-                selectProps.onChange(value, option)
-              }
-            }}
-          />
-        )}
-      />
-    </Form.Item>
+    <FormField
+      control={control}
+      name={name}
+      render={({ field }) => (
+        <FormItem className={className}>
+          {label && <FormLabel>{label}</FormLabel>}
+          <FormControl>
+            <Select value={field.value} onValueChange={field.onChange}>
+              <SelectTrigger className={triggerClassName}>
+                <SelectValue placeholder={placeholder} />
+              </SelectTrigger>
+              <SelectContent>
+                {options.map((option) => (
+                  <SelectItem key={option.value} value={option.value} disabled={option.disabled}>
+                    {option.label}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </FormControl>
+          <FormMessage />
+        </FormItem>
+      )}
+    />
   )
 }
 
-export default FormSelect
+/* <FormSelect
+  name='city'
+  control={form.control}
+  label='Thành phố'
+  placeholder='Chọn thành phố'
+  options={[
+    { value: 'hanoi', label: 'Hà Nội' },
+    { value: 'hcm', label: 'Hồ Chí Minh' },
+    { value: 'danang', label: 'Đà Nẵng' },
+  ]}
+/> */

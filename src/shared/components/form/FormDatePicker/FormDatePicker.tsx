@@ -1,62 +1,60 @@
-import { DatePicker, Form } from 'antd'
-import type React from 'react'
-import {
-  type Control,
-  Controller,
-  type FieldError,
-  type FieldValues,
-  type Path,
-} from 'react-hook-form'
+'use client'
 
-export interface FormDatePickerProps<TFieldValues extends FieldValues = FieldValues> {
-  name: Path<TFieldValues>
+import type { Control, FieldPath, FieldValues } from 'react-hook-form'
+
+import { Input } from '@/shared/components/common/Input'
+
+import {
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/shared/components/form/Form'
+
+interface FormDatePickerProps<
+  TFieldValues extends FieldValues,
+  TName extends FieldPath<TFieldValues>,
+> {
   control: Control<TFieldValues>
+  name: TName
   label?: React.ReactNode
-  required?: boolean
-  rules?: any
-  error?: FieldError | undefined
-  hint?: React.ReactNode
-  description?: React.ReactNode
-  datePickerProps?: React.ComponentProps<typeof DatePicker>
+  placeholder?: string
+  className?: string
+  inputClassName?: string
 }
 
-export const FormDatePicker = <TFieldValues extends FieldValues = FieldValues>({
-  name,
+export const FormDatePicker = <
+  TFieldValues extends FieldValues,
+  TName extends FieldPath<TFieldValues>,
+>({
   control,
+  name,
   label,
-  required,
-  rules,
-  error,
-  hint,
-  description,
-  datePickerProps,
-}: FormDatePickerProps<TFieldValues>) => {
+  placeholder = 'dd/mm/yyyy',
+  className,
+  inputClassName,
+}: FormDatePickerProps<TFieldValues, TName>) => {
   return (
-    <Form.Item
-      label={label}
-      required={required}
-      help={error ? error.message : hint}
-      validateStatus={error ? 'error' : undefined}
-      extra={description}
-      htmlFor={name}
-    >
-      <Controller
-        control={control}
-        name={name}
-        rules={rules}
-        render={({ field }) => (
-          <DatePicker
-            {...field}
-            id={name}
-            value={field.value ?? null}
-            onChange={(date) => field.onChange(date)}
-            style={{ width: '100%' }}
-            {...datePickerProps}
-          />
-        )}
-      />
-    </Form.Item>
+    <FormField
+      control={control}
+      name={name}
+      render={({ field }) => (
+        <FormItem className={className}>
+          {label && <FormLabel>{label}</FormLabel>}
+          <FormControl>
+            <Input type='date' placeholder={placeholder} className={inputClassName} {...field} />
+          </FormControl>
+          <FormMessage />
+        </FormItem>
+      )}
+    />
   )
 }
 
-export default FormDatePicker
+/* <FormDatePicker
+  name='dob'
+  control={form.control}
+  label='Ngày sinh'
+  placeholder='dd/mm/yyyy'
+/> */

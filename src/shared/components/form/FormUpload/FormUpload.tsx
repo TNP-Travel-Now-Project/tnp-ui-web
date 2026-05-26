@@ -1,104 +1,86 @@
-import { CloseOutlined, DownloadOutlined, UploadOutlined } from '@ant-design/icons'
-import { Button, Form, Upload } from 'antd'
-import type { UploadFile, UploadProps } from 'antd/es/upload/interface'
-import type React from 'react'
-import { type Control, Controller, type FieldValues, type Path } from 'react-hook-form'
+'use client'
 
-const { Dragger } = Upload
+import { Upload, X } from 'lucide-react'
+import { useRef } from 'react'
+import type { Control, FieldPath, FieldValues } from 'react-hook-form'
+import { cn } from '@/lib/utils'
+import {
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/shared/components/form/Form'
 
-export interface FormUploadProps<TFieldValues extends FieldValues = FieldValues> {
-  name: Path<TFieldValues>
+interface FormUploadProps<TFieldValues extends FieldValues, TName extends FieldPath<TFieldValues>> {
   control: Control<TFieldValues>
+  name: TName
   label?: React.ReactNode
-  title?: React.ReactNode
-  hint?: React.ReactNode
-
-  uploadProps?: UploadProps
+  className?: string
+  accept?: string
+  multiple?: boolean
 }
 
-export default function FormUpload<TFieldValues extends FieldValues = FieldValues>({
-  name,
+export const FormUpload = <
+  TFieldValues extends FieldValues,
+  TName extends FieldPath<TFieldValues>,
+>({
   control,
+  name,
   label,
-  title,
-  hint,
-  uploadProps,
-}: FormUploadProps<TFieldValues>) {
+  className,
+  accept = 'image/*,.pdf',
+  multiple = false,
+}: FormUploadProps<TFieldValues, TName>) => {
+  const inputRef = useRef<HTMLInputElement>(null)
+
   return (
-    <Form.Item label={label}>
-      <Controller
-        name={name}
-        control={control}
-        defaultValue={[] as any}
-        render={({ field }) => {
-          const files: UploadFile[] = field.value || []
-
-          return (
-            <>
-              <Dragger
-                {...uploadProps}
-                multiple
-                showUploadList={false}
-                fileList={files}
-                onChange={(info) => field.onChange(info.fileList)}
-              >
-                <div className='py-8 text-center text-gray-500'>
-                  <UploadOutlined className='text-2xl mb-2' />
-                  <p>{title}</p>
-                  {hint && <p className='text-xs text-gray-400'>{hint}</p>}
-                </div>
-              </Dragger>
-
-              {files.length > 0 && (
-                <div className='mt-3 grid grid-cols-3 gap-3'>
-                  {files.map((file) => (
-                    <div
-                      key={file.uid}
-                      className='flex items-center justify-between !mt-3 !pl-3 border border-gray-300 rounded-md'
-                    >
-                      <span className='truncate text-sm flex-1'>{file.name}</span>
-
-                      <div className='flex gap-1'>
-                        {/* xử lý download file  */}
-                        <Button
-                          type='text'
-                          icon={<DownloadOutlined />}
-                          onClick={() => {
-                            const downloadUrl =
-                              file.url ||
-                              (file.originFileObj
-                                ? URL.createObjectURL(file.originFileObj as File)
-                                : null)
-
-                            if (downloadUrl) {
-                              const a = document.createElement('a')
-                              a.href = downloadUrl
-                              a.download = file.name || 'download'
-                              document.body.appendChild(a)
-                              a.click()
-                              document.body.removeChild(a)
-
-                              if (!file.url && file.originFileObj) {
-                                URL.revokeObjectURL(downloadUrl)
-                              }
-                            }
-                          }}
-                        />
-
-                        <Button
-                          type='text'
-                          icon={<CloseOutlined />}
-                          onClick={() => field.onChange(files.filter((f) => f.uid !== file.uid))}
-                        />
-                      </div>
-                    </div>
-                  ))}
-                </div>
+    <FormField
+      control={control}
+      name={name}
+      render={({ field: { value, onChange, ref, ...field } }) => (
+        <FormItem className={className}>
+          {label && <FormLabel>{label}</FormLabel>}
+          <FormControl>
+            <div
+              role='button'
+              tabIndex={0}
+              onClick={() => inputRef.current?.click()}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  inputRef.current?.click()
+                }
+              }}
+              className={cn(
+                'flex cursor-pointer flex-col items-center gap-2 rounded-2xl border-2 border-dashed border-muted-foreground/25 p-6 transition-colors hover:bg-muted/50',
               )}
-            </>
-          )
-        }}
-      />
-    </Form.Item>
+            >
+              <Upload className='h-6 w-6 text-muted-foreground' />
+              <span className='text-sm text-muted-foreground'>Click hoặc kéo thả file vào đây</span>
+              <input
+                ref={inputRef}
+                type='file'
+                accept={accept}
+                multiple={multiple}
+                className='hidden'
+                onChange={(e) => {
+                  const files = multiple ? e.target.files : e.target.files?.[0]
+                  onChange(files)
+                }}
+                {...field}
+              />
+            </div>
+          </FormControl>
+          <FormMessage />
+        </FormItem>
+      )}
+    />
   )
 }
+
+/* <FormUpload
+  name='avatar'
+  control={form.control}
+  label='Ảnh đại diện'
+  accept='image/*'
+/> */

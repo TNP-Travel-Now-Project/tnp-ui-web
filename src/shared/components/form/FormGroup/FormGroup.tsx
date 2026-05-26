@@ -1,33 +1,30 @@
-import type React from 'react'
+'use client'
 
-export interface FormGroupProps {
+import type * as React from 'react'
+import { cn } from '@/lib/utils'
+
+interface FormGroupProps extends React.ComponentProps<'fieldset'> {
   label?: React.ReactNode
   description?: React.ReactNode
-  children: React.ReactNode
-  className?: string
-  style?: React.CSSProperties
-  gutter?: number
 }
 
-/**
- * FormGroup - Wrapper section/group cho 1 nhóm trường form, layout theo dòng hoặc block
- * Có thể dùng cho từng block như info section, address section trong form lớn
- */
-export const FormGroup: React.FC<FormGroupProps> = ({
+export const FormGroup = ({
   label,
   description,
-  children,
   className,
-  style,
-  gutter = 16,
-}) => {
+  children,
+  ...props
+}: FormGroupProps) => {
   return (
-    <div className={className} style={{ marginBottom: gutter, ...style }}>
-      {label && <div style={{ fontWeight: 'bold', marginBottom: 4 }}>{label}</div>}
-      {description && <div style={{ color: '#888', marginBottom: 8 }}>{description}</div>}
-      <div>{children}</div>
-    </div>
+    <fieldset className={cn('space-y-4', className)} {...props}>
+      {label && <legend className='text-sm font-medium'>{label}</legend>}
+      {description && <p className='text-sm text-muted-foreground'>{description}</p>}
+      {children}
+    </fieldset>
   )
 }
 
-export default FormGroup
+/* <FormGroup label='Địa chỉ' description='Thông tin nơi ở hiện tại'>
+  <FormInput name='address' control={form.control} label='Địa chỉ' />
+  <FormSelect name='city' control={form.control} label='Thành phố' options={[]} />
+</FormGroup> */

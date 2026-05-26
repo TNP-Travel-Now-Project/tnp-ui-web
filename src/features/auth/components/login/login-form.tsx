@@ -1,22 +1,42 @@
 'use client'
 
+import { AirVent } from 'lucide-react'
+// import second from '@/shared/components/form/Form'
 import { useLoginForm } from '@/features/auth/hooks/login/useLoginForm'
 import type { LoginPageProps } from '@/features/auth/type'
-import { Button } from '@/shared/components/ui'
-import { Form, FormField, FormMessage } from '@/shared/components/form'
+import { Button } from '@/shared/components/common/Button'
+import { Input } from '@/shared/components/common/Input'
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/shared/components/form/Form'
 
 export default function LoginForm({ onSuccess }: LoginPageProps) {
-  const { form, onSubmit, formError, isLoading } = useLoginForm({ onSuccess })
+  const { form, onSubmit, formError, isPending } = useLoginForm({ onSuccess })
 
   return (
-    <Form form={form} onSubmit={onSubmit} className='space-y-5'>
-      {formError && <FormMessage>{formError}</FormMessage>}
+    <Form {...form} handleSubmit={() => onSubmit}>
+      <FormField
+        control={form.control}
+        name='email'
+        render={({ ...field }) => {
+          return (
+            <FormItem>
+              <FormLabel>Email</FormLabel>
+              <FormControl>
+                <Input placeholder='Enter email' {...field} required />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )
+        }}
+      />
 
-      <FormField name='email' label='Email' type='email' placeholder='you@example.com' required />
-
-      <FormField name='password' label='Password' type='password' placeholder='••••••••' required />
-
-      <Button type='submit' fullWidth isLoading={isLoading} loadingText='Signing in...'>
+      <Button type='submit' loading={isPending} loadingText='Signing in...' icon={<AirVent />}>
         Sign in
       </Button>
     </Form>

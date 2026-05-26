@@ -21,6 +21,9 @@
       "recommended": true,
       "style": {
         "noNonNullAssertion": "warn"
+      },
+      "a11y": {
+        "useValidAnchor": "error"
       }
     }
   },
@@ -42,7 +45,7 @@
   },
   "overrides": [
     {
-      "includes": ["src/shared/components/index.ts"],
+      "includes": ["src/app/globals.css"],
 
       "formatter": {
         "enabled": false

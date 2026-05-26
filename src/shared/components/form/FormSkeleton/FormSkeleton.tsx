@@ -1,47 +1,30 @@
-import { Card, Flex, Skeleton } from 'antd'
+'use client'
 
-interface FormCardSkeletonProps {
-  inputCount: number
+import type * as React from 'react'
+import { cn } from '@/lib/utils'
+import { Skeleton } from '@/shared/components/ui/feedback/skeleton'
+
+interface FormSkeletonProps extends React.ComponentProps<'div'> {
+  fields?: number
+  labelWidth?: string
 }
 
-export const FormSkeleton = ({ inputCount = 2 }: FormCardSkeletonProps) => {
+export const FormSkeleton = ({
+  fields = 3,
+  labelWidth = 'w-24',
+  className,
+  ...props
+}: FormSkeletonProps) => {
   return (
-    <Card
-      className='shadow-2xl rounded-2xl w-full max-w-md overflow-hidden'
-      style={{ width: 450, maxWidth: '90%' }}
-      styles={{ body: { padding: '3rem 2rem' } }}
-    >
-      <Flex vertical gap={24}>
-        <div className='text-center flex flex-col items-center gap-2'>
-          <Skeleton.Button active size='small' style={{ width: 120, height: 28 }} />
-          <Skeleton.Button active size='small' style={{ width: 200, height: 16, opacity: 0.6 }} />
+    <div className={cn('space-y-4', className)} {...props}>
+      {Array.from({ length: fields }).map((_, i) => (
+        <div key={i} className='space-y-2'>
+          <Skeleton className={cn('h-4', labelWidth)} />
+          <Skeleton className='h-9 w-full' />
         </div>
-
-        <Flex vertical gap={16} style={{ marginTop: '0.5rem' }}>
-          {Array.from({ length: inputCount }).map((_, index) => (
-            <Skeleton.Input
-              key={index}
-              active
-              block
-              size='large'
-              style={{ height: 50, borderRadius: 12 }}
-            />
-          ))}
-        </Flex>
-
-        <Skeleton.Button
-          active
-          block
-          size='large'
-          style={{ height: 50, borderRadius: 12, marginTop: '0.5rem' }}
-        />
-
-        <Flex vertical align='center' gap={16} style={{ marginTop: '0.5rem' }}>
-          <Skeleton.Input active size='small' style={{ width: 150, height: 20 }} />
-        </Flex>
-      </Flex>
-    </Card>
+      ))}
+    </div>
   )
 }
 
-export default FormSkeleton
+/* <FormSkeleton fields={4} labelWidth='w-32' /> */

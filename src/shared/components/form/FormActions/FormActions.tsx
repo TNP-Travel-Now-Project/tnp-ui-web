@@ -1,46 +1,30 @@
-import { Space } from 'antd'
-import type React from 'react'
-import Button from '@/shared/components/ui/card/Button'
+'use client'
 
-export interface FormActionsProps {
-  loading?: boolean
-  submitLabel?: React.ReactNode
-  showCancel?: boolean
-  cancelLabel?: React.ReactNode
-  onCancel?: () => void
-  children?: React.ReactNode
+import type * as React from 'react'
+import { cn } from '@/lib/utils'
+
+interface FormActionsProps extends React.ComponentProps<'div'> {
   align?: 'left' | 'center' | 'right'
 }
 
-export const FormActions: React.FC<FormActionsProps> = ({
-  loading = false,
-  submitLabel = 'Submit',
-  showCancel = false,
-  cancelLabel = 'Cancel',
-  onCancel,
-  children,
-  align = 'right',
-}) => {
-  let justifyContent: React.CSSProperties['justifyContent']
-  if (align === 'center') justifyContent = 'center'
-  else if (align === 'left') justifyContent = 'flex-start'
-  else justifyContent = 'flex-end'
-
+export const FormActions = ({ align = 'left', className, ...props }: FormActionsProps) => {
   return (
-    <div style={{ display: 'flex', justifyContent }}>
-      <Space>
-        {showCancel && (
-          <Button buttonType='cancel' onClick={onCancel} htmlType='button'>
-            {cancelLabel}
-          </Button>
-        )}
-        <Button buttonType='fill' htmlType='submit' loading={loading}>
-          {submitLabel}
-        </Button>
-        {children}
-      </Space>
-    </div>
+    <div
+      className={cn(
+        'flex items-center gap-2',
+        {
+          'justify-start': align === 'left',
+          'justify-center': align === 'center',
+          'justify-end': align === 'right',
+        },
+        className,
+      )}
+      {...props}
+    />
   )
 }
 
-export default FormActions
+/* <FormActions align='right'>
+  <Button variant='outline'>Huỷ</Button>
+  <Button type='submit'>Lưu</Button>
+</FormActions> */

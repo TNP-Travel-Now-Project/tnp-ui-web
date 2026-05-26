@@ -1,1 +1,1 @@
-export { default as FormActions } from './FormActions'
+export { FormActions } from './FormActions'

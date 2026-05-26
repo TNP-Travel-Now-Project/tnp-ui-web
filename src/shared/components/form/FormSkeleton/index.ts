@@ -1,1 +1,1 @@
-export { default as FormSkeleton } from './FormSkeleton'
+export { FormSkeleton } from './FormSkeleton'

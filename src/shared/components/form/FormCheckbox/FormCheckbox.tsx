@@ -1,50 +1,55 @@
-import { Checkbox, Form } from 'antd'
-import type React from 'react'
-import { type Control, Controller, type FieldError, type FieldValues } from 'react-hook-form'
+'use client'
 
-export interface FormCheckboxProps {
-  name: string
-  control: Control<FieldValues>
+import type { Control, FieldPath, FieldValues } from 'react-hook-form'
+import {
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/shared/components/form/Form'
+import { Checkbox } from '@/shared/components/ui/form/checkbox'
+
+interface FormCheckboxProps<
+  TFieldValues extends FieldValues,
+  TName extends FieldPath<TFieldValues>,
+> {
+  control: Control<TFieldValues>
+  name: TName
   label?: React.ReactNode
-  required?: boolean
-  rules?: any
-  error?: FieldError | undefined
-  hint?: React.ReactNode
-  description?: React.ReactNode
-  checkboxProps?: React.ComponentProps<typeof Checkbox>
+  className?: string
 }
 
-export const FormCheckbox: React.FC<FormCheckboxProps> = ({
-  name,
+export const FormCheckbox = <
+  TFieldValues extends FieldValues,
+  TName extends FieldPath<TFieldValues>,
+>({
   control,
+  name,
   label,
-  required,
-  rules,
-  error,
-  hint,
-  description,
-  checkboxProps,
-}) => {
+  className,
+}: FormCheckboxProps<TFieldValues, TName>) => {
   return (
-    <Form.Item
-      required={required}
-      help={error ? error.message : hint}
-      validateStatus={error ? 'error' : undefined}
-      extra={description}
-      htmlFor={name}
-    >
-      <Controller
-        name={name}
-        control={control}
-        rules={rules}
-        render={({ field }) => (
-          <Checkbox {...field} id={name} checked={!!field.value} {...checkboxProps}>
-            {label}
-          </Checkbox>
-        )}
-      />
-    </Form.Item>
+    <FormField
+      control={control}
+      name={name}
+      render={({ field }) => (
+        <FormItem className={className}>
+          <div className='flex items-center gap-2'>
+            <FormControl>
+              <Checkbox checked={field.value} onCheckedChange={field.onChange} />
+            </FormControl>
+            {label && <FormLabel className='mb-0!'>{label}</FormLabel>}
+          </div>
+          <FormMessage />
+        </FormItem>
+      )}
+    />
   )
 }
 
-export default FormCheckbox
+/* <FormCheckbox
+  name='agree'
+  control={form.control}
+  label='Tôi đồng ý với điều khoản'
+/> */

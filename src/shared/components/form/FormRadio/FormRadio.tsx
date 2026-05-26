@@ -1,71 +1,68 @@
-import { Form, Radio } from 'antd'
-import type React from 'react'
-import {
-  type Control,
-  Controller,
-  type FieldError,
-  type FieldValues,
-  type Path,
-} from 'react-hook-form'
+'use client'
 
-export interface FormRadioProps<TFieldValues extends FieldValues = FieldValues> {
-  name: Path<TFieldValues>
-  control: Control<TFieldValues>
-  label?: React.ReactNode
-  required?: boolean
-  rules?: any
-  error?: FieldError | undefined
-  options: { label: React.ReactNode; value: any }[]
-  hint?: React.ReactNode
-  description?: React.ReactNode
-  layout?: 'horizontal' | 'vertical'
-  radioGroupProps?: React.ComponentProps<typeof Radio.Group>
+import type { Control, FieldPath, FieldValues } from 'react-hook-form'
+import {
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/shared/components/form/Form'
+import { Label } from '@/shared/components/ui/form/label'
+import { RadioGroup, RadioGroupItem } from '@/shared/components/ui/form/radio-group'
+
+interface RadioOption {
+  value: string
+  label: string
+  disabled?: boolean
 }
 
-export const FormRadio = <TFieldValues extends FieldValues = FieldValues>({
-  name,
+interface FormRadioProps<TFieldValues extends FieldValues, TName extends FieldPath<TFieldValues>> {
+  control: Control<TFieldValues>
+  name: TName
+  label?: React.ReactNode
+  options: RadioOption[]
+  className?: string
+}
+
+export const FormRadio = <TFieldValues extends FieldValues, TName extends FieldPath<TFieldValues>>({
   control,
+  name,
   label,
-  required,
-  rules,
-  error,
   options,
-  hint,
-  description,
-  radioGroupProps,
-  layout = 'vertical',
-}: FormRadioProps<TFieldValues>) => {
+  className,
+}: FormRadioProps<TFieldValues, TName>) => {
   return (
-    <Form.Item
-      layout={layout}
-      label={label}
-      required={required}
-      help={error ? error.message : hint}
-      validateStatus={error ? 'error' : undefined}
-      extra={description}
-      htmlFor={name}
-    >
-      <Controller
-        control={control}
-        name={name}
-        rules={rules}
-        render={({ field }) => (
-          <Radio.Group
-            {...field}
-            id={name}
-            options={options}
-            {...radioGroupProps}
-            onChange={(e) => {
-              field.onChange(e.target.value)
-              if (radioGroupProps && radioGroupProps.onChange) {
-                radioGroupProps.onChange(e)
-              }
-            }}
-          />
-        )}
-      />
-    </Form.Item>
+    <FormField
+      control={control}
+      name={name}
+      render={({ field }) => (
+        <FormItem className={className}>
+          {label && <FormLabel>{label}</FormLabel>}
+          <FormControl>
+            <RadioGroup value={field.value} onValueChange={field.onChange}>
+              {options.map((option) => (
+                <Label key={option.value} className='flex items-center gap-2 font-normal'>
+                  <RadioGroupItem value={option.value} disabled={option.disabled} />
+                  {option.label}
+                </Label>
+              ))}
+            </RadioGroup>
+          </FormControl>
+          <FormMessage />
+        </FormItem>
+      )}
+    />
   )
 }
 
-export default FormRadio
+/* <FormRadio
+  name='gender'
+  control={form.control}
+  label='Giới tính'
+  options={[
+    { value: 'male', label: 'Nam' },
+    { value: 'female', label: 'Nữ' },
+    { value: 'other', label: 'Khác' },
+  ]}
+/> */
