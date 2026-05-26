@@ -8,7 +8,7 @@ import TestimonialsSection from '@/features/landing/components/GuestLanding/layo
 import TimeLineSection from '@/features/landing/components/GuestLanding/layout/timeline-section'
 import BackgroundEffects from '@/shared/components/effect/background-effect'
 import PageShell from '@/shared/components/layout/page-shell'
-import type { TestimonialItem } from '@/features/landing/types/landing.types'
+import type { TestimonialItem } from '@/features/landing/types/landing.type'
 
 interface GuestLandingProps {
   currentCustomer: TestimonialItem

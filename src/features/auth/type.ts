@@ -1,9 +1,9 @@
-export type LoginRequest = {
+export interface LoginRequest {
   email: string
   password: string
 }
 
-export type LoginResponse = {
+export interface LoginResponse {
   expired: string
   userId: string
   email: string
@@ -14,7 +14,7 @@ export type LoginPageProps = {
   onSuccess: () => void
 }
 
-export type RegisterRequest = {
+export interface RegisterRequest {
   firstName: string
   lastName: string
   userName: string
@@ -25,7 +25,7 @@ export type RegisterRequest = {
   dateOfBirth: string
 }
 
-export type RegisterResponse = {
+export interface RegisterResponse {
   userId: string
   fullName: string
   email: string

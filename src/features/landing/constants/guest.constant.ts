@@ -142,7 +142,7 @@ export const missionValues = [
   },
 ]
 
-export const testimonials_data = [
+export const testimonialsData = [
   {
     id: '01',
     name: 'Jack Kelly',
@@ -190,5 +190,69 @@ export const testimonials_data = [
       '"Đánh giá cực cao việc áp dụng hệ màu OKLCH vào dự án này. Độ tương phản chữ rất tốt trên nền xanh sáng green-bright, layout chuẩn chỉ và các nút bấm tương tác mượt mà."',
     website: '#sophia-web',
     hashtag: '#sophia-tag',
+  },
+]
+
+export const contactFormProps = {
+  labelClass: 'text-xs md:text-sm font-black text-slate-700 uppercase tracking-wider',
+  inputClass:
+    'w-full h-12 md:h-14 px-5 rounded-2xl bg-white border border-subtext-90 text-subtext-100 focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all outline-none font-medium text-sm md:text-base',
+  textareaClass:
+    'w-full px-5 py-4 rounded-2xl bg-white border border-subtext-2 text-subtext-100 border-slate-200 focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all outline-none font-medium resize-none text-sm md:text-base',
+}
+
+export const categoriesFooter = [
+  {
+    title: 'Công ty',
+    items: [
+      {
+        label: 'Về chúng tôi',
+        href: '#career',
+      },
+      {
+        label: 'Nghề nghiệp',
+        href: '#career',
+      },
+      {
+        label: 'Blog du lịch',
+        href: '#blog',
+      },
+    ],
+  },
+
+  {
+    title: 'Hỗ trợ',
+    items: [
+      {
+        label: 'Trung tâm',
+        href: '#center',
+      },
+      {
+        label: 'Liên hệ',
+        href: '#contact',
+      },
+      {
+        label: 'FAQ',
+        href: '#faq',
+      },
+    ],
+  },
+
+  {
+    title: 'Pháp lý',
+    items: [
+      {
+        label: 'Riêng tư',
+        href: '#privacy',
+      },
+      {
+        label: 'Điều khoản',
+        href: '#terms',
+      },
+      {
+        label: 'Cookies',
+        href: '#cookies',
+      },
+    ],
   },
 ]

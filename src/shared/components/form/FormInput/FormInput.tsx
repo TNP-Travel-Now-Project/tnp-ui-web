@@ -22,6 +22,7 @@ interface FormInputProps<TFieldValues extends FieldValues, TName extends FieldPa
   placeholder?: string
   type?: string
   className?: string
+  labelClassName?: string
   inputClassName?: string
 }
 
@@ -32,6 +33,7 @@ export const FormInput = <TFieldValues extends FieldValues, TName extends FieldP
   placeholder,
   type = 'text',
   className,
+  labelClassName,
   inputClassName,
 }: FormInputProps<TFieldValues, TName>) => {
   return (
@@ -40,7 +42,7 @@ export const FormInput = <TFieldValues extends FieldValues, TName extends FieldP
       name={name}
       render={({ field }) => (
         <FormItem className={className}>
-          {label && <FormLabel>{label}</FormLabel>}
+          {label && <FormLabel className={labelClassName}>{label}</FormLabel>}
 
           <FormControl>
             <Input type={type} placeholder={placeholder} className={inputClassName} {...field} />

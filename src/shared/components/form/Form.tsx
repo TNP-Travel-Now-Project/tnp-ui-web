@@ -121,7 +121,7 @@ const FormMessage = ({ className, children, ...props }: FormMessageProps) => {
     <p
       data-slot='form-message'
       id={formMessageId}
-      className={cn('text-sm text-destructive', className)}
+      className={cn('text-sm text-error-active font-bold', className)}
       {...props}
     >
       {body}

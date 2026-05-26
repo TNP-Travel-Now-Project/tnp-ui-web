@@ -12,22 +12,23 @@ import { getCSRFToken } from '@/lib/csrf'
  * - Base URL từ env (qua config)
  *
  * Cách dùng:
- *   import api from '@/lib/api-client'
- *   import type { ApiResponse } from '@/shared/types'
+ *   import axiosClient from '@/lib/axiosClient-client'
+ *   import type { axiosClientResponse } from '@/shared/types'
  *
  *   // GET
- *   const { data } = await api.get<ApiResponse<User>>('/users/1')
+ *   const { data } = await axiosClient.get<ApiResponse<User>>('/users/1')
  *
  *   // POST
- *   const { data } = await api.post<ApiResponse<User>>('/users', payload)
+ *   const { data } = await axiosClient.post<ApiResponse<User>>('/users', payload)
  *
  *   // Error handling
  *   try { ... }
  *   catch (e) { throw ApiError.fromAxiosError(e) }
  */
 
-const api = axios.create({
+export const axiosClient = axios.create({
   baseURL: config.apiBaseUrl,
+  timeout: 10000,
   withCredentials: true,
   headers: {
     'Content-Type': 'application/json',
@@ -36,7 +37,7 @@ const api = axios.create({
 
 // ====================== Request Interceptor ======================
 
-api.interceptors.request.use((reqConfig) => {
+axiosClient.interceptors.request.use((reqConfig) => {
   const csrf = getCSRFToken()
 
   if (csrf) {
@@ -48,12 +49,10 @@ api.interceptors.request.use((reqConfig) => {
 
 // ====================== Response Interceptor ======================
 
-api.interceptors.response.use(
+axiosClient.interceptors.response.use(
   (response) => response,
   (error) => {
     // Parse lỗi Axios thành ApiError để component dễ xử lý
     return Promise.reject(ApiError.fromAxiosError(error))
   },
 )
-
-export default api

@@ -4,7 +4,7 @@ import PageContainer from '@/shared/components/layout/page-container'
 
 export default function MissionSection() {
   return (
-    <section className='bg-neutral-0 px-8 md:px-16 mb-24'>
+    <section className='bg-neutral-0 px-8 md:px-16 pb-20'>
       <PageContainer>
         <div className='grid grid-cols-1 md:grid-cols-3 gap-10'>
           {missionValues.map((item, idx) => {

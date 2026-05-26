@@ -2,8 +2,8 @@ import { motion } from 'framer-motion'
 import { ArrowLeft } from 'lucide-react'
 import PageContainer from '@/shared/components/layout/page-container'
 import PageShell from '@/shared/components/layout/page-shell'
-import FormColumns from './layout/form-columns'
-import InfoColumns from './layout/info-columns'
+import FormColumns from './layout/contact-form'
+import InfoColumns from './layout/contact-info'
 import { BackgroundEffects } from '@/shared/components/effect'
 
 export default function Contact({ onBack }: { onBack: () => void }) {
@@ -30,7 +30,7 @@ export default function Contact({ onBack }: { onBack: () => void }) {
               className='text-center md:text-left max-w-2xl'
             >
               <h1 className='text-neutral-2 text-3xl md:text-4xl lg:text-5xl font-black leading-tight mb-6'>
-                Hãy kết nối với <span className='text-primary'>chudu4be</span>
+                Hãy kết nối với <span className='text-primary'>chudu4BE</span>
               </h1>
               <p className='text-neutral-20 text-base md:text-lg font-medium leading-relaxed'>
                 Bạn có thắc mắc, góp ý hay muốn hợp tác? Đội ngũ của chúng tôi luôn sẵn sàng hỗ trợ.
@@ -48,7 +48,7 @@ export default function Contact({ onBack }: { onBack: () => void }) {
         </div>
       </PageContainer>
 
-      <footer className='py-10 text-center text-slate-400 text-sm font-medium border-t border-slate-50'>
+      <footer className='py-10 text-center text-ghost-white text-sm font-bold border-t border-subtext-2'>
         chudu4be - Luôn sẵn sàng hỗ trợ bạn
       </footer>
     </PageShell>

@@ -12,7 +12,7 @@ export const ContactSchema = z.object({
 
   description: z
     .string()
-    .min(10, { message: 'Name must be at latest 2 characters long!' })
+    .min(10, { message: 'Name must be at latest 10 characters long!' })
     .max(250, { message: 'Name must be at most 250 characters long!' }),
 })
 

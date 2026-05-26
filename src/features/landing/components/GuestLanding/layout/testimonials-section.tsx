@@ -3,7 +3,7 @@ import { ChevronLeft, ChevronRight, Globe, Hash, Star } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { Button } from '@/shared/components/common'
-import type { TestimonialItem } from '@/features/landing/types/landing.types'
+import type { TestimonialItem } from '@/features/landing/types/landing.type'
 
 interface TestimonialProps {
   currentCustomer: TestimonialItem

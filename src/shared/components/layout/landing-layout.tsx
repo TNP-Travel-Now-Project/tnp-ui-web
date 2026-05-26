@@ -15,6 +15,7 @@ export default function LandingLayout({ children }: { children?: React.ReactNode
     isHiddenLogo,
     isAuthModalOpen,
     authInitialTab,
+    currentPage,
     setIsAuthModalOpen,
     setAuthInitialTab,
     handleSidebarNavigate,
@@ -43,7 +44,7 @@ export default function LandingLayout({ children }: { children?: React.ReactNode
           onClose={closeSidebar}
           onToggleCollapse={toggleSidebarCollapsed}
           isLoggedIn={false}
-          currentPage='landing'
+          currentPage={currentPage}
           onNavigateItem={handleSidebarNavigate}
           onBrandClick={navigate.home}
         />

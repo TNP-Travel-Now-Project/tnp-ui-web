@@ -1,11 +1,13 @@
 'use client'
 
-import { useRouter } from 'next/navigation'
+import {usePathname, useRouter } from 'next/navigation'
 import { useCallback, useEffect, useState } from 'react'
 import { useAuth } from '@/shared/components/providers'
 
 export function useLandingLayoutController() {
   const router = useRouter()
+  const pathName = usePathname()
+
   const { isAuthenticated, isLoading } = useAuth()
 
   // Mobile drawer visibility
@@ -18,6 +20,7 @@ export function useLandingLayoutController() {
 
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false)
   const [authInitialTab, setAuthInitialTab] = useState<'login' | 'register'>('login')
+
 
   useEffect(() => {
     if (!isLoading && isAuthenticated) {
@@ -53,6 +56,14 @@ export function useLandingLayoutController() {
     setIsHiddenLogo((prev) => !prev)
   }, [])
 
+  const currentPageMap: Record<string, string> = {
+    '/': 'landing',
+    '/about': 'about',
+    '/contact': 'contact'
+  }
+
+  const currentPage = currentPageMap[pathName] || '/'
+
   const goHome = useCallback(() => router.push('/'), [router])
   const goAbout = useCallback(() => router.push('/about'), [router])
   const goLogin = useCallback(() => router.push('/login'), [router])
@@ -68,6 +79,7 @@ export function useLandingLayoutController() {
     isHiddenLogo,
     isAuthModalOpen,
     authInitialTab,
+    currentPage,
     setIsAuthModalOpen,
     setAuthInitialTab,
     handleSidebarNavigate,

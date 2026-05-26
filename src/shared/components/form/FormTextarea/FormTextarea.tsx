@@ -19,6 +19,7 @@ interface FormTextareaProps<
   label?: React.ReactNode
   placeholder?: string
   className?: string
+  labelClassName?: string
   textareaClassName?: string
   rows?: number
 }
@@ -32,6 +33,7 @@ export const FormTextarea = <
   label,
   placeholder,
   className,
+  labelClassName,
   textareaClassName,
   rows,
 }: FormTextareaProps<TFieldValues, TName>) => {
@@ -41,7 +43,7 @@ export const FormTextarea = <
       name={name}
       render={({ field }) => (
         <FormItem className={className}>
-          {label && <FormLabel>{label}</FormLabel>}
+          {label && <FormLabel className={labelClassName}>{label}</FormLabel>}
           <FormControl>
             <Textarea
               placeholder={placeholder}

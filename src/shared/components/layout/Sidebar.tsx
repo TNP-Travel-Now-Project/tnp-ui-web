@@ -7,12 +7,12 @@ import { guestGeneralNavItems, guestLandingNavItems, loggedInNavItems } from '@/
 interface SidebarProps {
   isOpen: boolean
   isCollapsed?: boolean
+  isLoggedIn?: boolean
+  currentPage?: string
   onClose: () => void
   onToggleCollapse?: () => void
   onProfileClick?: () => void
   onSettingsClick?: () => void
-  isLoggedIn?: boolean
-  currentPage?: 'landing' | 'about' | 'contact'
   onNavigateItem?: (id: string) => void
   onBrandClick?: () => void
 }
@@ -35,7 +35,9 @@ export default function Sidebar({
     ? loggedInNavItems
     : currentPage === 'landing'
       ? guestLandingNavItems
-      : guestGeneralNavItems
+      : currentPage === 'about' || currentPage === 'contact'
+        ? guestGeneralNavItems
+        : []
 
   return (
     <>
@@ -53,9 +55,8 @@ export default function Sidebar({
       </AnimatePresence>
 
       <aside
-        className={`h-screen border-r border-[#d6d0cc]/50 lg:sticky lg:top-0 fixed left-0 top-0 bg-white shadow-[2px_0_12px_-4px_rgba(0,0,0,0.05)] flex flex-col p-4 z-50 transition-all duration-300 transform lg:translate-x-0 w-72 ${
-          isOpen ? 'translate-x-0' : '-translate-x-full'
-        } ${isCollapsed ? 'lg:w-20' : ''}`}
+        className={`h-screen border-r border-[#d6d0cc]/50 lg:sticky lg:top-0 fixed left-0 top-0 bg-white shadow-[2px_0_12px_-4px_rgba(0,0,0,0.05)] flex flex-col p-4 z-50 transition-all duration-300 transform lg:translate-x-0 w-64 ${isOpen ? 'translate-x-0' : '-translate-x-full'
+          } ${isCollapsed ? 'lg:w-20' : ''}`}
       >
         <div
           className={`mb-10 mt-2 flex items-center gap-2 ${isExpanded ? 'justify-between px-2' : 'justify-center transition-all'}`}
@@ -139,13 +140,11 @@ export default function Sidebar({
               key={item.id}
               onClick={() => (isLoggedIn ? null : onNavigateItem?.(item.id))}
               whileTap={{ scale: 0.98 }}
-              className={`w-full flex items-center rounded-xl transition-all duration-300 text-left ${
-                isExpanded ? 'px-4 py-3 gap-4' : 'px-0 py-3 justify-center'
-              } ${
-                (isLoggedIn && (item as any).active) || (!isLoggedIn && currentPage === item.id)
-                  ? 'text-primary bg-primary/5 font-bold shadow-sm'
+              className={`w-full flex items-center rounded-xl transition-all duration-300 text-left ${isExpanded ? 'px-4 py-3 gap-4' : 'px-0 py-3 justify-center'
+                } ${(isLoggedIn && (item as any).active) || (!isLoggedIn && currentPage === item.id)
+                  ? 'text-primary bg-leaf font-bold shadow-sm'
                   : 'text-slate-600 hover:text-primary hover:bg-slate-50'
-              }`}
+                }`}
             >
               <item.icon
                 size={22}

@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation'
 import { useEffect, useCallback } from 'react'
 import { useAuth } from '@/shared/components/providers'
 import { useState } from 'react'
-import { testimonials_data } from '@/features/landing/constants/guest.constant'
+import { testimonialsData } from '@/features/landing/constants/guest.constant'
 
 export function useGuestLanding() {
   const router = useRouter()
@@ -17,8 +17,8 @@ export function useGuestLanding() {
   }, [isAuthenticated, isLoading, router])
 
   const [currentIndex, setCurrentIndex] = useState(0)
-  const currentCustomer = testimonials_data[currentIndex]
-  const totalCustomers = testimonials_data.length
+  const currentCustomer = testimonialsData[currentIndex]
+  const totalCustomers = testimonialsData.length
 
   const handleNext = () => {
     setCurrentIndex((prevIndex) => (prevIndex + 1) % totalCustomers)

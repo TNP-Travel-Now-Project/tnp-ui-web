@@ -20,8 +20,8 @@ export default function AboutUs({ onBack, onContactClick }: AboutUsProps) {
       <MissionSection />
       <ContactSection onContactClick={onContactClick} />
 
-      <footer className='py-10 text-center border-t bg-neutral-0  text-neutral-70 text-sm font-medium'>
-        chudu4be - Nguyễn Thành Tuấn
+      <footer className='py-10 text-center border-t bg-neutral-0 text-neutral-70 font-bold text-sm'>
+        chudu4be - Thông tin về chúng tôi 
       </footer>
     </PageShell>
   )
