@@ -6,22 +6,21 @@ import HeroSection from '@/features/landing/components/GuestLanding/layout/hero-
 import PopularSection from '@/features/landing/components/GuestLanding/layout/popular-section'
 import TestimonialsSection from '@/features/landing/components/GuestLanding/layout/testimonials-section'
 import TimeLineSection from '@/features/landing/components/GuestLanding/layout/timeline-section'
+import type { TestimonialItem } from '@/features/landing/types/landing.type'
 import BackgroundEffects from '@/shared/components/effect/background-effect'
 import PageShell from '@/shared/components/layout/page-shell'
-import type { TestimonialItem } from '@/features/landing/types/landing.type'
+import { useLandingAuthModal } from '@/shared/components/layout/landing-layout'
 
 interface GuestLandingProps {
   currentCustomer: TestimonialItem
   totalCustomers: number
 
-  onLogin: () => void
   onNavigateAbout: () => void
   handleNext: () => void
   handlePrev: () => void
 }
 
 export default function GuestLanding({
-  onLogin,
   onNavigateAbout,
   currentCustomer,
   totalCustomers,
@@ -29,12 +28,12 @@ export default function GuestLanding({
   handlePrev,
 }: GuestLandingProps) {
   const [activePlace, setActivePlace] = useState<number | null>(null)
-
+  const { openLogin } = useLandingAuthModal()
   return (
     <PageShell>
       <BackgroundEffects variant='travel' />
 
-      <HeroSection onLogin={onLogin} />
+      <HeroSection onLogin={openLogin} />
       <PopularSection setActivePlace={setActivePlace} activePlace={activePlace} />
       <TimeLineSection />
       <TestimonialsSection
@@ -44,7 +43,7 @@ export default function GuestLanding({
         handlePrev={handlePrev}
       />
       <FAndQSection />
-      <CTASection onLogin={onLogin} />
+      <CTASection onLogin={openLogin} />
       <FooterSection onNavigateAbout={onNavigateAbout} />
     </PageShell>
   )

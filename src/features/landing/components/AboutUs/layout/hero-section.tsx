@@ -1,6 +1,6 @@
-import PageContainer from '@/shared/components/layout/page-container'
 import { motion } from 'framer-motion'
 import { ArrowLeft, Sparkles } from 'lucide-react'
+import PageContainer from '@/shared/components/layout/page-container'
 
 export default function HeroSection({ onBack }: { onBack: () => void }) {
   return (

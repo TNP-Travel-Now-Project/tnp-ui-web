@@ -1,7 +1,7 @@
 import { Heart, Plane, Users } from 'lucide-react'
 import Image from 'next/image'
-import PageContainer from '@/shared/components/layout/page-container'
 import { categoriesFooter } from '@/features/landing/constants/guest.constant'
+import PageContainer from '@/shared/components/layout/page-container'
 
 export default function FooterSection({ onNavigateAbout }: { onNavigateAbout: () => void }) {
   return (
@@ -61,10 +61,7 @@ export default function FooterSection({ onNavigateAbout }: { onNavigateAbout: ()
                 <ul className='space-y-4 text-neutral-60 font-medium text-xs sm:text-sm'>
                   {category.items.map((item) => (
                     <li key={item.label}>
-                      <a
-                        href={item.href}
-                        className='hover:text-primary transition-colors'
-                      >
+                      <a href={item.href} className='hover:text-primary transition-colors'>
                         {item.label}
                       </a>
                     </li>
@@ -89,7 +86,6 @@ export default function FooterSection({ onNavigateAbout }: { onNavigateAbout: ()
             </div>
           </div>
         </div>
-
       </PageContainer>
     </footer>
   )

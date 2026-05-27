@@ -55,7 +55,7 @@ const Input = ({
           className={cn(
             leftIcon && 'pl-10',
             hasRightContent && 'pr-10',
-            (error || errorMessage) && 'border-destructive focus-visible:ring-destructive',
+            // (error || errorMessage) && 'border-destructive focus-visible:ring-destructive',
             className,
           )}
           disabled={loading || disabled}

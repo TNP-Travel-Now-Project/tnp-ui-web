@@ -196,14 +196,14 @@ export const testimonialsData = [
 export const contactFormProps = {
   labelClass: 'text-xs md:text-sm font-black text-slate-700 uppercase tracking-wider',
   inputClass:
-    'w-full h-12 md:h-14 px-5 rounded-2xl bg-white border border-subtext-90 text-subtext-100 focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all outline-none font-medium text-sm md:text-base',
+    'w-full h-12 md:h-14 px-5 rounded-2xl bg-white border text-subtext-100 focus:border-primary focus:ring-4 focus:ring-primary/10 aria-invalid:border-error transition-all outline-none font-medium text-sm md:text-base',
   textareaClass:
-    'w-full px-5 py-4 rounded-2xl bg-white border border-subtext-2 text-subtext-100 border-slate-200 focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all outline-none font-medium resize-none text-sm md:text-base',
+    'w-full px-5 py-4 rounded-2xl bg-white border text-subtext-100 focus:border-primary focus:ring-4 focus:ring-primary/10 aria-invalid:border-error transition-all outline-none font-medium resize-none text-sm md:text-base',
 }
 
 export const categoriesFooter = [
   {
-    title: 'Công ty',
+    title: 'Công ty', 
     items: [
       {
         label: 'Về chúng tôi',

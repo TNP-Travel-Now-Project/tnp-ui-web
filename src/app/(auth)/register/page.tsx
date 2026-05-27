@@ -1,9 +1,17 @@
 'use client'
 
 import { useRouter } from 'next/navigation'
-import RegisterForm from '@/features/auth/components/register/register-form'
+import AuthModal from '@/features/auth/components/AuthModal/AuthModal'
 
 export default function RegisterPage() {
-  const route = useRouter()
-  return <RegisterForm onSuccess={() => route.push('/order')} />
+  const router = useRouter()
+
+  return (
+    <AuthModal
+      isOpen={true}
+      onClose={() => router.push('/')}
+      onSuccess={() => router.push('/order')}
+      initialTab='register'
+    />
+  )
 }
