@@ -31,6 +31,7 @@ export default function LandingLayout({ children }: { children?: React.ReactNode
     isAuthModalOpen,
     authInitialTab,
     currentPage,
+    setAuthInitialTab,
     setIsAuthModalOpen,
     handleSidebarNavigate,
     closeSidebar,
@@ -81,7 +82,8 @@ export default function LandingLayout({ children }: { children?: React.ReactNode
         isOpen={isAuthModalOpen}
         onClose={() => setIsAuthModalOpen(false)}
         onSuccess={navigate.refresh}
-        initialTab={authInitialTab}
+        activeTab={authInitialTab}
+        onTabChange={setAuthInitialTab}
       />
     </AuthModalContext.Provider>
   )

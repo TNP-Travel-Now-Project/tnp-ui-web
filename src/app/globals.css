@@ -200,7 +200,7 @@
   --color-mint: var(--mint);
 
   /* Pale Teal & Leaf Utilities */
-  --color-pale-teal: var(--pale-teal-default);
+  --color-mint: var(--pale-teal-default);
   --color-pale-teal-80: var(--pale-teal-80);
   --color-pale-teal-60: var(--pale-teal-60);
   --color-pale-teal-40: var(--pale-teal-40);

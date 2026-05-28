@@ -80,7 +80,7 @@ export function useLandingLayoutController() {
     isHiddenLogo,
     isAuthModalOpen,
     authInitialTab,
-    currentPage,
+    currentPage,  
     setIsAuthModalOpen,
     setAuthInitialTab,
     handleSidebarNavigate,

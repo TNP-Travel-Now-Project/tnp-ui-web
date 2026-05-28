@@ -18,7 +18,7 @@ export default function FormColumns() {
         <Form {...form}>
           <div className='space-y-2'>
             <FormInput
-              name='name'
+              name='email'
               type='text'
               control={form.control}
               label='họ và tên'

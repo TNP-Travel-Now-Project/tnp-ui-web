@@ -15,14 +15,14 @@ export type LoginPageProps = {
 }
 
 export interface RegisterRequest {
-  firstName: string
-  lastName: string
-  userName: string
+  firstName?: string | null
+  lastName?: string | null
+  username: string
   email: string
   password: string
   confirmPassword: string
-  phoneNumber: string
-  dateOfBirth: string
+  phoneNumber?: string | null
+  dateOfBirth?: string | null
 }
 
 export interface RegisterResponse {

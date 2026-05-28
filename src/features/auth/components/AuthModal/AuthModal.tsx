@@ -1,5 +1,4 @@
 import { X } from 'lucide-react'
-import { useState } from 'react'
 import LoginForm from '@/features/auth/components/login/login-form'
 import RegisterForm from '@/features/auth/components/register/register-form'
 import { Button } from '@/shared/components/common'
@@ -16,24 +15,17 @@ interface AuthModalProps {
   isOpen: boolean
   onClose: () => void
   onSuccess: () => void
-  initialTab?: 'login' | 'register'
+  activeTab: 'login' | 'register'
+  onTabChange: (tab: 'login' | 'register') => void
 }
 
 export default function AuthModal({
   isOpen,
   onClose,
   onSuccess,
-  initialTab = 'login',
+  activeTab,
+  onTabChange
 }: AuthModalProps) {
-  const [activeTab, setActiveTab] = useState<'login' | 'register'>(initialTab)
-
-  const handleSuccess = () => {
-    onClose()
-    setTimeout(() => {
-      onSuccess()
-    }, 100)
-  }
-
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className='w-[calc(100%-32px)] gap-0 sm:max-w-110 p-0 overflow-hidden rounded-3xl sm:rounded-8 border-none shadow-2xl [&>Button]:hidden bg-neutral-0 max-h-[90vh] overflow-y-auto [&::-webkit-scrollbar]:hidden [scrollbar-width:none]'>
@@ -55,12 +47,14 @@ export default function AuthModal({
           >
             <X className='w-4 h-4 sm:w-5 sm:h-5' strokeWidth={2.5} />
           </Button>
+
+          <div className='absolute bottom-0 left-0 right-0 h-12 bg-linear-to-b from-transparent via-white/70 to-white pointer-events-none' />
         </div>
 
-        <div className=' bg-steel-blue-10 px-5 sm:px-8 pb-6 sm:pb-10'>
+        <div className='px-5 sm:px-8 pb-6 sm:pb-10'>
           <Tabs
             value={activeTab}
-            onValueChange={(v) => setActiveTab(v as 'login' | 'register')}
+            onValueChange={(v) => onTabChange(v as 'login' | 'register')}
             className='w-full flex flex-col'
           >
             <TabsList className='grid w-full grid-cols-2 p-1.5 bg-auth-layout rounded-[20px] sm:rounded-6 h-12 sm:h-16 mb-5 mt-5 sm:mb-6 border-none shrink-0'>
@@ -82,20 +76,14 @@ export default function AuthModal({
               value='login'
               className='outline-none focus-visible:ring-0 w-full mt-0'
             >
-              <LoginForm
-                onSuccess={handleSuccess}
-                onSwitchToRegister={() => setActiveTab('register')}
-              />
+              <LoginForm />
             </TabsContent>
 
             <TabsContent
               value='register'
               className='outline-none focus-visible:ring-0 w-full mt-0'
             >
-              <RegisterForm
-                onSuccess={handleSuccess}
-                onSwitchToLogin={() => setActiveTab('login')}
-              />
+              <RegisterForm />
             </TabsContent>
           </Tabs>
         </div>

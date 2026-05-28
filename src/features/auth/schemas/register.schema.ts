@@ -3,56 +3,57 @@ import type { RegisterRequest } from '@/features/auth/type'
 
 export const RegisterSchema = z
   .object({
-    firstName: z
+    // firstName: z
+    //   .string()
+    //   .max(50, { message: 'Tên không được vượt quá 50 ký tự' })
+    //   .nonempty({ message: 'Vui lòng nhập tên' }),
+
+    // lastName: z
+    //   .string()
+    //   .max(50, { message: 'Họ không được vượt quá 50 ký tự' })
+    //   .nonempty({ message: 'Vui lòng nhập họ' }),
+
+    username: z
       .string()
-      .max(50, { message: 'First name must be not longer than 50 characters' })
-      .nonempty({ message: 'First name is required' }),
+      .max(256, { message: 'Tên người dùng không được vượt quá 256 ký tự' })
+      .nonempty({ message: 'Vui lòng nhập tên người dùng' }),
 
-    lastName: z
-      .string()
-      .max(50, { message: 'Last name must be not longer than 50 characters' })
-      .nonempty({ message: 'Last name is required' }),
+    email: z.email({ message: 'Địa chỉ email không hợp lệ' }),
 
-    userName: z
-      .string()
-      .max(256, { message: 'User name must be not longer than 256 characters' })
-      .nonempty({ message: 'User name is required' }),
+    // phoneNumber: z
+    //   .string()
+    //   .nonempty({ message: 'Vui lòng nhập số điện thoại' })
+    //   .regex(/^\d{10}$/, { message: 'Số điện thoại phải gồm 10 chữ số' }),
 
-    email: z.email({ message: 'Invalid email address' }),
-
-    phoneNumber: z
-      .string()
-      .nonempty({ message: 'Phone number is required' })
-      .regex(/^\d{10}$/, { message: 'Phone number must be 10 digits' }),
-
-    dateOfBirth: z.string().nonempty({ message: 'Date of birth is required' }),
+    // dateOfBirth: z.string().nonempty({
+    //   message: 'Vui lòng nhập ngày sinh',
+    // }),
 
     password: z
       .string()
-      .min(8, { message: 'Password must be at least 8 characters long' })
-      .max(20, { message: 'Password must be at most 20 characters long' })
-      .regex(/[A-Z]/, { message: 'Password must contain at least one uppercase letter' })
-      .regex(/[a-z]/, { message: 'Password must contain at least one lowercase letter' })
-      .regex(/[0-9]/, { message: 'Password must contain at least one number' })
-      .regex(/[~!@#$%^&*()_+=?]/, {
-        message: 'Password must contain at least one special character',
-      }),
+      .min(8, { message: 'Mật khẩu phải có ít nhất 8 ký tự' })
+      .max(20, { message: 'Mật khẩu không được vượt quá 20 ký tự' })
+      .regex(/[A-Z]/, { message: 'Mật khẩu phải chứa ít nhất 1 chữ in hoa' })
+      .regex(/[a-z]/, { message: 'Mật khẩu phải chứa ít nhất 1 chữ thường' })
+      .regex(/[0-9]/, { message: 'Mật khẩu phải chứa ít nhất 1 chữ số' })
+      .regex(/[~!@#$%^&*()_+=?]/, { message: 'Mật khẩu phải chứa ít nhất 1 ký tự đặc biệt' }),
 
-    confirmPassword: z.string().nonempty({ message: 'Confirm password is required' }),
+    confirmPassword: z.string().nonempty({ message: 'Vui lòng xác nhận mật khẩu' }),
   })
   .refine((data) => data.password === data.confirmPassword, {
-    message: 'Passwords do not match',
+    message: 'Mật khẩu xác nhận không khớp',
+    path: ['confirmPassword'],
   })
-
+  
 export type RegisterFormData = z.infer<typeof RegisterSchema>
 
 export const toRegisterRequest = (data: RegisterFormData): RegisterRequest => ({
-  firstName: data.firstName,
-  lastName: data.lastName,
-  userName: data.userName,
+  // firstName: data.firstName,
+  // lastName: data.lastName,
+  username: data.username,
   email: data.email,
   password: data.password,
   confirmPassword: data.confirmPassword,
-  phoneNumber: data.phoneNumber,
-  dateOfBirth: data.dateOfBirth,
+  // phoneNumber: data.phoneNumber,
+  // dateOfBirth: data.dateOfBirth,
 })

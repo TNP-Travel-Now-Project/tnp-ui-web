@@ -89,7 +89,7 @@ export default function Header({
           <div className='flex items-center gap-1 sm:gap-4'>
             <Button
               onClick={onNavigateLogin}
-              className='px-4 py-2 text-xs sm:text-sm rounded-xl font-bold text-on-surface hover:bg-green-teal transition-colors'
+              className='px-4 py-2 text-xs sm:text-sm border rounded-xl font-bold text-on-surface hover:bg-green-teal transition-colors'
             >
               Đăng nhập
             </Button>

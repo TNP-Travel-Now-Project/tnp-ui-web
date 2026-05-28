@@ -10,16 +10,16 @@ export default function useContactForm() {
 
   const form = useForm<ContactFormData>({
     resolver: zodResolver(ContactSchema),
-    mode: 'all',
+    mode: 'onSubmit',
     defaultValues: {
-      name: '',
+      username: '',
       email: '',
       description: '',
     },
   })
 
-  const onSubmit = async (values: ContactFormData) => {
-    await toast.promise(mutation.mutateAsync(values), {
+  const onSubmit = async (data: ContactFormData) => {
+    await toast.promise(mutation.mutateAsync(data), {
       loading: 'Đang gửi lời tin nhắn...',
       success: 'Đã gửi tin nhắn cho chudu4be',
       error: (error) => error.message || 'Gửi tin nhắn thất bại',
