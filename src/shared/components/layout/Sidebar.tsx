@@ -65,13 +65,13 @@ export default function Sidebar({
           {isLoggedIn ? (
             <Button onClick={onProfileClick} className='flex items-center gap-3 text-left group'>
               <div className='w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold overflow-hidden border-2 border-primary/20 shrink-0'>
-                <Image
+                {/* <Image
                   fill
                   alt='Avatar'
                   className='object-cover'
                   src='https://api.dicebear.com/7.x/avataaars/svg?seed=Felix'
                   sizes='(max-width: 640px) 100vw,(max-width: 1024px) 50vw, 33vw'
-                />
+                /> */}
               </div>
               {isExpanded && (
                 <motion.div

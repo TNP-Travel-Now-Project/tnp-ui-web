@@ -9,7 +9,6 @@ export type {
 export { AuthProvider, useAuth } from './AuthProvider'
 export type { QueryProviderProps } from './QueryProvider'
 export { QueryProvider } from './QueryProvider'
-export type { ThemeProviderProps } from './ThemeProvider'
-export { ThemeProvider } from './ThemeProvider'
+export { ThemeProvider, useTheme } from './ThemeProvider'
 export type { ToastProviderProps } from './ToastProvider'
 export { ToastProvider, toast } from './ToastProvider'

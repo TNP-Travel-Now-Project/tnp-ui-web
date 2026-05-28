@@ -41,7 +41,7 @@ export default function ProfileModal({
   // Update active tab when initialTab changes (e.g. when opening from different sidebar items)
   useEffect(() => {
     setActiveTab(initialTab)
-  }, [initialTab, isOpen])
+  }, [initialTab])
 
   // Apply scroll lock when modal is open
   useModalScrollLock(isOpen)
