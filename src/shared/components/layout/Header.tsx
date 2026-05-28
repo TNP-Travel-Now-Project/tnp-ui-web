@@ -37,7 +37,7 @@ export default function Header({
   onToggleSidebar,
 }: HeaderProps) {
   return (
-    <header className='h-16 w-full border-b border-[#d6d0cc]/50 sticky top-0 z-40 bg-white backdrop-blur-md flex justify-between items-center px-4 lg:px-8 shadow-sm transition-all duration-300'>
+    <header className='h-16 w-full border-b border-sand sticky top-0 z-40 bg-neutral-0 backdrop-blur-md flex justify-between items-center px-4 lg:px-8 shadow-sm transition-all duration-300'>
       <div className={`flex items-center gap-3 ${showNav ? 'flex-1 lg:flex-none' : 'flex-none'}`}>
         <Button
           variant='link'
@@ -79,7 +79,7 @@ export default function Header({
           })}
         </nav>
       ) : (
-        <div className='flex-1 hidden lg:flex justify-start h-full items-center ml-8 gap-1 pl-8 border-l border-slate-100'>
+        <div className='flex-1 hidden lg:flex justify-start h-full items-center ml-8 gap-1 pl-8 border-l border-neutral-0'>
           {children}
         </div>
       )}
@@ -89,13 +89,13 @@ export default function Header({
           <div className='flex items-center gap-1 sm:gap-4'>
             <Button
               onClick={onNavigateLogin}
-              className='px-4 py-2 text-xs sm:text-sm rounded-xl font-bold text-on-surface hover:bg-green-teal transition-colors'
+              className='px-4 py-2 text-xs sm:text-sm border rounded-xl font-bold text-on-surface hover:bg-green-teal transition-colors'
             >
               Đăng nhập
             </Button>
             <Button
               onClick={onNavigateRegister}
-              className='px-5 py-2 text-xs sm:text-sm font-bold bg-neutral-100 hover:bg-neutral-90 text-white rounded-xl shadow-lg shadow-black/10 hover:opacity-90 transition-all active:scale-95 whitespace-nowrap'
+              className='px-5 py-2 text-xs sm:text-sm font-bold bg-neutral-100 hover:bg-neutral-90 text-neutral-0 rounded-xl shadow-lg shadow-black/10 hover:opacity-90 transition-all active:scale-95 whitespace-nowrap'
             >
               Đăng ký
             </Button>
@@ -106,7 +106,7 @@ export default function Header({
               <Button className='p-2 text-outline hover:text-primary transition-all rounded-1 hover:bg-surface-container relative outline-none ring-0'>
                 <Bell size={20} />
                 {showNotification && (
-                  <span className='absolute top-1.5 right-1.5 w-2 h-2 bg-error rounded-full ring-2 ring-white animate-pulse' />
+                  <span className='absolute top-1.5 right-1.5 w-2 h-2 bg-error rounded-full ring-2 ring-neutral-0 animate-pulse' />
                 )}
               </Button>
             </DropdownMenuTrigger>
@@ -127,7 +127,7 @@ function NotificationPanel() {
   const [activeTab, setActiveTab] = useState<'all' | 'trip'>('all')
 
   return (
-    <div className='flex flex-col bg-white'>
+    <div className='flex flex-col bg-neutral-0'>
       <div className='p-4 border-b border-outline-variant/10'>
         <h3 className='text-base sm:text-xl font-black text-on-surface tracking-tight mb-2 sm:mb-4'>
           Thông báo
@@ -135,13 +135,13 @@ function NotificationPanel() {
         <div className='flex p-0.5 sm:p-1 bg-surface-container rounded-lg sm:rounded-xl'>
           <Button
             onClick={() => setActiveTab('all')}
-            className={`flex-1 py-1.5 sm:py-2 text-[10px] sm:text-xs font-bold rounded-md sm:rounded-lg transition-all ${activeTab === 'all' ? 'bg-white text-primary shadow-sm' : 'text-outline hover:text-on-surface'}`}
+            className={`flex-1 py-1.5 sm:py-2 text-[10px] sm:text-xs font-bold rounded-md sm:rounded-lg transition-all ${activeTab === 'all' ? 'bg-neutral-0 text-primary shadow-sm' : 'text-outline hover:text-on-surface'}`}
           >
             Chung
           </Button>
           <Button
             onClick={() => setActiveTab('trip')}
-            className={`flex-1 py-1.5 sm:py-2 text-[10px] sm:text-xs font-bold rounded-md sm:rounded-lg transition-all ${activeTab === 'trip' ? 'bg-white text-primary shadow-sm' : 'text-outline hover:text-on-surface'}`}
+            className={`flex-1 py-1.5 sm:py-2 text-[10px] sm:text-xs font-bold rounded-md sm:rounded-lg transition-all ${activeTab === 'trip' ? 'bg-neutral-0 text-primary shadow-sm' : 'text-outline hover:text-on-surface'}`}
           >
             Chuyến đi
           </Button>

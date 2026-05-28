@@ -1,15 +1,17 @@
 'use client'
 
-// import type { Metadata } from 'next'
 import { useRouter } from 'next/navigation'
-import LoginForm from '@/features/auth/components/login/login-form'
-
-// export const metadata: Metadata = {
-//   title: 'Authentication | Sign Up',
-//   description: 'Sign Up page for authentication.',
-// }
+import AuthModal from '@/features/auth/components/AuthModal/AuthModal'
 
 export default function LoginPage() {
-  const route = useRouter()
-  return <LoginForm onSuccess={() => route.push('/order')} />
+  const router = useRouter()
+
+  return (
+    <AuthModal
+      isOpen={true}
+      onClose={() => router.push('/')}
+      onSuccess={() => router.push('/order')}
+      initialTab='login'
+    />
+  )
 }

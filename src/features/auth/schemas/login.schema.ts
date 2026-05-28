@@ -1,17 +1,19 @@
 import { z } from 'zod'
 
 export const LoginSchema = z.object({
-  email: z.email({ message: 'Invalid email address' }),
+  email: z
+    .email({ message: 'Địa chỉ email không hợp lệ' })
+    .nonempty({ message: 'Vui lòng nhập email' }),
+
   password: z
     .string()
-    .min(8, { message: 'Password must be at least 8 characters long' })
-    .max(20, { message: 'Password must be at most 20 characters long' })
-    .regex(/[A-Z]/, { message: 'Password must contain at least one uppercase letter' })
-    .regex(/[a-z]/, { message: 'Password must contain at least one lowercase letter' })
-    .regex(/[0-9]/, { message: 'Password must contain at least one number' })
-    .regex(/[~!@#$%^&*()_+=?]/, {
-      message: 'Password must contain at least one special character',
-    }),
+    .nonempty({ message: 'Vui lòng nhập mật khẩu' })
+    .min(8, { message: 'Mật khẩu phải có ít nhất 8 ký tự' })
+    .max(20, { message: 'Mật khẩu không được vượt quá 20 ký tự' })
+    .regex(/[A-Z]/, { message: 'Mật khẩu phải chứa ít nhất 1 chữ in hoa' })
+    .regex(/[a-z]/, { message: 'Mật khẩu phải chứa ít nhất 1 chữ thường' })
+    .regex(/[0-9]/, { message: 'Mật khẩu phải chứa ít nhất 1 chữ số' })
+    .regex(/[~!@#$%^&*()_+=?]/, { message: 'Mật khẩu phải chứa ít nhất 1 ký tự đặc biệt' }),
 
   rememberMe: z.boolean().optional(),
 })

@@ -4,16 +4,14 @@ import { useForm } from 'react-hook-form'
 import { useLogin } from '@/features/auth/hooks/login/useLogin'
 import type { LoginFormData } from '@/features/auth/schemas/login.schema'
 import { LoginSchema } from '@/features/auth/schemas/login.schema'
-import type { LoginPageProps } from '@/features/auth/type'
+import { toast } from 'sonner'
 
-export function useLoginForm({ onSuccess }: LoginPageProps) {
-  const [formError, setFormError] = useState<string | null>(null)
+export function useLoginForm() {
+  const mutation = useLogin()
 
-  const mutation = useLogin({ onSuccess })
-  
   const form = useForm<LoginFormData>({
     resolver: zodResolver(LoginSchema),
-    mode: 'onBlur',
+    mode: 'all',
     defaultValues: {
       email: '',
       password: '',
@@ -22,20 +20,18 @@ export function useLoginForm({ onSuccess }: LoginPageProps) {
   })
 
   const onSubmit = async (data: LoginFormData) => {
-    try {
-      setFormError(null)
-      await mutation.mutateAsync(data)
-    } catch (error) {
-      setFormError(
-        error instanceof Error ? error.message : 'Something went wrong, please try again',
-      )
-    }
+    await toast.promise(mutation.mutateAsync(data), {
+      loading: 'Đang thực hiện đang nhập...',
+      success: 'Đăng nhập thành công.',
+      error: (error) => error.message || 'Đăng nhập thất bại!',
+    })
+
+    form.reset()
   }
 
   return {
     form,
+    mutation,
     onSubmit,
-    formError,
-    isPending: mutation.isPending,
   }
 }

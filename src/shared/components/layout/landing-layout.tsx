@@ -1,9 +1,24 @@
 'use client'
 
+import { createContext, useContext } from 'react'
 import { AuthModal } from '@/features/auth/components/AuthModal'
 import Sidebar from '@/shared/components/layout/Sidebar'
 import { useLandingLayoutController } from '@/shared/hook/useLandingLayoutController'
 import Header from './Header'
+
+interface AuthModalContextType {
+  openLogin: () => void
+  openRegister: () => void
+}
+
+const AuthModalContext = createContext<AuthModalContextType>({
+  openLogin: () => { },
+  openRegister: () => { },
+})
+
+export function useLandingAuthModal() {
+  return useContext(AuthModalContext)
+}
 
 export default function LandingLayout({ children }: { children?: React.ReactNode }) {
   const {
@@ -16,8 +31,8 @@ export default function LandingLayout({ children }: { children?: React.ReactNode
     isAuthModalOpen,
     authInitialTab,
     currentPage,
-    setIsAuthModalOpen,
     setAuthInitialTab,
+    setIsAuthModalOpen,
     handleSidebarNavigate,
     closeSidebar,
     toggleSidebar,
@@ -36,7 +51,7 @@ export default function LandingLayout({ children }: { children?: React.ReactNode
   if (isAuthenticated) return null
 
   return (
-    <>
+    <AuthModalContext.Provider value={{ openLogin: navigate.login, openRegister: navigate.register }}>
       <div className='lg:flex'>
         <Sidebar
           isOpen={isSidebarOpen}
@@ -67,8 +82,9 @@ export default function LandingLayout({ children }: { children?: React.ReactNode
         isOpen={isAuthModalOpen}
         onClose={() => setIsAuthModalOpen(false)}
         onSuccess={navigate.refresh}
-        initialTab={authInitialTab}
+        activeTab={authInitialTab}
+        onTabChange={setAuthInitialTab}
       />
-    </>
+    </AuthModalContext.Provider>
   )
 }

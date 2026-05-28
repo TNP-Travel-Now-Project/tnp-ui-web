@@ -1,10 +1,9 @@
 'use client'
 
 import { useRouter } from 'next/navigation'
-import { useEffect, useCallback } from 'react'
-import { useAuth } from '@/shared/components/providers'
-import { useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { testimonialsData } from '@/features/landing/constants/guest.constant'
+import { useAuth } from '@/shared/components/providers'
 
 export function useGuestLanding() {
   const router = useRouter()
@@ -28,7 +27,6 @@ export function useGuestLanding() {
     setCurrentIndex((prevIndex) => (prevIndex - 1 + totalCustomers) % totalCustomers)
   }
 
-  const goLogin = useCallback(() => router.push('/login'), [router])
   const goAbout = useCallback(() => router.push('/about'), [router])
 
   return {
@@ -37,7 +35,6 @@ export function useGuestLanding() {
     isAuthenticated,
     isLoading,
     navigate: {
-      login: goLogin,
       about: goAbout,
     },
     handleNext,

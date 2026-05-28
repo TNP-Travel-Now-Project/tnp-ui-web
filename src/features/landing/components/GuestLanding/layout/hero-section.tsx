@@ -5,6 +5,7 @@ import { Badge, Button } from '@/shared/components/common'
 import PageContainer from '@/shared/components/layout/page-container'
 
 export default function HeroSection({ onLogin }: { onLogin: () => void }) {
+  
   return (
     <section
       id='home'

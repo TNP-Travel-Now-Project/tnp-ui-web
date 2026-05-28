@@ -1,5 +1,7 @@
 import {
   Compass,
+  Crosshair,
+  Fan,
   HelpCircle,
   Home,
   Info,
@@ -7,10 +9,8 @@ import {
   Luggage,
   MessageSquare,
   Phone,
-  Sparkles,
   Star,
   Wallet,
-  X,
 } from 'lucide-react'
 
 export const loggedInNavItems = [
@@ -22,8 +22,8 @@ export const loggedInNavItems = [
 ]
 
 export const guestLandingNavItems = [
-  { id: 'popular-places', label: 'Cảm hứng', icon: Sparkles },
-  { id: 'how-it-works', label: 'Cách dùng', icon: Compass },
+  { id: 'popular-places', label: 'Cảm hứng', icon: Fan },
+  { id: 'how-it-works', label: 'Cách dùng', icon: Crosshair },
   { id: 'testimonials', label: 'Đánh giá', icon: Star },
   { id: 'faq', label: 'Câu hỏi thường gặp', icon: HelpCircle },
 ]
@@ -33,3 +33,9 @@ export const guestGeneralNavItems = [
   { id: 'about', label: 'Giới thiệu', icon: Info },
   { id: 'contact', label: 'Liên hệ', icon: Phone },
 ]
+
+export const currentPageMap: Record<string, string> = {
+    '/': 'landing',
+    '/about': 'about',
+    '/contact': 'contact',
+  }
