@@ -1,7 +1,7 @@
 import { AnimatePresence, motion } from 'framer-motion'
 import { ChevronLeft, ChevronRight, LogOut, Plane, Settings } from 'lucide-react'
 import { Button } from '@/shared/components/common/Button'
-import { guestGeneralNavItems, guestLandingNavItems, loggedInNavItems } from '@/shared/constants'
+import { guestGeneralNavItems, guestLandingNavItems, loggedInNavItems } from '@/shared/constants/sidebar.constant'
 
 interface SidebarProps {
   isOpen: boolean

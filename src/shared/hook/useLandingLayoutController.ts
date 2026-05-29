@@ -5,10 +5,13 @@ import { useCallback, useEffect, useState } from 'react'
 import { useAuth } from '@/shared/components/providers'
 <<<<<<< HEAD
 import { currentPageMap } from '@/shared/constants/sidebar.constant'
+<<<<<<< HEAD
 import type { AuthModalContextType } from '@/shared/types/landing.types'
 =======
 import { currentPageMap } from '@/shared//constants/sidebar.constant'
 >>>>>>> fe6ea22 (refactor(ui): TNP-TuanNT refactor landing-layout, split AuthModalContext in folder Contexts Provider component)
+=======
+>>>>>>> 03dcb7a (rafactor(ui): TNP-TuanNT refactor Header component, split component structure in folder Header Layout)
 
 export function useLandingLayoutController() {
   const router = useRouter()
