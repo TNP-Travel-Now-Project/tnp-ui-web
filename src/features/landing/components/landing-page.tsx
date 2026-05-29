@@ -1,9 +1,18 @@
 'use client'
 
+<<<<<<< HEAD
+=======
+import type { Metadata } from 'next'
+>>>>>>> fe6ea22 (refactor(ui): TNP-TuanNT refactor landing-layout, split AuthModalContext in folder Contexts Provider component)
 import GuestLanding from '@/features/landing/components/GuestLanding/guest-landing'
 import { useGuestLanding } from '@/features/landing/hooks/useGuestLanding'
 import { Loading } from '@/shared/components/feedback'
 import LandingLayout from '@/shared/components/layout/landing-layout'
+<<<<<<< HEAD
+=======
+
+export const metadata: Metadata = { title: 'Trang chủ - chudu4be' }
+>>>>>>> fe6ea22 (refactor(ui): TNP-TuanNT refactor landing-layout, split AuthModalContext in folder Contexts Provider component)
 
 export default function LandingPage() {
   const { isAuthenticated, isLoading } = useGuestLanding()

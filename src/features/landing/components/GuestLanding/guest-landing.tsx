@@ -6,10 +6,17 @@ import HeroSection from '@/features/landing/components/GuestLanding/layout/hero-
 import PopularSection from '@/features/landing/components/GuestLanding/layout/popular-section'
 import TestimonialsSection from '@/features/landing/components/GuestLanding/layout/testimonials-section'
 import TimeLineSection from '@/features/landing/components/GuestLanding/layout/timeline-section'
+<<<<<<< HEAD
 import type { TestimonialItem } from '@/features/landing/types/guest.type'
 import BackgroundEffects from '@/shared/components/effect/background-effect'
 import PageShell from '@/shared/components/layout/page-shell'
 import { useLandingContext } from '@/shared/contexts/landing-context'
+=======
+import type { TestimonialItem } from '@/features/landing/types/landing.type'
+import BackgroundEffects from '@/shared/components/effect/background-effect'
+import PageShell from '@/shared/components/layout/page-shell'
+import { useLandingAuthModal } from '@/shared/components/layout/landing-layout'
+>>>>>>> fe6ea22 (refactor(ui): TNP-TuanNT refactor landing-layout, split AuthModalContext in folder Contexts Provider component)
 
 interface GuestLandingProps {
   currentCustomer: TestimonialItem
@@ -28,7 +35,11 @@ export default function GuestLanding({
   handlePrev,
 }: GuestLandingProps) {
   const [activePlace, setActivePlace] = useState<number | null>(null)
+<<<<<<< HEAD
   const { openLogin } = useLandingContext()
+=======
+  const { openLogin } = useLandingAuthModal()
+>>>>>>> fe6ea22 (refactor(ui): TNP-TuanNT refactor landing-layout, split AuthModalContext in folder Contexts Provider component)
   return (
     <PageShell>
       <BackgroundEffects variant='travel' />

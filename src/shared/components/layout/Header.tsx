@@ -115,6 +115,7 @@ export default function Header({
             </Button>
           </div>
         ) : (
+<<<<<<< HEAD
           <div className='flex items-center gap-2 md:gap-5'>
             <DropdownMenu trigger={<Button variant='outline'>Open menu</Button>}>
               <DropdownMenuTrigger asChild>
@@ -136,6 +137,20 @@ export default function Header({
             <Button
               onClick={onProfileClick}
               className='w-9 h-9 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold overflow-hidden border-2 border-primary/20 shrink-0 hover:border-primary transition-all'
+=======
+          <DropdownMenu trigger={<Button variant='outline'>Open menu</Button>}>
+            <DropdownMenuTrigger asChild>
+              <Button className='p-2 text-outline hover:text-primary transition-all rounded-1 hover:bg-surface-container relative outline-none ring-0'>
+                <Bell size={20} />
+                {showNotification && (
+                  <span className='absolute top-1.5 right-1.5 w-2 h-2 bg-error rounded-full ring-2 ring-neutral-0 animate-pulse' />
+                )}
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent
+              align='end'
+              className='w-[calc(100vw-32px)] sm:w-100 p-0 rounded-3xl shadow-2xl border-outline-variant/30 overflow-hidden'
+>>>>>>> fe6ea22 (refactor(ui): TNP-TuanNT refactor landing-layout, split AuthModalContext in folder Contexts Provider component)
             >
             </Button>
           </div>

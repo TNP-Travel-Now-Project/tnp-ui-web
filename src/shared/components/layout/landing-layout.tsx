@@ -1,10 +1,28 @@
 'use client'
 
+<<<<<<< HEAD
 import Header from './Header'
+=======
+import { createContext, useContext } from 'react'
+>>>>>>> fe6ea22 (refactor(ui): TNP-TuanNT refactor landing-layout, split AuthModalContext in folder Contexts Provider component)
 import { AuthModal } from '@/features/auth/components/AuthModal'
 import Sidebar from '@/shared/components/layout/Sidebar'
 import LandingContextProvider from '@/shared/contexts/landing-context'
 import { useLandingLayoutController } from '@/shared/hook/useLandingLayoutController'
+
+interface AuthModalContextType {
+  openLogin: () => void
+  openRegister: () => void
+}
+
+const AuthModalContext = createContext<AuthModalContextType>({
+  openLogin: () => { },
+  openRegister: () => { },
+})
+
+export function useLandingAuthModal() {
+  return useContext(AuthModalContext)
+}
 
 export default function LandingLayout({ children }: { children?: React.ReactNode }) {
   const {
@@ -16,8 +34,12 @@ export default function LandingLayout({ children }: { children?: React.ReactNode
     isHiddenLogo,
     isAuthModalOpen,
     authInitialTab,
+<<<<<<< HEAD
     currentPage, 
     isHeroVisible,
+=======
+    currentPage,
+>>>>>>> fe6ea22 (refactor(ui): TNP-TuanNT refactor landing-layout, split AuthModalContext in folder Contexts Provider component)
     setAuthInitialTab,
     setIsAuthModalOpen,
     handleSidebarNavigate,
@@ -38,6 +60,7 @@ export default function LandingLayout({ children }: { children?: React.ReactNode
   if (isAuthenticated) return null
 
   return (
+<<<<<<< HEAD
     <LandingContextProvider value={{
       openLogin: navigate.login,
       openRegister: navigate.register,
@@ -45,6 +68,9 @@ export default function LandingLayout({ children }: { children?: React.ReactNode
       openAbout: navigate.about,
       openContact: navigate.contact,
     }}>
+=======
+    <AuthModalContext.Provider value={{ openLogin: navigate.login, openRegister: navigate.register }}>
+>>>>>>> fe6ea22 (refactor(ui): TNP-TuanNT refactor landing-layout, split AuthModalContext in folder Contexts Provider component)
       <div className='lg:flex'>
         <Sidebar
           isOpen={isSidebarOpen}
@@ -79,6 +105,10 @@ export default function LandingLayout({ children }: { children?: React.ReactNode
         activeTab={authInitialTab}
         onTabChange={setAuthInitialTab}
       />
+<<<<<<< HEAD
     </LandingContextProvider>
+=======
+    </AuthModalContext.Provider>
+>>>>>>> fe6ea22 (refactor(ui): TNP-TuanNT refactor landing-layout, split AuthModalContext in folder Contexts Provider component)
   )
 }
