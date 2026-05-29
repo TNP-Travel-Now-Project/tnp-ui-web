@@ -35,7 +35,11 @@ export const guestGeneralNavItems = [
 ]
 
 export const currentPageMap: Record<string, string> = {
-    '/': 'landing',
-    '/about': 'about',
-    '/contact': 'contact',
-  }
+  '/': 'landing',
+  '/about': 'about',
+  '/contact': 'contact',
+}
+
+export const tripDetailTabs = ['Tổng quan', 'Lịch trình', 'Chi phí', 'Trò chuyện', 'Thành viên']
+
+export type profileTab = 'personal' | 'security' | 'finance' | 'notifications' | 'settings'

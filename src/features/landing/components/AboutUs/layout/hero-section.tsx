@@ -2,13 +2,13 @@ import { motion } from 'framer-motion'
 import { ArrowLeft, Sparkles } from 'lucide-react'
 import PageContainer from '@/shared/components/layout/page-container'
 
-export default function HeroSection({ onBack }: { onBack: () => void }) {
+export default function HeroSection({ onBack: openHome }: { onBack: () => void }) {
   return (
     <section className='relative bg-transparent mb-12'>
       <PageContainer className='relative px-5 z-10'>
         <button
           type='button'
-          onClick={onBack}
+          onClick={openHome}
           className='flex items-center gap-2 text-neutral-2 hover:text-primary transition-colors font-bold mb-12 pt-8 group'
         >
           <ArrowLeft className='w-5 h-5 group-hover:-translate-x-1 transition-transform' />

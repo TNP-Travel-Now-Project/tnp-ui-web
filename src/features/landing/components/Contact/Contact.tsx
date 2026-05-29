@@ -1,3 +1,5 @@
+'use client'
+
 import { motion } from 'framer-motion'
 import { ArrowLeft } from 'lucide-react'
 import { BackgroundEffects } from '@/shared/components/effect'
@@ -5,8 +7,10 @@ import PageContainer from '@/shared/components/layout/page-container'
 import PageShell from '@/shared/components/layout/page-shell'
 import FormColumns from './layout/contact-form'
 import InfoColumns from './layout/contact-info'
+import { useLandingContext } from '@/shared/contexts/landing-context'
 
-export default function Contact({ onBack }: { onBack: () => void }) {
+export default function Contact() {
+  const { openAbout } = useLandingContext()
   return (
     <PageShell>
       <BackgroundEffects variant='nature' />
@@ -15,11 +19,11 @@ export default function Contact({ onBack }: { onBack: () => void }) {
         <div className='mb-12'>
           <button
             type='button'
-            onClick={onBack}
+            onClick={openAbout}
             className='flex items-center gap-2 text-neutral-2 hover:text-primary transition-colors font-bold mb-12 pt-8 group'
           >
             <ArrowLeft className='w-5 h-5 group-hover:-translate-x-1 transition-transform' />
-            Quay lại
+            Quay lại giới thiệu
           </button>
 
           <div className='space-y-12'>

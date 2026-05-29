@@ -1,10 +1,9 @@
 'use client'
 
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
-import { useRef, useState } from 'react'
+import { useCallback, useRef, useState } from 'react'
 import { useAuth } from '@/shared/components/providers'
-
-export type ProfileTab = 'personal' | 'security' | 'finance' | 'notifications' | 'settings'
+import { currentPageMap, type profileTab as ProfileTab, tripDetailTabs } from '@/shared/constants/sidebar.constant'
 
 export function useMainLayoutController() {
   const router = useRouter()
@@ -12,17 +11,20 @@ export function useMainLayoutController() {
   const searchParams = useSearchParams()
   const { isAuthenticated } = useAuth()
 
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true)
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false)
+  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(true)
+  const [isShowNav, setIsShowNav] = useState(true)
+  const [isHiddenLogo, setIsHiddenLogo] = useState(true)
   const [isProfileModalOpen, setIsProfileModalOpen] = useState(false)
   const [profileModalTab, setProfileModalTab] = useState<ProfileTab>('personal')
   const [hasNotification] = useState(false)
   const tabsRef = useRef<HTMLDivElement>(null)
 
+  
   const isTripDetail = /^\/trips\/[a-zA-Z0-9_-]+\/?$/.test(pathname)
   const isDashboard = pathname === '/dashboard'
   const activeTab = searchParams.get('tab') || 'Tổng quan'
-
-  const tripDetailTabs = ['Tổng quan', 'Lịch trình', 'Chi phí', 'Trò chuyện', 'Thành viên']
+  const currentPage = currentPageMap[pathname] || '/'
 
   const handleTabClick = (tab: string) => {
     const params = new URLSearchParams(searchParams.toString())
@@ -40,6 +42,36 @@ export function useMainLayoutController() {
     }
   }
 
+  const handleSidebarNavigate = useCallback(
+    (itemId: string) => {
+      const section = document.getElementById(itemId)
+      if (section) {
+        section.scrollIntoView({ behavior: 'smooth' })
+      } else if (itemId === 'about') {
+        router.push('/about')
+      } else if (itemId === 'contact') {
+        router.push('/contact')
+      } else if (itemId === 'landing') {
+        router.push('/')
+      }
+      setIsSidebarOpen(false)
+    },
+    [router],
+  )
+
+  const closeSidebar = useCallback(() => setIsSidebarOpen(false), [])
+
+  const toggleSidebar = useCallback(() => setIsSidebarOpen((prev) => !prev), [])
+
+  const toggleSidebarCollapsed = useCallback(() => {
+    setIsSidebarOpen(false)
+    setIsSidebarCollapsed((prev) => !prev)
+    // setIsShowNav((prev) => !prev)
+    setIsHiddenLogo((prev) => !prev)
+  }, [])
+
+  const goHome = useCallback(() => router.push('/'), [router])
+
   const openProfile = (tab: ProfileTab = 'personal') => {
     setProfileModalTab(tab)
     setIsProfileModalOpen(true)
@@ -48,6 +80,9 @@ export function useMainLayoutController() {
   return {
     isAuthenticated,
     isSidebarOpen,
+    isSidebarCollapsed,
+    isShowNav,
+    isHiddenLogo,
     isProfileModalOpen,
     profileModalTab,
     hasNotification,
@@ -56,10 +91,16 @@ export function useMainLayoutController() {
     isDashboard,
     activeTab,
     tripDetailTabs,
+    currentPage,
     setIsSidebarOpen,
     setIsProfileModalOpen,
     handleTabClick,
+    handleSidebarNavigate,
+    closeSidebar,
+    toggleSidebar,
+    toggleSidebarCollapsed,
     openProfile,
+    goHome,
     router,
   }
 }

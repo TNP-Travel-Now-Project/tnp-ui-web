@@ -1,12 +1,9 @@
 'use client'
 
-import type { Metadata } from 'next'
 import GuestLanding from '@/features/landing/components/GuestLanding/guest-landing'
 import { useGuestLanding } from '@/features/landing/hooks/useGuestLanding'
 import { Loading } from '@/shared/components/feedback'
 import LandingLayout from '@/shared/components/layout/landing-layout'
-
-export const metadata: Metadata = { title: 'Trang chủ - chudu4be' }
 
 export default function LandingPage() {
   const { isAuthenticated, isLoading } = useGuestLanding()

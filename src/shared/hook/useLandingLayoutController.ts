@@ -3,7 +3,8 @@
 import { usePathname, useRouter } from 'next/navigation'
 import { useCallback, useEffect, useState } from 'react'
 import { useAuth } from '@/shared/components/providers'
-import { currentPageMap } from '@/shared//constants/sidebar.constant'
+import { currentPageMap } from '@/shared/constants/sidebar.constant'
+import type { AuthModalContextType } from '@/shared/types/landing.types'
 
 export function useLandingLayoutController() {
   const router = useRouter()
@@ -60,6 +61,7 @@ export function useLandingLayoutController() {
 
   const goHome = useCallback(() => router.push('/'), [router])
   const goAbout = useCallback(() => router.push('/about'), [router])
+  const goContact = useCallback(() => router.push('/contact'), [router])
   const refresh = useCallback(() => router.refresh(), [router])
 
   const goLogin = useCallback(() => {
@@ -80,7 +82,8 @@ export function useLandingLayoutController() {
     isHiddenLogo,
     isAuthModalOpen,
     authInitialTab,
-    currentPage,  
+    currentPage,
+    
     setIsAuthModalOpen,
     setAuthInitialTab,
     handleSidebarNavigate,
@@ -90,6 +93,7 @@ export function useLandingLayoutController() {
     navigate: {
       home: goHome,
       about: goAbout,
+      contact: goContact,
       login: goLogin,
       register: goRegister,
       refresh,

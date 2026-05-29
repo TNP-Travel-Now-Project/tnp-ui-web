@@ -1,7 +1,7 @@
 import { Button } from '@/shared/components/common/Button'
 import PageContainer from '@/shared/components/layout/page-container'
 
-export default function ContactSection({ onContactClick }: { onContactClick: () => void }) {
+export default function ContactSection({ onContactClick: openContact }: { onContactClick: () => void }) {
   return (
     <PageContainer>
       <section className='mt-32 mb-30 text-center space-y-8 rounded-2xl p-12 md:p-20 relative overflow-hidden'>
@@ -18,7 +18,7 @@ export default function ContactSection({ onContactClick }: { onContactClick: () 
         </p>
         <div className='flex justify-center relative z-10'>
           <Button
-            onClick={onContactClick}
+            onClick={openContact}
             size='lg'
             className='bg-neutral-0 text-primary hover:bg-neutral-0/90 h-14 px-12 font-bold rounded-xl shadow-xl shadow-black/10 transition-all hover:scale-105 active:scale-95'
           >

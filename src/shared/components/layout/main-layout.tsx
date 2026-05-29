@@ -12,6 +12,8 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
   const {
     isAuthenticated,
     isSidebarOpen,
+    isSidebarCollapsed,
+    isHiddenLogo,
     isProfileModalOpen,
     profileModalTab,
     hasNotification,
@@ -20,30 +22,43 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
     isDashboard,
     activeTab,
     tripDetailTabs,
-    setIsSidebarOpen,
+    currentPage,
     setIsProfileModalOpen,
     handleTabClick,
+    handleSidebarNavigate,
+    closeSidebar,
+    toggleSidebar,
+    toggleSidebarCollapsed,
     openProfile,
+    goHome,
     router,
   } = useMainLayoutController()
 
   return (
-    <div className='flex min-h-screen bg-background'>
+    <div className='flex min-h-screen w-full bg-background'>
+      
       <Sidebar
         isOpen={isSidebarOpen}
-        onClose={() => setIsSidebarOpen(false)}
+        isCollapsed={isSidebarCollapsed}
+        onClose={closeSidebar}
+        onToggleCollapse={toggleSidebarCollapsed}
         onProfileClick={() => openProfile('personal')}
         onSettingsClick={() => openProfile('settings')}
+        currentPage={currentPage}
+        onNavigateItem={handleSidebarNavigate}
+        onBrandClick={goHome}
       />
       <div
-        className={`flex-1 flex flex-col w-full transition-all duration-300 ${isSidebarOpen ? 'lg:ml-72' : 'lg:ml-20'}`}
+        className={`flex-1 flex flex-col w-full transition-all duration-300 `}
       >
         <Header
           isLoggedIn={isAuthenticated}
           showNotification={hasNotification}
-          onNavigateLanding={() => router.push('/')}
-          onToggleSidebar={() => setIsSidebarOpen(true)}
-          showNav={false}
+          onNavigateLanding={goHome}
+          onToggleSidebar={toggleSidebar}
+          showNav={!isTripDetail}
+          hiddenLogo={isHiddenLogo}
+          onProfileClick={() => openProfile('personal')}
         >
           {isTripDetail && (
             <div ref={tabsRef} className='flex gap-8 px-4 h-full items-center'>

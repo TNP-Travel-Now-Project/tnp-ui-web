@@ -1,6 +1,5 @@
 import { AnimatePresence, motion } from 'framer-motion'
-import { ChevronLeft, ChevronRight, LogOut, Plane, Settings, X } from 'lucide-react'
-import Image from 'next/image'
+import { ChevronLeft, ChevronRight, LogOut, Plane, Settings } from 'lucide-react'
 import { Button } from '@/shared/components/common/Button'
 import { guestGeneralNavItems, guestLandingNavItems, loggedInNavItems } from '@/shared/constants'
 
@@ -60,63 +59,28 @@ export default function Sidebar({
         } ${isCollapsed ? 'lg:w-20' : ''}`}
       >
         <div
-          className={`mb-10 mt-2 flex items-center gap-2 ${isExpanded ? 'justify-between px-2' : 'justify-center transition-all'}`}
+          className={`mb-8 mt-2 flex items-center gap-2 ${isExpanded ? 'px-2' : 'justify-center'}`}
         >
-          {isLoggedIn ? (
-            <Button onClick={onProfileClick} className='flex items-center gap-3 text-left group'>
-              <div className='w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold overflow-hidden border-2 border-primary/20 shrink-0'>
-                {/* <Image
-                  fill
-                  alt='Avatar'
-                  className='object-cover'
-                  src='https://api.dicebear.com/7.x/avataaars/svg?seed=Felix'
-                  sizes='(max-width: 640px) 100vw,(max-width: 1024px) 50vw, 33vw'
-                /> */}
-              </div>
-              {isExpanded && (
-                <motion.div
-                  initial={{ opacity: 0, x: -10 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  className='overflow-hidden flex flex-col'
-                >
-                  <div className='text-sm font-bold text-slate-800 whitespace-nowrap leading-none mb-1 group-hover:text-primary transition-colors'>
-                    Trần Duy Tuấn
-                  </div>
-                  <div className='text-[10px] font-medium text-slate-400 whitespace-nowrap'>
-                    @tuan.thichtucon
-                  </div>
-                </motion.div>
-              )}
-            </Button>
-          ) : (
-            <Button
-              buttonType='outline'
-              onClick={onBrandClick}
-              className='flex items-center gap-2 text-left'
-              disabled
-            >
-              <div className='p-2.5 bg-primary rounded-xl text-white shrink-0'>
-                <Plane size={24} className='transform -rotate-45' />
-              </div>
-              {isExpanded && (
-                <motion.div
-                  initial={{ opacity: 0, x: -10 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  className='overflow-hidden flex flex-col'
-                >
-                  <div className='text-xl font-bold whitespace-nowrap leading-none'>
-                    <span className='text-tertiary text-primary'>chudu</span>
-                    <span className='text-primary font-extrabold uppercase tracking-tight'>
-                      4be
-                    </span>
-                  </div>
-                  <div className='text-[10px] font-bold text-primary-foreground uppercase tracking-widest mt-0.5 whitespace-nowrap'>
-                    Đâu đâu cũng là nhà
-                  </div>
-                </motion.div>
-              )}
-            </Button>
-          )}
+          <div className={`flex items-center gap-2 ${isExpanded ? 'flex-1' : ''}`}>
+            <div className='p-2 bg-primary rounded-xl text-white shrink-0'>
+              <Plane size={20} className='transform -rotate-45' />
+            </div>
+            {isExpanded && (
+              <motion.div
+                initial={{ opacity: 0, x: -10 }}
+                animate={{ opacity: 1, x: 0 }}
+                className='overflow-hidden flex flex-col'
+              >
+                <div className='text-lg font-bold whitespace-nowrap leading-none'>
+                  <span className='text-tertiary text-primary'>chudu</span>
+                  <span className='text-primary font-extrabold uppercase tracking-tight'>4be</span>
+                </div>
+                <div className='text-[8px] font-bold text-primary/60 uppercase tracking-widest whitespace-nowrap'>
+                  Đâu đâu cũng là nhà
+                </div>
+              </motion.div>
+            )}
+          </div>
 
           <Button
             onClick={onToggleCollapse || onClose}
@@ -124,16 +88,31 @@ export default function Sidebar({
           >
             {isExpanded ? <ChevronLeft size={20} /> : <ChevronRight size={20} />}
           </Button>
-
-          {!isLoggedIn && isExpanded && (
-            <Button
-              onClick={onClose}
-              className='lg:hidden text-outline-variant hover:text-on-surface p-1'
-            >
-              <X size={20} />
-            </Button>
-          )}
         </div>
+
+        {isLoggedIn && (
+          <Button
+            onClick={onProfileClick}
+            className={`flex items-center gap-3 text-left group mb-8 px-2 ${isExpanded ? '' : 'justify-center'}`}
+          >
+            <div className='w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold overflow-hidden border-2 border-primary/20 shrink-0'>
+            </div>
+            {isExpanded && (
+              <motion.div
+                initial={{ opacity: 0, x: -10 }}
+                animate={{ opacity: 1, x: 0 }}
+                className='overflow-hidden flex flex-col'
+              >
+                <div className='text-sm font-bold text-slate-800 whitespace-nowrap leading-none mb-1 group-hover:text-primary transition-colors'>
+                  Trần Duy Tuấn
+                </div>
+                <div className='text-[10px] font-medium text-slate-400 whitespace-nowrap'>
+                  @tuan.thichtucon
+                </div>
+              </motion.div>
+            )}
+          </Button>
+        )}
 
         <nav className='flex-1 space-y-4 overflow-y-auto overflow-x-hidden no-scrollbar'>
           {navItems.map((item) => (

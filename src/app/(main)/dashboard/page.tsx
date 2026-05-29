@@ -8,6 +8,7 @@ export default function DashboardPage() {
   const router = useRouter()
 
   return (
+    
     <DashboardView
       trips={MOCK_TRIPS}
       stats={SUMMARY_STATS}

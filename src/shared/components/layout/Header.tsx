@@ -1,5 +1,5 @@
 import { AnimatePresence, motion } from 'framer-motion'
-import { Bell, Menu } from 'lucide-react'
+import { Bell, Menu, Plane } from 'lucide-react'
 import type React from 'react'
 import { useState } from 'react'
 import { cn } from '@/lib/utils'
@@ -23,6 +23,7 @@ export interface HeaderProps {
   onNavigateLogin?: () => void
   onNavigateRegister?: () => void
   onToggleSidebar?: () => void
+  onProfileClick?: () => void
 }
 
 export default function Header({
@@ -35,6 +36,7 @@ export default function Header({
   onNavigateLogin,
   onNavigateRegister,
   onToggleSidebar,
+  onProfileClick,
 }: HeaderProps) {
   return (
     <header className='h-16 w-full border-b border-sand sticky top-0 z-40 bg-neutral-0 backdrop-blur-md flex justify-between items-center px-4 lg:px-8 shadow-sm transition-all duration-300'>
@@ -52,19 +54,31 @@ export default function Header({
           onClick={onNavigateLanding}
           className='hidden lg:flex items-center gap-2 overflow-hidden hover:no-underline'
         >
-          <div
-            className={cn(
-              'flex items-center gap-2 transition-all duration-300 ease-in-out',
-              showNav && hiddenLogo
-                ? 'opacity-100 translate-x-0 max-w-45'
-                : 'opacity-0 -translate-x-2 max-w-0',
-            )}
-          >
-            <span className='text-xl font-bold whitespace-nowrap'>
-              <span className='text-tertiary'>chudu</span>
-              <span className='text-primary font-extrabold uppercase tracking-tight'>4be</span>
-            </span>
-          </div>
+          {isLoggedIn ? (
+            <div className='flex items-center gap-2'>
+              <div className='p-1.5 bg-primary rounded-lg text-white'>
+                <Plane size={16} className='transform -rotate-45' />
+              </div>
+              <span className='text-xl font-bold whitespace-nowrap'>
+                <span className='text-tertiary'>chudu</span>
+                <span className='text-primary font-extrabold uppercase tracking-tight'>4be</span>
+              </span>
+            </div>
+          ) : (
+            <div
+              className={cn(
+                'flex items-center gap-2 transition-all duration-300 ease-in-out',
+                showNav && hiddenLogo
+                  ? 'opacity-100 translate-x-0 max-w-45'
+                  : 'opacity-0 -translate-x-2 max-w-0',
+              )}
+            >
+              <span className='text-xl font-bold whitespace-nowrap'>
+                <span className='text-tertiary'>chudu</span>
+                <span className='text-primary font-extrabold uppercase tracking-tight'>4be</span>
+              </span>
+            </div>
+          )}
         </Button>
       </div>
 
@@ -101,22 +115,30 @@ export default function Header({
             </Button>
           </div>
         ) : (
-          <DropdownMenu trigger={<Button variant='outline'>Open menu</Button>}>
-            <DropdownMenuTrigger asChild>
-              <Button className='p-2 text-outline hover:text-primary transition-all rounded-1 hover:bg-surface-container relative outline-none ring-0'>
-                <Bell size={20} />
-                {showNotification && (
-                  <span className='absolute top-1.5 right-1.5 w-2 h-2 bg-error rounded-full ring-2 ring-neutral-0 animate-pulse' />
-                )}
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent
-              align='end'
-              className='w-[calc(100vw-32px)] sm:w-100 p-0 rounded-3xl shadow-2xl border-outline-variant/30 overflow-hidden'
+          <div className='flex items-center gap-2 md:gap-5'>
+            <DropdownMenu trigger={<Button variant='outline'>Open menu</Button>}>
+              <DropdownMenuTrigger asChild>
+                <Button className='p-2 text-outline hover:text-primary transition-all rounded-1 hover:bg-surface-container relative outline-none ring-0'>
+                  <Bell size={20} />
+                  {showNotification && (
+                    <span className='absolute top-1.5 right-1.5 w-2 h-2 bg-error rounded-full ring-2 ring-neutral-0 animate-pulse' />
+                  )}
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent
+                align='end'
+                className='w-[calc(100vw-32px)] sm:w-100 p-0 rounded-3xl shadow-2xl border-outline-variant/30 overflow-hidden'
+              >
+                <NotificationPanel />
+              </DropdownMenuContent>
+            </DropdownMenu>
+
+            <Button
+              onClick={onProfileClick}
+              className='w-9 h-9 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold overflow-hidden border-2 border-primary/20 shrink-0 hover:border-primary transition-all'
             >
-              <NotificationPanel />
-            </DropdownMenuContent>
-          </DropdownMenu>
+            </Button>
+          </div>
         )}
       </div>
     </header>

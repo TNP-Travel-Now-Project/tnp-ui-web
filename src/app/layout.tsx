@@ -24,7 +24,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang='en' className={cn('font-sans', inter.variable)} suppressHydrationWarning>
       <body>
-        <div aria-hidden='true' style={{ display: 'none' }} dangerouslySetInnerHTML={{ __html: `<script>${THEME_SCRIPT}<\/script>` }} />
+        <div aria-hidden='true' style={{ display: 'none' }} />
         <Providers>
           {children}
           <Toaster position='top-right' />
