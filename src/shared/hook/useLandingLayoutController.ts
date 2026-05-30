@@ -23,6 +23,27 @@ export function useLandingLayoutController() {
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false)
   const [authInitialTab, setAuthInitialTab] = useState<'login' | 'register'>('login')
 
+  const [isHeroVisible, setIsHeroVisible] = useState(false)
+
+  useEffect(() => {
+    const hero = document.getElementById('hero-section')
+
+    if (!hero) return
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsHeroVisible(!entry.isIntersecting)
+      },
+      {
+        threshold: 0.7,
+      },
+    )
+
+    observer.observe(hero)
+
+    return () => observer.disconnect()
+  }, [])
+
   useEffect(() => {
     if (!isLoading && isAuthenticated) {
       router.replace('/dashboard')
@@ -83,7 +104,7 @@ export function useLandingLayoutController() {
     isAuthModalOpen,
     authInitialTab,
     currentPage,
-    
+    isHeroVisible,
     setIsAuthModalOpen,
     setAuthInitialTab,
     handleSidebarNavigate,

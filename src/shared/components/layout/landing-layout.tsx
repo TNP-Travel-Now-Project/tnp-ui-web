@@ -16,7 +16,8 @@ export default function LandingLayout({ children }: { children?: React.ReactNode
     isHiddenLogo,
     isAuthModalOpen,
     authInitialTab,
-    currentPage,
+    currentPage, 
+    isHeroVisible,
     setAuthInitialTab,
     setIsAuthModalOpen,
     handleSidebarNavigate,
@@ -48,6 +49,7 @@ export default function LandingLayout({ children }: { children?: React.ReactNode
         <Sidebar
           isOpen={isSidebarOpen}
           isCollapsed={isSidebarCollapsed}
+          isHeroVisible={isHeroVisible}
           onClose={closeSidebar}
           onToggleCollapse={toggleSidebarCollapsed}
           isLoggedIn={false}

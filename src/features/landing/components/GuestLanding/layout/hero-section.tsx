@@ -8,7 +8,7 @@ export default function HeroSection({ onLogin }: { onLogin: () => void }) {
   
   return (
     <section
-      id='home'
+      id='hero-section'
       className='relative pt-28 pb-20 md:pt-20 md:pb-32 overflow-hidden flex items-center min-h-[90vh]'
     >
       <PageContainer className='relative px-5 z-10'>
