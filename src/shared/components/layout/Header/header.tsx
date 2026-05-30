@@ -1,8 +1,8 @@
-import { RefObject } from 'react'
+import type { RefObject } from 'react'
+import HeaderActions from './header-actions'
 import HeaderBrand from './header-brand'
 import HeaderNavigation from './header-navigation'
 import HeaderTripTabs from './header-trip-tabs'
-import HeaderActions from './header-actions'
 
 export interface HeaderProps {
   isLoggedIn?: boolean

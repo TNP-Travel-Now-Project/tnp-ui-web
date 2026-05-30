@@ -1,7 +1,11 @@
 import { Button } from '@/shared/components/common/Button'
 import PageContainer from '@/shared/components/layout/page-container'
 
-export default function ContactSection({ onContactClick: openContact }: { onContactClick: () => void }) {
+export default function ContactSection({
+  onContactClick: openContact,
+}: {
+  onContactClick: () => void
+}) {
   return (
     <PageContainer>
       <section className='mt-32 mb-30 text-center space-y-8 rounded-2xl p-12 md:p-20 relative overflow-hidden'>

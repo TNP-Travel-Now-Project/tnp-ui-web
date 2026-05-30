@@ -203,7 +203,7 @@ export const contactFormProps = {
 
 export const categoriesFooter = [
   {
-    title: 'Công ty', 
+    title: 'Công ty',
     items: [
       {
         label: 'Về chúng tôi',

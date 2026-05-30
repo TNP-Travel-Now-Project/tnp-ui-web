@@ -50,13 +50,13 @@ const AuthProvider = ({
     // Check for existing token on mount
     if (!initialUser) {
       const token = localStorage.getItem(tokenKey)
-        if (token) {
-          // TODO: Validate token and fetch user info
-          // For now, we'll just set loading to false
-          setIsLoading(false)
-        } else {
-          setIsLoading(false)
-        }
+      if (token) {
+        // TODO: Validate token and fetch user info
+        // For now, we'll just set loading to false
+        setIsLoading(false)
+      } else {
+        setIsLoading(false)
+      }
     }
   }, [initialUser, tokenKey])
 

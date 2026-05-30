@@ -2,11 +2,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { ChevronLeft, ChevronRight, Globe, Hash, Star } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
-<<<<<<< HEAD
 import type { TestimonialItem } from '@/features/landing/types/guest.type'
-=======
-import type { TestimonialItem } from '@/features/landing/types/landing.type'
->>>>>>> fe6ea22 (refactor(ui): TNP-TuanNT refactor landing-layout, split AuthModalContext in folder Contexts Provider component)
 import { Button } from '@/shared/components/common'
 
 interface TestimonialProps {

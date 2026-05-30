@@ -35,7 +35,6 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
 
   return (
     <div className='lg:flex min-h-screen w-full bg-background'>
-
       <Sidebar
         isOpen={isSidebarOpen}
         isCollapsed={isSidebarCollapsed}
@@ -47,6 +46,7 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
         currentPage={currentPageSidebar}
         onNavigateItem={handleSidebarNavigate}
         onBrandClick={goHome}
+        isHeroVisible={false}
       />
       <div className='flex-1 min-w-0'>
         <Header

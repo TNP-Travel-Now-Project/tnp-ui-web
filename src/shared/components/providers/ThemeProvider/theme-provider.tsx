@@ -1,15 +1,7 @@
 'use client'
 
-import {
-  useCallback,
-  useContext,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-  createContext,
-} from 'react'
 import type { ReactNode } from 'react'
+import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react'
 
 const STORAGE_KEY = 'theme'
 type Theme = 'light' | 'dark' | 'system'
@@ -54,9 +46,7 @@ export function ThemeProvider({
 
   const resolveSystemTheme = useCallback((): ResolvedTheme => {
     if (typeof window === 'undefined') return 'light'
-    return window.matchMedia('(prefers-color-scheme: dark)').matches
-      ? 'dark'
-      : 'light'
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
   }, [])
 
   useEffect(() => {
@@ -113,9 +103,7 @@ export function ThemeProvider({
     [theme, resolvedTheme, setTheme],
   )
 
-  return (
-    <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>
-  )
+  return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>
 }
 
 export function useTheme(): ThemeContextValue {

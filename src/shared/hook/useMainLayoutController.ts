@@ -3,12 +3,12 @@
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { useCallback, useRef, useState } from 'react'
 import { useAuth } from '@/shared/components/providers'
+import { currentPageMap as currentPageHeaderMap } from '@/shared/constants/header.constant'
 import {
   currentPageMap as currentPageSidebarMap,
   type profileTab as ProfileTab,
   tripDetailTabs,
 } from '@/shared/constants/sidebar.constant'
-import { currentPageMap as currentPageHeaderMap } from '@/shared/constants/header.constant'
 
 export function useMainLayoutController() {
   const router = useRouter()

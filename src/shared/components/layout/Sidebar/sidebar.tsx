@@ -1,8 +1,8 @@
-import SidebarOverlay from './sidebar-overlay'
-import SidebarBrand from './sidebar-brand'
-import SidebarProfile from './sidebar-profile'
-import SidebarNavigation from './sidebar-navigation'
 import SidebarActions from './sidebar-actions'
+import SidebarBrand from './sidebar-brand'
+import SidebarNavigation from './sidebar-navigation'
+import SidebarOverlay from './sidebar-overlay'
+import SidebarProfile from './sidebar-profile'
 
 export interface SidebarProps {
   isOpen: boolean
@@ -38,7 +38,8 @@ export default function Sidebar({
     <>
       <SidebarOverlay isOpen={isOpen} onClose={onClose} />
 
-      <aside className={`h-screen border-r border-sidebar-border lg:sticky lg:top-0 fixed left-0 top-0 shadow-[2px_0_12px_-4px_rgba(0,0,0,0.5)] flex flex-col p-4 z-50 transition-all duration-300 ease-in-out transform lg:translate-x-0 w-64 
+      <aside
+        className={`h-screen border-r border-sidebar-border lg:sticky lg:top-0 fixed left-0 top-0 shadow-[2px_0_12px_-4px_rgba(0,0,0,0.5)] flex flex-col p-4 z-50 transition-all duration-300 ease-in-out transform lg:translate-x-0 w-64 
           ${isOpen ? 'translate-x-0' : '-translate-x-full'}
           ${isCollapsed ? 'lg:w-20' : ''}
           ${isHeroVisible ? 'bg-transparent' : 'bg-sidebar'}`}
@@ -50,9 +51,9 @@ export default function Sidebar({
           onBrandClick={onBrandClick}
         />
 
-        {isLoggedIn && (
+        {/* {!isLoggedIn && (
           <SidebarProfile isExpanded={isExpanded} onProfileClick={onProfileClick} />
-        )}
+        )} */}
 
         <SidebarNavigation
           isExpanded={isExpanded}

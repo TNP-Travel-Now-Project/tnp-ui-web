@@ -2,16 +2,8 @@
 
 import { usePathname, useRouter } from 'next/navigation'
 import { useCallback, useEffect, useState } from 'react'
-import { useAuth } from '@/shared/components/providers'
-<<<<<<< HEAD
-import { currentPageMap } from '@/shared/constants/sidebar.constant'
-<<<<<<< HEAD
-import type { AuthModalContextType } from '@/shared/types/landing.types'
-=======
 import { currentPageMap } from '@/shared//constants/sidebar.constant'
->>>>>>> fe6ea22 (refactor(ui): TNP-TuanNT refactor landing-layout, split AuthModalContext in folder Contexts Provider component)
-=======
->>>>>>> 03dcb7a (rafactor(ui): TNP-TuanNT refactor Header component, split component structure in folder Header Layout)
+import { useAuth } from '@/shared/components/providers'
 
 export function useLandingLayoutController() {
   const router = useRouter()
@@ -30,7 +22,6 @@ export function useLandingLayoutController() {
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false)
   const [authInitialTab, setAuthInitialTab] = useState<'login' | 'register'>('login')
 
-<<<<<<< HEAD
   const [isHeroVisible, setIsHeroVisible] = useState(false)
 
   useEffect(() => {
@@ -52,8 +43,6 @@ export function useLandingLayoutController() {
     return () => observer.disconnect()
   }, [])
 
-=======
->>>>>>> fe6ea22 (refactor(ui): TNP-TuanNT refactor landing-layout, split AuthModalContext in folder Contexts Provider component)
   useEffect(() => {
     if (!isLoading && isAuthenticated) {
       router.replace('/dashboard')
@@ -92,10 +81,9 @@ export function useLandingLayoutController() {
 
   const goHome = useCallback(() => router.push('/'), [router])
   const goAbout = useCallback(() => router.push('/about'), [router])
-<<<<<<< HEAD
+
   const goContact = useCallback(() => router.push('/contact'), [router])
-=======
->>>>>>> fe6ea22 (refactor(ui): TNP-TuanNT refactor landing-layout, split AuthModalContext in folder Contexts Provider component)
+
   const refresh = useCallback(() => router.refresh(), [router])
 
   const goLogin = useCallback(() => {
@@ -116,12 +104,9 @@ export function useLandingLayoutController() {
     isHiddenLogo,
     isAuthModalOpen,
     authInitialTab,
-<<<<<<< HEAD
     currentPage,
     isHeroVisible,
-=======
-    currentPage,  
->>>>>>> fe6ea22 (refactor(ui): TNP-TuanNT refactor landing-layout, split AuthModalContext in folder Contexts Provider component)
+
     setIsAuthModalOpen,
     setAuthInitialTab,
     handleSidebarNavigate,

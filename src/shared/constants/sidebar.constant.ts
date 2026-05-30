@@ -35,7 +35,6 @@ export const guestGeneralNavItems = [
 ]
 
 export const currentPageMap: Record<string, string> = {
-<<<<<<< HEAD
   '/': 'landing',
   '/about': 'about',
   '/contact': 'contact',
@@ -44,9 +43,3 @@ export const currentPageMap: Record<string, string> = {
 export const tripDetailTabs = ['Tổng quan', 'Lịch trình', 'Chi phí', 'Trò chuyện', 'Thành viên']
 
 export type profileTab = 'personal' | 'security' | 'finance' | 'notifications' | 'settings'
-=======
-    '/': 'landing',
-    '/about': 'about',
-    '/contact': 'contact',
-  }
->>>>>>> fe6ea22 (refactor(ui): TNP-TuanNT refactor landing-layout, split AuthModalContext in folder Contexts Provider component)

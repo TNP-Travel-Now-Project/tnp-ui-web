@@ -2,11 +2,7 @@
 
 import { useLoginForm } from '@/features/auth/hooks/login/useLoginForm'
 import { Button } from '@/shared/components/common/Button'
-import {
-  Form,
-  FormInput,
-  FormPassword
-} from '@/shared/components/form'
+import { Form, FormInput, FormPassword } from '@/shared/components/form'
 
 export default function LoginForm() {
   const { form, mutation, onSubmit } = useLoginForm()
@@ -70,7 +66,6 @@ export default function LoginForm() {
           </Button>
         </Form>
       </form>
-
     </div>
   )
 }

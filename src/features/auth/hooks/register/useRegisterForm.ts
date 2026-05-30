@@ -1,8 +1,8 @@
-import { toast } from 'sonner'
-import { type RegisterFormData, RegisterSchema } from '@/features/auth/schemas/register.schema'
-import { useRegister } from '@/features/auth/hooks/register/useRegister'
-import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useForm } from 'react-hook-form'
+import { toast } from 'sonner'
+import { useRegister } from '@/features/auth/hooks/register/useRegister'
+import { type RegisterFormData, RegisterSchema } from '@/features/auth/schemas/register.schema'
 
 export const useRegisterForm = () => {
   const mutation = useRegister()

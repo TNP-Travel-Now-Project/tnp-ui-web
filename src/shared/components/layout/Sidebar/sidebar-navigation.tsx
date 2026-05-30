@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import { guestGeneralNavItems, guestLandingNavItems, loggedInNavItems } from '@/shared/constants/sidebar.constant'
+import useSidebarNavigation from '@/shared/hook/useSidebarNavigation'
 
 export interface SidebarNavigationProps {
   isExpanded: boolean
@@ -14,13 +14,7 @@ export default function SidebarNavigation({
   currentPage = 'landing',
   onNavigateItem,
 }: SidebarNavigationProps) {
-  const navItems = isLoggedIn
-    ? loggedInNavItems
-    : currentPage === 'landing'
-      ? guestLandingNavItems
-      : currentPage === 'about' || currentPage === 'contact'
-        ? guestGeneralNavItems
-        : []
+  const { navItems } = useSidebarNavigation({ isLoggedIn, currentPage })
 
   return (
     <nav className='flex-1 space-y-4 overflow-y-auto overflow-x-hidden no-scrollbar'>

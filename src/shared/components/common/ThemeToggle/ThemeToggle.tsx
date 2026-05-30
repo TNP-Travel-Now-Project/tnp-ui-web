@@ -1,8 +1,8 @@
 'use client'
 
 import { Moon, Sun } from 'lucide-react'
-import { useTheme } from '@/shared/components/providers'
 import { Button } from '@/shared/components/common'
+import { useTheme } from '@/shared/components/providers'
 
 interface ThemeToggleProps {
   className?: string
@@ -16,11 +16,7 @@ export function ThemeToggle({ className }: ThemeToggleProps) {
   }
 
   return (
-    <Button
-      onClick={toggle}
-      className={className}
-      aria-label='Toggle theme'
-    >
+    <Button onClick={toggle} className={className} aria-label='Toggle theme'>
       {resolvedTheme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
     </Button>
   )

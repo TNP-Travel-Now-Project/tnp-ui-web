@@ -1,6 +1,6 @@
 import { Menu, Plane } from 'lucide-react'
-import { Button } from '@/shared/components/common/Button'
 import { cn } from '@/lib/utils'
+import { Button } from '@/shared/components/common/Button'
 
 export interface HeaderBrandProps {
   isLoggedIn?: boolean
@@ -24,11 +24,13 @@ export default function HeaderBrand({
         onClick={onToggleSidebar}
         className='lg:hidden p-2 text-neutral-100 hover:text-on-surface'
       >
+        <Menu size={20} />
       </Button>
 
       <Button
         variant='link'
         onClick={onNavigateLanding}
+        disabled={!showNav || !hiddenLogo}
         className='hidden lg:flex items-center gap-2 overflow-hidden hover:no-underline'
       >
         {isLoggedIn ? (

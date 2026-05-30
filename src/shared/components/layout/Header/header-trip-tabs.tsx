@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import { RefObject } from 'react'
+import type { RefObject } from 'react'
 import { Button } from '@/shared/components/common/Button'
 import { tripDetailTabs } from '@/shared/constants/sidebar.constant'
 
@@ -21,8 +21,7 @@ export default function HeaderTripTabs({
       <div className='lg:hidden bg-card border-b border-border/30 sticky top-16 z-30 shadow-[0_2px_10px_-4px_rgba(0,0,0,0.02)]'>
         <div
           ref={tabsRef}
-          className='flex gap-8 px-4 md:px-8 overflow-x-auto scrollbar-hide max-w-7xl mx-auto w-full'
-          style={{ msOverflowStyle: 'none', scrollbarWidth: 'none' }}
+          className='flex gap-8 px-4 md:px-8 overflow-x-auto hide-scrollbar max-w-7xl mx-auto w-full'
         >
           {tripDetailTabs.map((tab) => (
             <Button
@@ -49,18 +48,19 @@ export default function HeaderTripTabs({
   }
 
   return (
-    <div className='flex-1 hidden lg:flex justify-start h-full items-center ml-8 gap-1 pl-8 border-l border-neutral-0'>
+    <div className='flex-1 hidden lg:flex justify-start h-full items-center ml-8 gap-1 border-l border-neutral-0'>
       <div ref={tabsRef} className='flex gap-8 px-4 h-full items-center'>
         {tripDetailTabs.map((tab) => (
           <Button
             key={tab}
-            variant={'outline'}
+            variant={'ghost'}
             onClick={() => handleTabClick?.(tab)}
-            className={`relative p-1 text-xs sm:text-sm font-bold transition-all whitespace-nowrap flex items-center ${
-              activeTab === tab
-                ? 'text-primary'
-                : 'text-muted-foreground/70 hover:text-foreground'
-            }`}
+            className={`relative p-1 text-xs sm:text-sm font-bold transition-all whitespace-nowrap flex items-center hover:bg-transparent 
+              ${
+                activeTab === tab
+                  ? 'text-primary'
+                  : 'text-muted-foreground/70 hover:text-foreground'
+              }`}
           >
             {tab}
             {activeTab === tab && (

@@ -5,12 +5,9 @@ import { ArrowLeft } from 'lucide-react'
 import { BackgroundEffects } from '@/shared/components/effect'
 import PageContainer from '@/shared/components/layout/page-container'
 import PageShell from '@/shared/components/layout/page-shell'
+import { useLandingContext } from '@/shared/contexts/landing-context'
 import FormColumns from './layout/contact-form'
 import InfoColumns from './layout/contact-info'
-<<<<<<< HEAD
-import { useLandingContext } from '@/shared/contexts/landing-context'
-=======
->>>>>>> fe6ea22 (refactor(ui): TNP-TuanNT refactor landing-layout, split AuthModalContext in folder Contexts Provider component)
 
 export default function Contact() {
   const { openAbout } = useLandingContext()

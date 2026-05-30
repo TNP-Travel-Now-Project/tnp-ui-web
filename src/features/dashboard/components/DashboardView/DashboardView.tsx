@@ -1,8 +1,8 @@
 import PageSection from '@/shared/components/layout/page-section'
+import type { SummaryStat, Trip } from '@/shared/types'
 import { InsightsSummary } from '../InsightsSummary'
 import { UpcomingTrips } from '../UpcomingTrips'
 import { WelcomeHero } from '../WelcomeHero'
-import type { SummaryStat, Trip } from '@/shared/types'
 
 interface DashboardViewProps {
   trips: Trip[]
