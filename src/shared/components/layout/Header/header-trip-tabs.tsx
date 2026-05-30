@@ -28,7 +28,7 @@ export default function HeaderTripTabs({
             <Button
               key={tab}
               onClick={() => handleTabClick?.(tab)}
-              className={`relative px-1 py-4 text-xs sm:text-sm font-bold transition-all whitespace-nowrap flex-shrink-0 ${
+              className={`relative px-1 py-4 text-xs sm:text-sm font-bold transition-all whitespace-nowrap shrink-0 ${
                 activeTab === tab
                   ? 'text-primary scale-105'
                   : 'text-muted-foreground/70 hover:text-foreground'

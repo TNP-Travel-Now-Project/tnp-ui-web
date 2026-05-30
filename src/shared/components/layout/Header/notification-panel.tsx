@@ -8,20 +8,20 @@ export default function NotificationPanel() {
 
   return (
     <div className='flex flex-col bg-neutral-0'>
-      <div className='p-4 border-b border-outline-variant/10'>
-        <h3 className='text-base sm:text-xl font-black text-on-surface tracking-tight mb-2 sm:mb-4'>
+      <div className='p-4 border-b border-border/10'>
+        <h3 className='text-base sm:text-xl font-black text-foreground tracking-tight mb-2 sm:mb-4'>
           Thông báo
         </h3>
-        <div className='flex p-0.5 sm:p-1 bg-surface-container rounded-lg sm:rounded-xl'>
+        <div className='flex p-0.5 sm:p-1 bg-muted rounded-lg sm:rounded-xl'>
           <Button
             onClick={() => setActiveTab('all')}
-            className={`flex-1 py-1.5 sm:py-2 text-[10px] sm:text-xs font-bold rounded-md sm:rounded-lg transition-all ${activeTab === 'all' ? 'bg-neutral-0 text-primary shadow-sm' : 'text-outline hover:text-on-surface'}`}
+            className={`flex-1 py-1.5 sm:py-2 text-[10px] sm:text-xs font-bold rounded-md sm:rounded-lg transition-all ${activeTab === 'all' ? 'bg-neutral-0 text-primary shadow-sm' : 'text-muted-foreground hover:text-foreground'}`}
           >
             Chung
           </Button>
           <Button
             onClick={() => setActiveTab('trip')}
-            className={`flex-1 py-1.5 sm:py-2 text-[10px] sm:text-xs font-bold rounded-md sm:rounded-lg transition-all ${activeTab === 'trip' ? 'bg-neutral-0 text-primary shadow-sm' : 'text-outline hover:text-on-surface'}`}
+            className={`flex-1 py-1.5 sm:py-2 text-[10px] sm:text-xs font-bold rounded-md sm:rounded-lg transition-all ${activeTab === 'trip' ? 'bg-neutral-0 text-primary shadow-sm' : 'text-muted-foreground hover:text-foreground'}`}
           >
             Chuyến đi
           </Button>
@@ -41,7 +41,7 @@ export default function NotificationPanel() {
               return (
                 <div
                   key={item.id}
-                  className='p-3 sm:p-4 rounded-2xl hover:bg-surface-container/50 transition-all group border border-transparent hover:border-outline-variant/20 cursor-pointer'
+                  className='p-3 sm:p-4 rounded-2xl hover:bg-accent/50 transition-all group border border-transparent hover:border-border/20 cursor-pointer'
                 >
                   <div className='flex gap-3 sm:gap-4'>
                     <div className={`p-2 sm:p-2.5 rounded-xl ${item.color} shrink-0 h-fit`}>
@@ -49,14 +49,14 @@ export default function NotificationPanel() {
                     </div>
                     <div className='flex-1 min-w-0'>
                       <div className='flex justify-between items-start mb-1'>
-                        <h4 className='text-sm font-bold text-on-surface truncate pr-2'>
+                        <h4 className='text-sm font-bold text-foreground truncate pr-2'>
                           {item.title}
                         </h4>
-                        <span className='text-[10px] font-bold text-outline shrink-0'>
+                        <span className='text-[10px] font-bold text-muted-foreground shrink-0'>
                           {item.time}
                         </span>
                       </div>
-                      <p className='text-xs text-outline font-medium line-clamp-2 leading-relaxed'>
+                      <p className='text-xs text-muted-foreground font-medium line-clamp-2 leading-relaxed'>
                         {item.desc}
                       </p>
                     </div>
@@ -67,7 +67,7 @@ export default function NotificationPanel() {
           </motion.div>
         </AnimatePresence>
       </div>
-      <div className='p-4 bg-surface-container/30 border-t border-outline-variant/10 text-center'>
+      <div className='p-4 bg-muted/30 border-t border-border/10 text-center'>
         <Button className='text-[10px] font-black text-primary uppercase tracking-widest hover:underline'>
           Đã đọc tất cả
         </Button>

@@ -22,12 +22,12 @@ export default function HeaderActions({
   onNavigateRegister,
   onProfileClick,
 }: HeaderActionsProps) {
-  if (!isLoggedIn) {
+  if (isLoggedIn) {
     return (
       <div className='flex items-center gap-1 sm:gap-4'>
         <Button
           onClick={onNavigateLogin}
-          className='px-4 py-2 text-xs sm:text-sm border rounded-xl font-bold text-on-surface hover:bg-green-teal transition-colors'
+          className='px-4 py-2 text-xs sm:text-sm border rounded-xl font-bold text-foreground hover:bg-green-teal transition-colors'
         >
           Đăng nhập
         </Button>
@@ -45,7 +45,7 @@ export default function HeaderActions({
     <div className='flex items-center gap-2 md:gap-5'>
       <DropdownMenu trigger={<Button variant='outline'>Open menu</Button>}>
         <DropdownMenuTrigger asChild>
-          <Button className='p-2 text-outline hover:text-primary transition-all rounded-1 hover:bg-surface-container relative outline-none ring-0'>
+          <Button className='p-2 text-muted-foreground hover:text-primary transition-all rounded-sm hover:bg-accent relative outline-none ring-0'>
             <Bell size={20} />
             {showNotification && (
               <span className='absolute top-1.5 right-1.5 w-2 h-2 bg-error rounded-full ring-2 ring-neutral-0 animate-pulse' />
@@ -54,7 +54,7 @@ export default function HeaderActions({
         </DropdownMenuTrigger>
         <DropdownMenuContent
           align='end'
-          className='w-[calc(100vw-32px)] sm:w-100 p-0 rounded-3xl shadow-2xl border-outline-variant/30 overflow-hidden'
+          className='w-[calc(100vw-32px)] sm:w-100 p-0 rounded-3xl shadow-2xl border-border/30 overflow-hidden'
         >
           <NotificationPanel />
         </DropdownMenuContent>
