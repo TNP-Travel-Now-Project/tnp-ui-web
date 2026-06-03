@@ -69,7 +69,6 @@ export default function LandingLayout({ children }: { children?: React.ReactNode
             onToggleSidebar={toggleSidebar}
             isLoggedIn={false}
           />
-
           <main>{children}</main>
         </div>
       </div>

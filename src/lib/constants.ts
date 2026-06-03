@@ -4,20 +4,10 @@
  * Tập trung các giá trị lặp lại ở một nơi để dễ và tránh sai chính tả.
  *
  * Cách dùng:
- *   import { API_ENDPOINTS, PAGINATION, STORAGE_KEYS } from '@/lib/constants'
+ *   import { PAGINATION, STORAGE_KEYS } from '@/lib/constants'
  *
- *   fetch(API_ENDPOINTS.LOGIN, { ... })
  *   localStorage.setItem(STORAGE_KEYS.TOKEN, token)
  */
-
-// ====================== API Endpoints ======================
-
-export const API_ENDPOINTS = {
-  /** Đăng nhập */
-  LOGIN: '/auth/login',
-  /** Đăng ký */
-  REGISTER: '/auth/register',
-} as const
 
 // ====================== Pagination ======================
 

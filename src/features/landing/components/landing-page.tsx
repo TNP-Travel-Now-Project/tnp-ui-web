@@ -7,8 +7,15 @@ import LandingLayout from '@/shared/components/layout/landing-layout'
 import { ThemeSetter } from '@/shared/components/providers/ThemeProvider/theme-setter'
 
 export default function LandingPage() {
-  const { isAuthenticated, isLoading } = useGuestLanding()
-  const { currentCustomer, totalCustomers, navigate, handleNext, handlePrev } = useGuestLanding()
+  const {
+    isAuthenticated,
+    isLoading,
+    currentCustomer,
+    totalCustomers,
+    navigate,
+    handleNext,
+    handlePrev
+  } = useGuestLanding()
 
   if (isLoading) {
     return <Loading size='lg' inline text='Đang xử lý...' />

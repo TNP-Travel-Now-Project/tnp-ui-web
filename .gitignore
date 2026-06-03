@@ -1,4 +1,3 @@
-@"
 # dependencies
 node_modules
 .pnp
@@ -52,4 +51,6 @@ next-env.d.ts
 
 # Turbo / cache (optional)
 .turbo/
-"@ | Out-File -Encoding utf8 .gitignore
+
+# Generated API SDK
+src/shared/api/generated/

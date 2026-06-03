@@ -73,11 +73,11 @@ export default function AuthModal({
             </TabsList>
 
             <TabsContent value='login' className='outline-none focus-visible:ring-0 w-full mt-0'>
-              <LoginForm />
+              <LoginForm onSuccess={onSuccess} />
             </TabsContent>
 
             <TabsContent value='register' className='outline-none focus-visible:ring-0 w-full mt-0'>
-              <RegisterForm />
+              <RegisterForm onSuccess={onSuccess} />
             </TabsContent>
           </Tabs>
         </div>

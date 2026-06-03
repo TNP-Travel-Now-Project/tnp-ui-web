@@ -2,6 +2,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { useState } from 'react'
 import { Button } from '@/shared/components/common/Button'
 import { notifications } from '@/shared/constants/header.constant'
+import { cn } from '@/lib/utils'
 
 export default function NotificationPanel() {
   const [activeTab, setActiveTab] = useState<'all' | 'trip'>('all')
@@ -12,16 +13,31 @@ export default function NotificationPanel() {
         <h3 className='text-base sm:text-xl font-black text-foreground tracking-tight mb-2 sm:mb-4'>
           Thông báo
         </h3>
-        <div className='flex p-0.5 sm:p-1 bg-muted rounded-lg sm:rounded-xl'>
+        {/* <div className='flex justify-between items-center'>
+        </div> */}
+        <div className="tab-switcher-container">
           <Button
+            buttonType='none'
             onClick={() => setActiveTab('all')}
-            className={`flex-1 py-1.5 sm:py-2 text-[10px] sm:text-xs font-bold rounded-md sm:rounded-lg transition-all ${activeTab === 'all' ? 'bg-neutral-0 text-primary shadow-sm' : 'text-muted-foreground hover:text-foreground'}`}
+            className={cn(
+              'tab-switcher-btn',
+              activeTab === 'all'
+                ? 'tab-switcher-btn-active'
+                : 'tab-switcher-btn-inactive tab-switcher-btn-inactive-hover'
+            )}
           >
             Chung
           </Button>
+
           <Button
+            buttonType='none'
             onClick={() => setActiveTab('trip')}
-            className={`flex-1 py-1.5 sm:py-2 text-[10px] sm:text-xs font-bold rounded-md sm:rounded-lg transition-all ${activeTab === 'trip' ? 'bg-neutral-0 text-primary shadow-sm' : 'text-muted-foreground hover:text-foreground'}`}
+            className={cn(
+              'tab-switcher-btn',
+              activeTab === 'trip'
+                ? 'tab-switcher-btn-active'
+                : 'tab-switcher-btn-inactive tab-switcher-btn-inactive-hover'
+            )}
           >
             Chuyến đi
           </Button>
@@ -67,9 +83,9 @@ export default function NotificationPanel() {
           </motion.div>
         </AnimatePresence>
       </div>
-      <div className='p-4 bg-muted/30 border-t border-border/10 text-center'>
-        <Button className='text-[10px] font-black text-primary uppercase tracking-widest hover:underline'>
-          Đã đọc tất cả
+      <div className='p-4 pt-2 text-center bg-card border-t border-border/30'>
+        <Button className='w-full sm:w-auto px-8 py-2.5 text-xs font-black text-neutral-0 bg-green-teal hover:bg-green-dark active:scale-98 rounded-xl transition-all uppercase tracking-wider shadow-sm shadow-green-teal/10'>
+          Xem tất cả
         </Button>
       </div>
     </div>

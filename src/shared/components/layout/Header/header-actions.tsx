@@ -19,7 +19,7 @@ export default function HeaderActions({
   onNavigateRegister,
   onProfileClick,
 }: HeaderActionsProps) {
-  if (isLoggedIn) {
+  if (!isLoggedIn) {
     return (
       <div className='flex items-center gap-1 sm:gap-4'>
         <Button

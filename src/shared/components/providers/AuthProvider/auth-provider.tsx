@@ -41,11 +41,11 @@ const AuthProvider = ({
   initialUser = null,
   onLogin,
   onLogout,
-  tokenKey = 'auth_token',
+  tokenKey = 'tnp_token',
 }: AuthProviderProps) => {
   const [user, setUser] = useState<User | null>(initialUser)
   const [isLoading, setIsLoading] = useState(!initialUser)
-
+  
   useEffect(() => {
     // Check for existing token on mount
     if (!initialUser) {
