@@ -1,0 +1,4 @@
+import HeaderComponent from './header'
+
+export type { HeaderProps } from './header'
+export default HeaderComponent

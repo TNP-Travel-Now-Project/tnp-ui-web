@@ -33,10 +33,10 @@ auth/
 │   └── register.schema.ts# Zod: fullName, email, password, confirmPassword
 ├── hooks/
 │   ├── login/
-│   │   ├── useLogin.ts       # useMutation → loginApi → alert()
-│   │   └── useLoginForm.ts   # react-hook-form + Zod + useLogin
+│   │   ├── useLogin.ts       # useMutation → postApiAuthLogin
+│   │   └── useLoginForm.ts   # react-hook-form + Zod + try/catch + AuthProvider.login()
 │   └── register/
-│       └── useRegister.ts    # useMutation → registerApi → alert()
+│       └── useRegister.ts    # useMutation → registerApi
 └── components/
     ├── login/
     │   └── login-form.tsx    # Form đăng nhập + Google OAuth button
@@ -62,8 +62,7 @@ export const loginSchema = z.object({
 
 ### Vấn đề hiện tại
 1. `register.api.ts` endpoint có trailing space: `'/auth/register '`
-2. `register-form.tsx` dùng `useLoginForm` thay vì `useRegisterForm`
-3. `useLogin` và `useRegister` dùng `alert()` — inconsistent với toast pattern
+2. `register-form.tsx` còn code cũ comment (block comment phần old UI)
 
 ---
 

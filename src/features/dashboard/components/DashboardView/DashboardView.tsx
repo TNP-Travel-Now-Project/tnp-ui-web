@@ -1,8 +1,9 @@
 import PageSection from '@/shared/components/layout/page-section'
+import type { SummaryStat, Trip } from '@/shared/types'
 import { InsightsSummary } from '../InsightsSummary'
 import { UpcomingTrips } from '../UpcomingTrips'
 import { WelcomeHero } from '../WelcomeHero'
-import type { SummaryStat, Trip } from '@/shared/types'
+import { ThemeSetter } from '@/shared/components/providers/ThemeProvider/theme-setter'
 
 interface DashboardViewProps {
   trips: Trip[]
@@ -21,6 +22,7 @@ export function DashboardView({
 }: DashboardViewProps) {
   return (
     <>
+      <ThemeSetter theme='light' />
       <WelcomeHero />
 
       <PageSection className='py-0 md:py-0'>

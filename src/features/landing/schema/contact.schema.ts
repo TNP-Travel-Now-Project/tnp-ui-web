@@ -20,3 +20,9 @@ export const ContactSchema = z.object({
 })
 
 export type ContactFormData = z.infer<typeof ContactSchema>
+
+export const toContactRequest = (data: ContactFormData) => ({
+  name: data.username,
+  email: data.email,
+  description: data.description,
+})

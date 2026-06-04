@@ -13,13 +13,19 @@
  */
 
 export const config = {
-  /** API Base URL từ .env.local */
+  /** API Base URL từ .env.local (VD: https://localhost:7160/api) */
   get apiBaseUrl() {
     const url = process.env.NEXT_PUBLIC_API_BASE_URL
     if (!url) {
       throw new Error('Missing env: NEXT_PUBLIC_API_BASE_URL')
     }
     return url
+  },
+
+  /** Origin (VD: https://localhost:7160) — dùng cho generated SDK vì paths đã bao gồm /api */
+  get apiBaseOrigin() {
+    const url = this.apiBaseUrl
+    return url.endsWith('/api') ? url.slice(0, -4) : url
   },
 
   /** Tên ứng dụng */

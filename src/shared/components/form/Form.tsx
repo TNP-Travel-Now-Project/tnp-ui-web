@@ -1,6 +1,7 @@
 'use client'
 
 import { Slot } from '@radix-ui/react-slot'
+import { AnimatePresence, motion } from 'framer-motion'
 import type * as React from 'react'
 import { createContext, useContext, useId } from 'react'
 import {
@@ -107,25 +108,31 @@ FormControl.displayName = 'FormControl'
 
 // ─── FormMessage ─────────────────────────────────────────────────────────────
 
-type FormMessageProps = React.ComponentProps<'p'>
+interface FormMessageProps {
+  className?: string
+  children?: React.ReactNode
+}
 
-const FormMessage = ({ className, children, ...props }: FormMessageProps) => {
+const FormMessage = ({ className, children }: FormMessageProps) => {
   const { error, formMessageId } = useFormField()
   const body = error ? String(error?.message) : children
 
-  if (!body) {
-    return null
-  }
-
   return (
-    <p
-      data-slot='form-message'
-      id={formMessageId}
-      className={cn('text-sm text-error-active font-bold', className)}
-      {...props}
-    >
-      {body}
-    </p>
+    <AnimatePresence mode='wait'>
+      {body && (
+        <motion.p
+          data-slot='form-message'
+          id={formMessageId}
+          className={cn('text-sm text-error-active font-bold', className)}
+          initial={{ opacity: 0, y: -6 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -6 }}
+          transition={{ duration: 0.2, ease: 'easeOut' }}
+        >
+          {body}
+        </motion.p>
+      )}
+    </AnimatePresence>
   )
 }
 

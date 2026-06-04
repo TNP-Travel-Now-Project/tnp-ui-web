@@ -2,14 +2,14 @@
 
 import { useLoginForm } from '@/features/auth/hooks/login/useLoginForm'
 import { Button } from '@/shared/components/common/Button'
-import {
-  Form,
-  FormInput,
-  FormPassword
-} from '@/shared/components/form'
+import { Form, FormInput, FormPassword } from '@/shared/components/form'
 
-export default function LoginForm() {
-  const { form, mutation, onSubmit } = useLoginForm()
+interface LoginFormProps {
+  onSuccess?: () => void
+}
+
+export default function LoginForm({ onSuccess }: LoginFormProps) {
+  const { form, mutation, onSubmit } = useLoginForm({ onSuccess })
 
   return (
     <div className='space-y-5 sm:space-y-6'>
@@ -70,7 +70,6 @@ export default function LoginForm() {
           </Button>
         </Form>
       </form>
-
     </div>
   )
 }

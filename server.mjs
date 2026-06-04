@@ -3,6 +3,7 @@ import fs from 'fs'
 import next from 'next'
 import { parse } from 'url'
 
+const PORT = 3001
 const app = next({ dev: true })
 const handle = app.getRequestHandler()
 
@@ -17,7 +18,7 @@ app.prepare().then(() => {
       const parsedUrl = parse(req.url, true)
       handle(req, res, parsedUrl)
     })
-    .listen(3000, () => {
-      console.log('https://localhost:3000')
+    .listen(PORT, () => {
+      console.log(`https://localhost:${PORT}`)
     })
 })

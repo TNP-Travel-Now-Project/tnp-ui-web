@@ -24,7 +24,7 @@ export default function AuthModal({
   onClose,
   onSuccess,
   activeTab,
-  onTabChange
+  onTabChange,
 }: AuthModalProps) {
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
@@ -72,18 +72,12 @@ export default function AuthModal({
               </TabsTrigger>
             </TabsList>
 
-            <TabsContent
-              value='login'
-              className='outline-none focus-visible:ring-0 w-full mt-0'
-            >
-              <LoginForm />
+            <TabsContent value='login' className='outline-none focus-visible:ring-0 w-full mt-0'>
+              <LoginForm onSuccess={onSuccess} />
             </TabsContent>
 
-            <TabsContent
-              value='register'
-              className='outline-none focus-visible:ring-0 w-full mt-0'
-            >
-              <RegisterForm />
+            <TabsContent value='register' className='outline-none focus-visible:ring-0 w-full mt-0'>
+              <RegisterForm onSuccess={onSuccess} />
             </TabsContent>
           </Tabs>
         </div>

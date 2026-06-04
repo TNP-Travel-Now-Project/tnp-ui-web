@@ -3,7 +3,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 import { useSendContactInfo } from '@/features/landing/hooks/contact/useContact'
-import { type ContactFormData, ContactSchema } from '@/features/landing/schema/contact.schema'
+import { type ContactFormData, ContactSchema, toContactRequest } from '@/features/landing/schema/contact.schema'
 
 export default function useContactForm() {
   const mutation = useSendContactInfo()
@@ -19,11 +19,14 @@ export default function useContactForm() {
   })
 
   const onSubmit = async (data: ContactFormData) => {
-    await toast.promise(mutation.mutateAsync(data), {
-      loading: 'Đang gửi lời tin nhắn...',
-      success: 'Đã gửi tin nhắn cho chudu4be',
-      error: (error) => error.message || 'Gửi tin nhắn thất bại',
-    })
+    await toast.promise(
+      mutation.mutateAsync(toContactRequest(data)),
+      {
+        loading: 'Đang gửi lời tin nhắn...',
+        success: 'Đã gửi tin nhắn cho chudu4be',
+        error: (error) => error.message || 'Gửi tin nhắn thất bại',
+      },
+    )
 
     form.reset()
   }

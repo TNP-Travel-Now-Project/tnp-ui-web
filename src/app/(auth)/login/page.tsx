@@ -10,8 +10,9 @@ export default function LoginPage() {
     <AuthModal
       isOpen={true}
       onClose={() => router.push('/')}
-      onSuccess={() => router.push('/order')}
-      initialTab='login'
+      onSuccess={() => router.push('/dashboard')}
+      activeTab='login'
+      onTabChange={() => {}}
     />
   )
 }

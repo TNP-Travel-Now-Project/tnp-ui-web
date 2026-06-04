@@ -1,14 +1,14 @@
 'use client'
-import { Button } from '@/shared/components/common/Button'
-import {
-  Form,
-  FormInput,
-  FormPassword
-} from '@/shared/components/form'
 import { useRegisterForm } from '@/features/auth/hooks/register/useRegisterForm'
+import { Button } from '@/shared/components/common/Button'
+import { Form, FormInput, FormPassword } from '@/shared/components/form'
 
-export default function RegisterForm() {
-  const { form, mutation, onSubmit } = useRegisterForm()
+interface RegisterFormProps {
+  onSuccess?: () => void
+}
+
+export default function RegisterForm({ onSuccess }: RegisterFormProps) {
+  const { form, mutation, onSubmit } = useRegisterForm({ onSuccess })
 
   return (
     <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-3 sm:space-y-4'>

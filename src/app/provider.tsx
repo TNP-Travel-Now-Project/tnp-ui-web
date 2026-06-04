@@ -6,7 +6,7 @@ export default function Provider({ children }: { children: React.ReactNode }) {
   return (
     <QueryProvider>
       <AuthProvider>
-        <ThemeProvider>{children}</ThemeProvider>
+        <ThemeProvider defaultTheme='light'>{children}</ThemeProvider>
       </AuthProvider>
     </QueryProvider>
   )

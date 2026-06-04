@@ -55,16 +55,18 @@ sequenceDiagram
 ```mermaid
 sequenceDiagram
     participant User
-    participant Page as /login page
+    participant Page as Landing / /login page
     participant Modal as AuthModal
     participant Form as LoginForm
     participant FormHook as useLoginForm
     participant MutHook as useLogin
-    participant API as loginApi
+    participant API as postApiAuthLogin
     participant Axios as axiosClient
-    
-    User->>Page: Truy cập /login
-    Page->>Modal: Render AuthModal(login)
+    participant Auth as AuthProvider
+    participant Parent as Parent useEffect
+
+    User->>Page: Click Đăng nhập / Truy cập /login
+    Page->>Modal: Render AuthModal
     User->>Form: Nhập email + password
     Form->>FormHook: submit
     FormHook->>FormHook: validate Zod schema
@@ -72,18 +74,24 @@ sequenceDiagram
         FormHook->>Form: set form errors
     else OK
         FormHook->>MutHook: mutateAsync(values)
-        MutHook->>API: loginApi(values)
-        API->>Axios: POST /auth/login + CSRF token
+        MutHook->>API: postApiAuthLogin({ body, throwOnError: true })
+        API->>Axios: POST /api/auth/login + CSRF token
         Axios->>Backend: HTTP request
         Backend-->>Axios: Response / Error
         Axios-->>API: data / ApiError
-        API-->>MutHook: response / error
-        MutHook-->>FormHook: data / error
+        API-->>MutHook: data / error
+        MutHook-->>FormHook: data / throw error
         alt Thành công
-            FormHook->>User: alert('Đăng nhập thành công') ⚠️ dùng alert
-            FormHook->>Page: router.push(/order)
-        else Thất bại
-            FormHook->>Form: set formError
+            FormHook->>Auth: login(user, token)
+            Auth->>Auth: setUser → isAuthenticated = true
+            FormHook->>FormHook: toast.success()
+            FormHook->>FormHook: onSuccess?.()
+            Note over Auth,Parent: React re-render
+            Parent->>Parent: useEffect → router.replace('/dashboard')
+        else Thất bại (401)
+            Note over FormHook: catch(error)
+            FormHook->>FormHook: toast.error(error.message)
+            Note over FormHook,Auth: KHÔNG gọi login → KHÔNG redirect
         end
     end
 ```

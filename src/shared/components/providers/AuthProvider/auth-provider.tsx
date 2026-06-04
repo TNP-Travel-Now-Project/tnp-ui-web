@@ -41,22 +41,22 @@ const AuthProvider = ({
   initialUser = null,
   onLogin,
   onLogout,
-  tokenKey = 'auth_token',
+  tokenKey = 'tnp_token',
 }: AuthProviderProps) => {
   const [user, setUser] = useState<User | null>(initialUser)
   const [isLoading, setIsLoading] = useState(!initialUser)
-
+  
   useEffect(() => {
     // Check for existing token on mount
     if (!initialUser) {
       const token = localStorage.getItem(tokenKey)
-        if (token) {
-          // TODO: Validate token and fetch user info
-          // For now, we'll just set loading to false
-          setIsLoading(false)
-        } else {
-          setIsLoading(false)
-        }
+      if (token) {
+        // TODO: Validate token and fetch user info
+        // For now, we'll just set loading to false
+        setIsLoading(false)
+      } else {
+        setIsLoading(false)
+      }
     }
   }, [initialUser, tokenKey])
 

@@ -1,17 +1,18 @@
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useState } from 'react'
 import { useForm } from 'react-hook-form'
+import { toast } from 'sonner'
 import { useLogin } from '@/features/auth/hooks/login/useLogin'
 import type { LoginFormData } from '@/features/auth/schemas/login.schema'
 import { LoginSchema } from '@/features/auth/schemas/login.schema'
-import { toast } from 'sonner'
+import { useAuth } from '@/shared/components/providers'
 
-export function useLoginForm() {
+export function useLoginForm({ onSuccess }: { onSuccess?: () => void } = {}) {
   const mutation = useLogin()
+  const { login } = useAuth()
 
   const form = useForm<LoginFormData>({
     resolver: zodResolver(LoginSchema),
-    mode: 'all',
+    mode: 'onChange',
     defaultValues: {
       email: '',
       password: '',
@@ -20,13 +21,27 @@ export function useLoginForm() {
   })
 
   const onSubmit = async (data: LoginFormData) => {
-    await toast.promise(mutation.mutateAsync(data), {
-      loading: 'Đang thực hiện đang nhập...',
-      success: 'Đăng nhập thành công.',
-      error: (error) => error.message || 'Đăng nhập thất bại!',
-    })
+    try {
+      const result = await mutation.mutateAsync(data)
 
-    form.reset()
+      toast.success('Đăng nhập thành công.')
+
+      login(
+        {
+          id: result.userId!,
+          email: result.email ?? '',
+          name: result.email ?? '',
+          role: result.role ?? '',
+        },
+        result.accessToken ?? result.userId!,
+      )
+
+      form.reset()
+      onSuccess?.()
+    } catch (error) {
+      const message = error instanceof Error ? error.message : 'Đăng nhập thất bại!'
+      toast.error(message)
+    }
   }
 
   return {

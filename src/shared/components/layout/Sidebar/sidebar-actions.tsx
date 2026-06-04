@@ -30,9 +30,7 @@ export default function SidebarActions({
         className={`flex items-center rounded-xl transition-all text-error hover:bg-error-soft ${isExpanded ? 'px-4 py-3 gap-4' : 'px-0 py-3 justify-center'}`}
       >
         <LogOut size={20} className='shrink-0' />
-        {isExpanded && (
-          <span className='text-sm font-bold whitespace-nowrap'>Đăng xuất</span>
-        )}
+        {isExpanded && <span className='text-sm font-bold whitespace-nowrap'>Đăng xuất</span>}
       </a>
     </div>
   )

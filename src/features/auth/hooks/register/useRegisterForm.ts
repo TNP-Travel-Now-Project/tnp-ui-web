@@ -1,11 +1,13 @@
-import { toast } from 'sonner'
-import { type RegisterFormData, RegisterSchema } from '@/features/auth/schemas/register.schema'
-import { useRegister } from '@/features/auth/hooks/register/useRegister'
-import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useForm } from 'react-hook-form'
+import { toast } from 'sonner'
+import { useRegister } from '@/features/auth/hooks/register/useRegister'
+import { type RegisterFormData, RegisterSchema } from '@/features/auth/schemas/register.schema'
+import { useAuth } from '@/shared/components/providers'
 
-export const useRegisterForm = () => {
+export const useRegisterForm = ({ onSuccess }: { onSuccess?: () => void } = {}) => {
   const mutation = useRegister()
+  const { login } = useAuth()
 
   const form = useForm<RegisterFormData>({
     resolver: zodResolver(RegisterSchema),
@@ -20,14 +22,28 @@ export const useRegisterForm = () => {
   })
 
   const onSubmit = async (data: RegisterFormData) => {
-    await toast.promise(mutation.mutateAsync(data), {
-      loading: 'Đang thực hiện đăng ký...',
-      success: 'Đăng ký thành công.',
-      error: (error) => error.message || 'Đăng nhập thất bại!',
-    })
+    try {
+      const result = await mutation.mutateAsync(data)
 
-    form.reset()
+      toast.success('Đăng ký thành công.')
+
+      login(
+        {
+          id: result.userId,
+          email: result.email,
+          name: result.fullName,
+        },
+        result.userId,
+      )
+
+      form.reset()
+      onSuccess?.()
+    } catch (error) {
+      const message = error instanceof Error ? error.message : 'Đăng ký thất bại!'
+      toast.error(message)
+    }
   }
+
   return {
     form,
     mutation,

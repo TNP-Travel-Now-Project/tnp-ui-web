@@ -3,7 +3,12 @@
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { useCallback, useRef, useState } from 'react'
 import { useAuth } from '@/shared/components/providers'
-import { currentPageMap, type profileTab as ProfileTab, tripDetailTabs } from '@/shared/constants/sidebar.constant'
+import { currentPageMap as currentPageHeaderMap } from '@/shared/constants/header.constant'
+import {
+  currentPageMap as currentPageSidebarMap,
+  type profileTab as ProfileTab,
+  tripDetailTabs,
+} from '@/shared/constants/sidebar.constant'
 
 export function useMainLayoutController() {
   const router = useRouter()
@@ -20,11 +25,11 @@ export function useMainLayoutController() {
   const [hasNotification] = useState(false)
   const tabsRef = useRef<HTMLDivElement>(null)
 
-  
   const isTripDetail = /^\/trips\/[a-zA-Z0-9_-]+\/?$/.test(pathname)
   const isDashboard = pathname === '/dashboard'
   const activeTab = searchParams.get('tab') || 'Tổng quan'
-  const currentPage = currentPageMap[pathname] || '/'
+  const currentPageSidebar = currentPageSidebarMap[pathname] || '/'
+  const currentPageHeader = currentPageHeaderMap[pathname] || '/'
 
   const handleTabClick = (tab: string) => {
     const params = new URLSearchParams(searchParams.toString())
@@ -72,12 +77,15 @@ export function useMainLayoutController() {
 
   const goHome = useCallback(() => router.push('/'), [router])
 
+  const goToCreateTrip = useCallback(() => router.push('/trips/new'), [router])
+
   const openProfile = (tab: ProfileTab = 'personal') => {
     setProfileModalTab(tab)
     setIsProfileModalOpen(true)
   }
 
   return {
+    router,
     isAuthenticated,
     isSidebarOpen,
     isSidebarCollapsed,
@@ -91,7 +99,8 @@ export function useMainLayoutController() {
     isDashboard,
     activeTab,
     tripDetailTabs,
-    currentPage,
+    currentPageSidebar,
+    currentPageHeader,
     setIsSidebarOpen,
     setIsProfileModalOpen,
     handleTabClick,
@@ -101,6 +110,6 @@ export function useMainLayoutController() {
     toggleSidebarCollapsed,
     openProfile,
     goHome,
-    router,
+    goToCreateTrip,
   }
 }

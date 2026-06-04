@@ -1,13 +1,16 @@
 export interface LoginRequest {
   email: string
   password: string
+  rememberMe?: boolean
 }
 
 export interface LoginResponse {
+  accessToken?: string | null
+  refreshToken?: string | null
   expired: string
   userId: string
-  email: string
-  role: string
+  email: string | null
+  role: string | null
 }
 
 export type LoginPageProps = {

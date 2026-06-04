@@ -10,8 +10,9 @@ export default function RegisterPage() {
     <AuthModal
       isOpen={true}
       onClose={() => router.push('/')}
-      onSuccess={() => router.push('/order')}
-      initialTab='register'
+      onSuccess={() => router.push('/dashboard')}
+      activeTab='register'
+      onTabChange={() => {}}
     />
   )
 }

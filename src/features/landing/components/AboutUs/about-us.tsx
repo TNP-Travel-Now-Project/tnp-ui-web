@@ -2,11 +2,11 @@
 
 import { BackgroundEffects } from '@/shared/components/effect'
 import PageShell from '@/shared/components/layout/page-shell'
+import { useLandingContext } from '@/shared/contexts/landing-context'
 import ContactSection from './layout/contact-section'
 import FounderSection from './layout/founder-section'
 import HeroSection from './layout/hero-section'
 import MissionSection from './layout/mission-section'
-import { useLandingContext } from '@/shared/contexts/landing-context'
 
 export default function AboutUs() {
   const { openHome, openContact } = useLandingContext()

@@ -44,7 +44,7 @@ export const RegisterSchema = z
     message: 'Mật khẩu xác nhận không khớp',
     path: ['confirmPassword'],
   })
-  
+
 export type RegisterFormData = z.infer<typeof RegisterSchema>
 
 export const toRegisterRequest = (data: RegisterFormData): RegisterRequest => ({

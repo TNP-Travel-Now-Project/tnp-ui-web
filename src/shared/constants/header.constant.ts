@@ -15,7 +15,7 @@ export const navItems = [
   },
 ]
 
-export const notifications = {
+export const    notifications = {
   all: [
     {
       id: 1,
@@ -53,3 +53,9 @@ export const notifications = {
     },
   ],
 }
+
+export const currentPageMap: Record<string, string> = {
+  '/dashboard': 'dashboard',
+}
+
+export const tripDetailTabs = ['Tổng quan', 'Lịch trình', 'Chi phí', 'Trò chuyện', 'Thành viên']

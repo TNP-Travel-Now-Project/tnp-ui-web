@@ -4,17 +4,18 @@ import GuestLanding from '@/features/landing/components/GuestLanding/guest-landi
 import { useGuestLanding } from '@/features/landing/hooks/useGuestLanding'
 import { Loading } from '@/shared/components/feedback'
 import LandingLayout from '@/shared/components/layout/landing-layout'
+import { ThemeSetter } from '@/shared/components/providers/ThemeProvider/theme-setter'
 
 export default function LandingPage() {
-  const { isAuthenticated, isLoading } = useGuestLanding()
   const {
+    isAuthenticated,
+    isLoading,
     currentCustomer,
     totalCustomers,
     navigate,
     handleNext,
-    handlePrev,
+    handlePrev
   } = useGuestLanding()
-
 
   if (isLoading) {
     return <Loading size='lg' inline text='Đang xử lý...' />
@@ -24,6 +25,7 @@ export default function LandingPage() {
 
   return (
     <LandingLayout>
+      <ThemeSetter theme='system' />
       <GuestLanding
         onNavigateAbout={navigate.about}
         currentCustomer={currentCustomer}
