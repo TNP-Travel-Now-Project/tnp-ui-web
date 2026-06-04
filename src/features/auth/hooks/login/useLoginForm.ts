@@ -12,7 +12,7 @@ export function useLoginForm({ onSuccess }: { onSuccess?: () => void } = {}) {
 
   const form = useForm<LoginFormData>({
     resolver: zodResolver(LoginSchema),
-    mode: 'all',
+    mode: 'onChange',
     defaultValues: {
       email: '',
       password: '',

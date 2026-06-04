@@ -3,6 +3,7 @@ import { z } from 'zod'
 export const LoginSchema = z.object({
   email: z
     .email({ message: 'Địa chỉ email không hợp lệ' })
+    .trim()
     .nonempty({ message: 'Vui lòng nhập email' }),
 
   password: z
