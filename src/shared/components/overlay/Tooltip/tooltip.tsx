@@ -49,19 +49,19 @@ export interface TooltipProviderProps extends React.ComponentProps<typeof Toolti
   /** Delay duration in ms */
   delayDuration?: number
   /** Disable tooltips */
-  disableHoverStationaryContent?: boolean
+  // disableHoverStationaryContent?: boolean
 }
 
 const TooltipProviderWrapper = ({
   children,
   delayDuration = 300,
-  disableHoverStationaryContent = false,
+  // disableHoverStationaryContent = false,
   ...props
 }: TooltipProviderProps) => {
   return (
     <TooltipProvider
       delay={delayDuration}
-      disableHoverStationaryContent={disableHoverStationaryContent}
+      // disableHoverStationaryContent={disableHoverStationaryContent}
       {...props}
     >
       {children}

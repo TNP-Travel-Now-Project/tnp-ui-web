@@ -4,15 +4,16 @@ import { toast } from 'sonner'
 import { useLogin } from '@/features/auth/hooks/login/useLogin'
 import type { LoginFormData } from '@/features/auth/schemas/login.schema'
 import { LoginSchema } from '@/features/auth/schemas/login.schema'
-import { useAuth } from '@/shared/components/providers'
+import { useAuthStore } from '@/shared/stores/auth-store'
 
 export function useLoginForm({ onSuccess }: { onSuccess?: () => void } = {}) {
   const mutation = useLogin()
-  const { login } = useAuth()
+  const login = useAuthStore((s) => s.login)
 
   const form = useForm<LoginFormData>({
     resolver: zodResolver(LoginSchema),
     mode: 'onChange',
+    reValidateMode: 'onChange',
     defaultValues: {
       email: '',
       password: '',
@@ -24,17 +25,15 @@ export function useLoginForm({ onSuccess }: { onSuccess?: () => void } = {}) {
     try {
       const result = await mutation.mutateAsync(data)
 
-      toast.success('Đăng nhập thành công.')
+      const user = {
+        id: result.userId!,
+        email: result.email ?? '',
+        name: result.email ?? '',
+        role: result.roles?.[0] ?? '',
+      }
 
-      login(
-        {
-          id: result.userId!,
-          email: result.email ?? '',
-          name: result.email ?? '',
-          role: result.role ?? '',
-        },
-        result.accessToken ?? result.userId!,
-      )
+      login(result.accessToken ?? result.userId!, user)
+      toast.success('Đăng nhập thành công.')
 
       form.reset()
       onSuccess?.()

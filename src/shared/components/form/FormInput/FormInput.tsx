@@ -40,17 +40,22 @@ export const FormInput = <TFieldValues extends FieldValues, TName extends FieldP
     <FormField
       control={control}
       name={name}
-      render={({ field }) => (
-        <FormItem className={className}>
-          {label && <FormLabel className={labelClassName}>{label}</FormLabel>}
+      render={({ field, fieldState, formState }) => {
+        const value = field.value ?? ''
+        const showError = (value.toString().length > 0 || formState.isSubmitted) && fieldState.error
 
-          <FormControl>
-            <Input type={type} placeholder={placeholder} className={inputClassName} {...field} />
-          </FormControl>
+        return (
+          <FormItem className={className}>
+            {label && <FormLabel className={labelClassName}>{label}</FormLabel>}
 
-          <FormMessage />
-        </FormItem>
-      )}
+            <FormControl>
+              <Input type={type} placeholder={placeholder} className={inputClassName} {...field} />
+            </FormControl>
+
+            {showError && <FormMessage />}
+          </FormItem>
+        )
+      }}
     />
   )
 }
