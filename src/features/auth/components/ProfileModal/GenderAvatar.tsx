@@ -1,16 +1,11 @@
 'use client'
 
+import { motion } from 'framer-motion'
 import { Camera } from 'lucide-react'
 import { type ChangeEvent, useState } from 'react'
-import { motion } from 'framer-motion'
 import { Popover, PopoverContent, PopoverTrigger } from '@/shared/components/overlay'
+import { GENDER_BG, GENDER_HOVER_BG, GENDER_ICONS, GENDER_OPTIONS } from './profile-modal.constants'
 import type { Gender, GenderAvatarProps } from './profile-modal.types'
-import {
-  GENDER_BG,
-  GENDER_HOVER_BG,
-  GENDER_ICONS,
-  GENDER_OPTIONS,
-} from './profile-modal.constants'
 
 export default function GenderAvatar({ gender, onGenderChange }: GenderAvatarProps) {
   const [avatar, setAvatar] = useState(

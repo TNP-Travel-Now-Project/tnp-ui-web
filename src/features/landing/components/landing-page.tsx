@@ -14,7 +14,7 @@ export default function LandingPage() {
     totalCustomers,
     navigate,
     handleNext,
-    handlePrev
+    handlePrev,
   } = useGuestLanding()
 
   if (isLoading) {

@@ -60,7 +60,7 @@ const TooltipProviderWrapper = ({
 }: TooltipProviderProps) => {
   return (
     <TooltipProvider
-      delayDuration={delayDuration}
+      delay={delayDuration}
       disableHoverStationaryContent={disableHoverStationaryContent}
       {...props}
     >

@@ -1,7 +1,7 @@
 'use client'
 
-import { Lock, Smartphone } from 'lucide-react'
 import { motion } from 'framer-motion'
+import { Lock, Smartphone } from 'lucide-react'
 
 export default function SecurityTab() {
   return (

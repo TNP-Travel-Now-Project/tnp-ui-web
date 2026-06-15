@@ -1,7 +1,7 @@
-import { client } from '@/shared/api/generated/client.gen'
+import { ApiError } from '@/lib/api-error'
 import { config } from '@/lib/config'
 import { getCSRFToken } from '@/lib/csrf'
-import { ApiError } from '@/lib/api-error'
+import { client } from '@/shared/api/generated/client.gen'
 
 client.setConfig({
   baseURL: config.apiBaseOrigin,
@@ -23,9 +23,9 @@ client.instance.interceptors.response.use(
   (error) => Promise.reject(ApiError.fromAxiosError(error)),
 )
 
-export { client }
 export { postApiAuthLogin } from '@/shared/api/generated/sdk.gen'
 export type {
   LoginCommand,
   LoginResponse,
 } from '@/shared/api/generated/types.gen'
+export { client }

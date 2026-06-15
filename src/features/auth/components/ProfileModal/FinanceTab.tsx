@@ -1,10 +1,10 @@
 'use client'
 
-import { Camera, Plus } from 'lucide-react'
 import { motion } from 'framer-motion'
+import { Camera, Plus } from 'lucide-react'
 import { type ChangeEvent, useRef, useState } from 'react'
-import WalletCard from './WalletCard'
 import { WALLETS } from './profile-modal.constants'
+import WalletCard from './WalletCard'
 
 export default function FinanceTab() {
   const [qrImage, setQrImage] = useState<string | null>(null)

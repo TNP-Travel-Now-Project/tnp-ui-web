@@ -43,12 +43,12 @@ const buttonVariants = cva(
 
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
-  VariantProps<typeof buttonVariants> {
+    VariantProps<typeof buttonVariants> {
   asChild?: boolean
 }
 
 function Button({ className, variant = 'default', size = 'default', ...props }: ButtonProps) {
-  return <button className={cn(buttonVariants({ variant, size, }), className)} {...props} />
+  return <button className={cn(buttonVariants({ variant, size }), className)} {...props} />
 }
 
 export { Button, buttonVariants }

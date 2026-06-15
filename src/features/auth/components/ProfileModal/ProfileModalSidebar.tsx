@@ -1,18 +1,15 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import type { TabType } from './profile-modal.types'
 import { TABS } from './profile-modal.constants'
+import type { TabType } from './profile-modal.types'
 
 interface ProfileModalSidebarProps {
   activeTab: TabType
   onTabChange: (tab: TabType) => void
 }
 
-export default function ProfileModalSidebar({
-  activeTab,
-  onTabChange,
-}: ProfileModalSidebarProps) {
+export default function ProfileModalSidebar({ activeTab, onTabChange }: ProfileModalSidebarProps) {
   return (
     <div className='w-14 sm:w-16 md:w-20 bg-surface-container flex flex-col items-center py-8 border-r border-outline-variant/30 flex-shrink-0'>
       <div className='flex-1 flex flex-col gap-4'>

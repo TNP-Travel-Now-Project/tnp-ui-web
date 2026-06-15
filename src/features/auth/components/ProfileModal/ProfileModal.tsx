@@ -3,13 +3,13 @@
 import { AnimatePresence, motion } from 'framer-motion'
 import { useEffect, useState } from 'react'
 import { useModalScrollLock } from '@/shared/hook/useModalScrollLock'
-import { TAB_HEADINGS } from './profile-modal.constants'
-import type { ProfileModalProps, TabType } from './profile-modal.types'
-import ProfileModalSidebar from './ProfileModalSidebar'
-import PersonalInfoTab from './PersonalInfoTab'
-import SecurityTab from './SecurityTab'
 import FinanceTab from './FinanceTab'
 import NotificationsTab from './NotificationsTab'
+import PersonalInfoTab from './PersonalInfoTab'
+import ProfileModalSidebar from './ProfileModalSidebar'
+import { TAB_HEADINGS } from './profile-modal.constants'
+import type { ProfileModalProps, TabType } from './profile-modal.types'
+import SecurityTab from './SecurityTab'
 import SettingsTab from './SettingsTab'
 
 export default function ProfileModal({

@@ -1,7 +1,7 @@
 'use client'
 
-import { Bell, Mail, MessageSquare } from 'lucide-react'
 import { motion } from 'framer-motion'
+import { Bell, Mail, MessageSquare } from 'lucide-react'
 import { useState } from 'react'
 
 interface NotificationSetting {

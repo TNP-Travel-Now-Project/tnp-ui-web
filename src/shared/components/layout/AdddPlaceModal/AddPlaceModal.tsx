@@ -6,6 +6,7 @@ import {
   Coffee,
   Hotel,
   Info,
+  icons,
   Landmark,
   MapPin,
   Navigation2,
@@ -18,20 +19,21 @@ import {
   X,
 } from 'lucide-react'
 import { useState } from 'react'
-import { Button } from '@/shared/components'
+import { Button, Label } from '@/shared/components'
 import { Toaster } from '@/shared/components/feedback/Toast'
+import { useToast } from '@/shared/hook/useToast'
 
 const ITINERARY_TYPES = [
-  { id: 'cafe', label: 'Cà phê', icon: Coffee, color: 'bg-emerald-100 text-emerald-700' },
-  { id: 'restaurant', label: 'Nhà hàng', icon: Utensils, color: 'bg-orange-100 text-orange-700' },
-  { id: 'hotel', label: 'Khách sạn', icon: Hotel, color: 'bg-blue-100 text-blue-700' },
+  { id: 'cafe', Label: 'Cà phê', icon: Coffee, color: 'bg-emerald-100 text-emerald-700' },
+  { id: 'restaurant', Label: 'Nhà hàng', icon: Utensils, color: 'bg-orange-100 text-orange-700' },
+  { id: 'hotel', Label: 'Khách sạn', icon: Hotel, color: 'bg-blue-100 text-blue-700' },
   {
     id: 'landmark',
-    label: 'Điểm tham quan',
+    Label: 'Điểm tham quan',
     icon: Landmark,
     color: 'bg-purple-100 text-purple-700',
   },
-  { id: 'atm', label: 'ATM', icon: Calculator, color: 'bg-gray-100 text-gray-700' },
+  { id: 'atm', Label: 'ATM', icon: Calculator, color: 'bg-gray-100 text-gray-700' },
 ]
 
 const MOCK_PLACES = [
@@ -75,7 +77,7 @@ export default function AddPlaceModal({ onClose }: { onClose: () => void }) {
   const [locationStatus, setLocationStatus] = useState<'prompt' | 'granted' | 'denied'>('prompt')
   const [selectedPlace, setSelectedPlace] = useState<any>(null)
   const [showSuggestions, setShowSuggestions] = useState(false)
-  const { showToast } = Toaster()
+  const { showToast } = useToast()
 
   const requestLocation = () => {
     if (!navigator.geolocation) {
@@ -143,7 +145,7 @@ export default function AddPlaceModal({ onClose }: { onClose: () => void }) {
                   }`}
                 >
                   <type.icon size={12} />
-                  {type.label}
+                  {type.Label}
                 </Button>
               ))}
             </div>
@@ -357,7 +359,7 @@ export default function AddPlaceModal({ onClose }: { onClose: () => void }) {
             place={selectedPlace}
             onClose={() => setSelectedPlace(null)}
             onAdd={() => {
-              showToast('Đã thêm địa điểm vào phân loại lộ trình', 'success')
+              showToast('success', 'Đã thêm địa điểm vào phân loại lộ trình')
               setSelectedPlace(null)
               onClose()
             }}
@@ -477,9 +479,9 @@ function SuggestionsOverviewModal({
 
         <div className='flex border-b border-outline-variant/10 overflow-x-auto no-scrollbar'>
           {[
-            { id: 'morning', label: 'Sáng', icon: Coffee },
-            { id: 'afternoon', label: 'Trưa-Chiều', icon: Utensils },
-            { id: 'evening', label: 'Tối', icon: Hotel },
+            { id: 'morning', Label: 'Sáng', icon: Coffee },
+            { id: 'afternoon', Label: 'Trưa-Chiều', icon: Utensils },
+            { id: 'evening', Label: 'Tối', icon: Hotel },
           ].map((tab) => (
             <Button
               key={tab.id}
@@ -491,7 +493,7 @@ function SuggestionsOverviewModal({
               }`}
             >
               <tab.icon size={14} />
-              {tab.label}
+              {tab.Label}
             </Button>
           ))}
         </div>
@@ -760,9 +762,9 @@ function PlaceScheduleModal({
                   </div>
                   <div className='space-y-4'>
                     <div className='space-y-1.5'>
-                      <label className='text-[10px] font-black uppercase tracking-widest text-outline'>
+                      <Label className='text-[10px] font-black uppercase tracking-widest text-outline'>
                         Tên địa điểm
-                      </label>
+                      </Label>
                       <input
                         type='text'
                         value={name}
@@ -772,9 +774,9 @@ function PlaceScheduleModal({
                       />
                     </div>
                     <div className='space-y-1.5'>
-                      <label className='text-[10px] font-black uppercase tracking-widest text-outline'>
+                      <Label className='text-[10px] font-black uppercase tracking-widest text-outline'>
                         Địa chỉ
-                      </label>
+                      </Label>
                       <div className='relative'>
                         <MapPin
                           size={16}
@@ -833,9 +835,9 @@ function PlaceScheduleModal({
             <div className='space-y-6'>
               <div className='grid grid-cols-2 gap-4'>
                 <div className='space-y-1.5'>
-                  <label className='text-[10px] font-black uppercase tracking-widest text-outline'>
+                  <Label className='text-[10px] font-black uppercase tracking-widest text-outline'>
                     Ngày ghé thăm
-                  </label>
+                  </Label>
                   <div className='relative'>
                     <Calendar
                       size={16}
@@ -851,9 +853,9 @@ function PlaceScheduleModal({
                   </div>
                 </div>
                 <div className='space-y-1.5'>
-                  <label className='text-[10px] font-black uppercase tracking-widest text-outline'>
+                  <Label className='text-[10px] font-black uppercase tracking-widest text-outline'>
                     Chi phí dự tính
-                  </label>
+                  </Label>
                   <div className='relative group'>
                     <Wallet
                       size={16}
@@ -882,9 +884,9 @@ function PlaceScheduleModal({
 
               <div className='grid grid-cols-2 gap-4'>
                 <div className='space-y-1.5'>
-                  <label className='text-[10px] font-black uppercase tracking-widest text-outline'>
+                  <Label className='text-[10px] font-black uppercase tracking-widest text-outline'>
                     Bắt đầu
-                  </label>
+                  </Label>
                   <input
                     type='time'
                     defaultValue={place.time?.split(' - ')[0] || '08:00'}
@@ -892,9 +894,9 @@ function PlaceScheduleModal({
                   />
                 </div>
                 <div className='space-y-1.5'>
-                  <label className='text-[10px] font-black uppercase tracking-widest text-outline'>
+                  <Label className='text-[10px] font-black uppercase tracking-widest text-outline'>
                     Kết thúc
-                  </label>
+                  </Label>
                   <input
                     type='time'
                     defaultValue={place.time?.split(' - ')[1] || '10:00'}
@@ -904,9 +906,9 @@ function PlaceScheduleModal({
               </div>
 
               <div className='space-y-2'>
-                <label className='text-[10px] font-black uppercase tracking-widest text-outline'>
+                <Label className='text-[10px] font-black uppercase tracking-widest text-outline'>
                   Phân loại
-                </label>
+                </Label>
                 <div className='flex gap-2 p-1 bg-surface-container rounded-xl'>
                   <Button
                     onClick={() => setType('riêng')}
@@ -924,9 +926,9 @@ function PlaceScheduleModal({
               </div>
 
               <div className='space-y-1.5'>
-                <label className='text-[10px] font-black uppercase tracking-widest text-outline'>
+                <Label className='text-[10px] font-black uppercase tracking-widest text-outline'>
                   Người thanh toán
-                </label>
+                </Label>
                 <select
                   value={payer}
                   onChange={(e) => setPayer(e.target.value)}
@@ -942,9 +944,9 @@ function PlaceScheduleModal({
               </div>
 
               <div className='pt-4 border-t border-outline-variant/10'>
-                <label className='text-[10px] font-black uppercase tracking-widest text-outline block mb-3'>
+                <Label className='text-[10px] font-black uppercase tracking-widest text-outline block mb-3'>
                   Thành viên tham gia
-                </label>
+                </Label>
                 <div className='flex flex-wrap gap-2'>
                   {participants.map((p) => (
                     <img

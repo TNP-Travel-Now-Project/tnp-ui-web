@@ -1,8 +1,8 @@
 import { AnimatePresence, motion } from 'framer-motion'
 import { useState } from 'react'
+import { cn } from '@/lib/utils'
 import { Button } from '@/shared/components/common/Button'
 import { notifications } from '@/shared/constants/header.constant'
-import { cn } from '@/lib/utils'
 
 export default function NotificationPanel() {
   const [activeTab, setActiveTab] = useState<'all' | 'trip'>('all')
@@ -15,7 +15,7 @@ export default function NotificationPanel() {
         </h3>
         {/* <div className='flex justify-between items-center'>
         </div> */}
-        <div className="tab-switcher-container">
+        <div className='tab-switcher-container'>
           <Button
             buttonType='none'
             onClick={() => setActiveTab('all')}
@@ -23,7 +23,7 @@ export default function NotificationPanel() {
               'tab-switcher-btn',
               activeTab === 'all'
                 ? 'tab-switcher-btn-active'
-                : 'tab-switcher-btn-inactive tab-switcher-btn-inactive-hover'
+                : 'tab-switcher-btn-inactive tab-switcher-btn-inactive-hover',
             )}
           >
             Chung
@@ -36,7 +36,7 @@ export default function NotificationPanel() {
               'tab-switcher-btn',
               activeTab === 'trip'
                 ? 'tab-switcher-btn-active'
-                : 'tab-switcher-btn-inactive tab-switcher-btn-inactive-hover'
+                : 'tab-switcher-btn-inactive tab-switcher-btn-inactive-hover',
             )}
           >
             Chuyến đi

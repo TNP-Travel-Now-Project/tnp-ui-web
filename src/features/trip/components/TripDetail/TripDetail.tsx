@@ -30,7 +30,7 @@ import {
 } from 'lucide-react'
 import React, { useState } from 'react'
 import { AddPlaceModal } from '@/features/trip/components/AddPlaceModal'
-import { Input } from '@/shared/components'
+import { Input, Label } from '@/shared/components'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -548,21 +548,21 @@ export default function TripDetail({ trip, onBack, onImminentActivity }: TripDet
       {/* Metrics Bento Grid */}
       <section className='grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-6'>
         <MetricCard
-          label='Tổng chi tiêu'
+          Label='Tổng chi tiêu'
           value={trip.totalSpent}
           change='+12% vs dự kiến'
           icon={<HandCoins size={20} />}
           color='bg-primary'
         />
         <MetricCard
-          label='Chi tiêu trong ngày'
+          Label='Chi tiêu trong ngày'
           value='450.000đ'
           change='Hôm nay'
           icon={<Receipt size={20} />}
           color='bg-orange-500'
         />
         <MetricCard
-          label='Số dư cá nhân'
+          Label='Số dư cá nhân'
           value={trip.personalBalance}
           change='Đã thanh toán'
           icon={<Wallet size={20} />}
@@ -614,17 +614,17 @@ export default function TripDetail({ trip, onBack, onImminentActivity }: TripDet
             <div className='grid grid-cols-3 gap-2 sm:gap-4 px-1'>
               <QuickActionButton
                 icon={<MapPin size={20} className='sm:size-6' />}
-                label='Thêm h/động'
+                Label='Thêm h/động'
                 onClick={() => setShowAddPlaceModal(true)}
               />
               <QuickActionButton
                 icon={<Receipt size={20} className='sm:size-6' />}
-                label='Xem chi tiêu'
+                Label='Xem chi tiêu'
                 onClick={() => setShowExpenseModal(true)}
               />
               <QuickActionButton
                 icon={<MessageCircle size={20} className='sm:size-6' />}
-                label='Mở Chat'
+                Label='Mở Chat'
                 onClick={() => showToast('Đang kết nối phòng chat nhóm...', 'success')}
               />
             </div>
@@ -1154,9 +1154,9 @@ function ActivityEditModal({
                 <div className={`grid grid-cols-1 ${canComplete ? 'md:grid-cols-2' : ''} gap-8`}>
                   <div className='space-y-4'>
                     <div className='space-y-1.5'>
-                      <label className='text-[10px] font-black text-outline uppercase tracking-[0.1em]'>
+                      <Label className='text-[10px] font-black text-outline uppercase tracking-[0.1em]'>
                         Tên hoạt động
-                      </label>
+                      </Label>
                       <Input
                         type='text'
                         readOnly={!canComplete}
@@ -1167,9 +1167,9 @@ function ActivityEditModal({
 
                     <div className='grid grid-cols-2 gap-4'>
                       <div className='space-y-1.5'>
-                        <label className='text-[10px] font-black text-outline uppercase tracking-[0.1em]'>
+                        <Label className='text-[10px] font-black text-outline uppercase tracking-[0.1em]'>
                           Thời gian
-                        </label>
+                        </Label>
                         <Input
                           type='text'
                           readOnly={!canComplete}
@@ -1178,9 +1178,9 @@ function ActivityEditModal({
                         />
                       </div>
                       <div className='space-y-1.5'>
-                        <label className='text-[10px] font-black text-outline uppercase tracking-[0.1em]'>
+                        <Label className='text-[10px] font-black text-outline uppercase tracking-[0.1em]'>
                           Ngày
-                        </label>
+                        </Label>
                         <div className='w-full p-4 bg-surface-container/30 border border-outline-variant/10 rounded-2xl font-bold text-sm text-outline/50'>
                           15/05/2026
                         </div>
@@ -1188,9 +1188,9 @@ function ActivityEditModal({
                     </div>
 
                     <div className='space-y-1.5'>
-                      <label className='text-[10px] font-black text-outline uppercase tracking-[0.1em]'>
+                      <Label className='text-[10px] font-black text-outline uppercase tracking-[0.1em]'>
                         Vị trí
-                      </label>
+                      </Label>
                       <div className='relative group'>
                         <Input
                           type='text'
@@ -1211,9 +1211,9 @@ function ActivityEditModal({
 
                     <div className='pt-4 space-y-3'>
                       <div className='flex items-center justify-between'>
-                        <label className='text-[10px] font-black text-outline uppercase tracking-[0.1em]'>
+                        <Label className='text-[10px] font-black text-outline uppercase tracking-[0.1em]'>
                           Người tham gia ({participants.length})
-                        </label>
+                        </Label>
                         <Button
                           onClick={() => {
                             setShowAddEmailField(false)
@@ -1282,9 +1282,9 @@ function ActivityEditModal({
                               className='space-y-4 overflow-hidden pt-2'
                             >
                               <div className='space-y-1.5'>
-                                <label className='text-[10px] font-black text-primary uppercase tracking-[0.1em]'>
+                                <Label className='text-[10px] font-black text-primary uppercase tracking-[0.1em]'>
                                   Người thanh toán
-                                </label>
+                                </Label>
                                 <div className='relative group'>
                                   <select
                                     value={payer}
@@ -1304,9 +1304,9 @@ function ActivityEditModal({
                                 </div>
                               </div>
                               <div className='space-y-1.5'>
-                                <label className='text-[10px] font-black text-primary uppercase tracking-[0.1em]'>
+                                <Label className='text-[10px] font-black text-primary uppercase tracking-[0.1em]'>
                                   Số tiền (VND)
-                                </label>
+                                </Label>
                                 <div className='relative'>
                                   <Input
                                     type='text'
@@ -1502,9 +1502,9 @@ function ActivityEditModal({
                       animate={{ opacity: 1, y: 0 }}
                       className='space-y-3 pb-2'
                     >
-                      <label className='text-[9px] font-black text-outline uppercase tracking-widest flex items-center gap-2'>
+                      <Label className='text-[9px] font-black text-outline uppercase tracking-widest flex items-center gap-2'>
                         <UserPlus size={12} /> Nhập Email thành viên
-                      </label>
+                      </Label>
                       <div className='flex gap-2 p-[2px]'>
                         <Input
                           autoFocus
@@ -1624,9 +1624,9 @@ function InviteModal({
 
         <form onSubmit={handleSubmit} className='space-y-6'>
           <div className='space-y-1.5'>
-            <label className='text-[10px] font-black text-outline uppercase tracking-widest pl-1'>
+            <Label className='text-[10px] font-black text-outline uppercase tracking-widest pl-1'>
               Địa chỉ Email
-            </label>
+            </Label>
             <Input
               type='email'
               placeholder='example@gmail.com'
@@ -1664,13 +1664,13 @@ function InviteModal({
 }
 
 function MetricCard({
-  label,
+  Label,
   value,
   change,
   icon,
   color,
 }: {
-  label: string
+  Label: string
   value: string
   change: string
   icon: any
@@ -1686,7 +1686,7 @@ function MetricCard({
       </div>
       <div>
         <p className='text-[8px] sm:text-[10px] text-outline font-bold uppercase tracking-wider mb-1'>
-          {label}
+          {Label}
         </p>
         <h3 className='text-sm sm:text-lg font-bold text-on-surface truncate'>{value}</h3>
       </div>
@@ -1696,11 +1696,11 @@ function MetricCard({
 
 function QuickActionButton({
   icon,
-  label,
+  Label,
   onClick,
 }: {
   icon: any
-  label: string
+  Label: string
   onClick?: () => void
 }) {
   return (
@@ -1712,7 +1712,7 @@ function QuickActionButton({
         {icon}
       </div>
       <span className='text-[7px] sm:text-[10px] font-bold uppercase tracking-wider text-center line-clamp-1 sm:line-clamp-2'>
-        {label}
+        {Label}
       </span>
     </Button>
   )

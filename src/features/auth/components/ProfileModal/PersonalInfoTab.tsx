@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion'
 import { useState } from 'react'
 import { DatePickerWithTime } from '@/shared/components/composite/DatePickerWithTime'
+import { Label } from '@/shared/components/ui/form/label'
 import GenderAvatar from './GenderAvatar'
 import type { Gender } from './profile-modal.types'
 
@@ -18,9 +19,9 @@ export default function PersonalInfoTab() {
     >
       <div className='flex items-start justify-between gap-6'>
         <div className='space-y-1.5 flex-1'>
-          <label className='text-[10px] sm:text-xs font-bold text-on-surface opacity-60'>
+          <Label className='text-[10px] sm:text-xs font-bold text-on-surface opacity-60'>
             Tên đầy đủ
-          </label>
+          </Label>
           <input
             type='text'
             defaultValue='Tuấn Nguyễn'
@@ -32,9 +33,9 @@ export default function PersonalInfoTab() {
 
       <div className='grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4'>
         <div className='space-y-1.5'>
-          <label className='text-[10px] sm:text-xs font-bold text-on-surface opacity-60'>
+          <Label className='text-[10px] sm:text-xs font-bold text-on-surface opacity-60'>
             Username
-          </label>
+          </Label>
           <input
             type='text'
             defaultValue='tuan.explorer'
@@ -42,9 +43,9 @@ export default function PersonalInfoTab() {
           />
         </div>
         <div className='space-y-1.5'>
-          <label className='text-[10px] sm:text-xs font-bold text-on-surface opacity-60'>
+          <Label className='text-[10px] sm:text-xs font-bold text-on-surface opacity-60'>
             Số điện thoại
-          </label>
+          </Label>
           <input
             type='tel'
             defaultValue='0987 654 321'
@@ -55,9 +56,9 @@ export default function PersonalInfoTab() {
 
       <div className='grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4'>
         <div className='space-y-1.5'>
-          <label className='text-[10px] sm:text-xs font-bold text-on-surface opacity-60'>
+          <Label className='text-[10px] sm:text-xs font-bold text-on-surface opacity-60'>
             Ngày sinh
-          </label>
+          </Label>
           <div className='h-[38px] sm:h-[42px]'>
             <DatePickerWithTime date={birthday} onChange={setBirthday} />
           </div>
@@ -65,7 +66,7 @@ export default function PersonalInfoTab() {
       </div>
 
       <div className='space-y-1.5'>
-        <label className='text-[10px] sm:text-xs font-bold text-on-surface opacity-60'>Bio</label>
+        <Label className='text-[10px] sm:text-xs font-bold text-on-surface opacity-60'>Bio</Label>
         <textarea
           className='w-full bg-surface-container border border-outline-variant/10 rounded-xl px-3 py-2 text-xs sm:text-sm font-bold focus:ring-2 focus:ring-primary/20 outline-none h-20 sm:h-24 resize-none transition-all leading-relaxed'
           placeholder='Hãy giới thiệu một chút về bạn...'

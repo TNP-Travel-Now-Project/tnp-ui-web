@@ -7,7 +7,7 @@ import { buttonVariants, Button as ShadcnButton } from '@/shared/components/ui/a
 
 export interface ButtonProps
   extends React.ComponentProps<typeof ShadcnButton>,
-  VariantProps<typeof buttonVariants> {
+    VariantProps<typeof buttonVariants> {
   buttonType?: 'fill' | 'outline' | 'ghost' | 'cancel' | 'danger' | 'success' | 'none'
   loading?: boolean
   loadingText?: React.ReactNode
@@ -36,7 +36,7 @@ const Button = ({
     cancel: 'outline',
     danger: 'destructive',
     success: 'default',
-    none: 'none'
+    none: 'none',
   }
 
   return (

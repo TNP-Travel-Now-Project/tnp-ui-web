@@ -21,6 +21,7 @@ import {
 } from 'lucide-react'
 import type React from 'react'
 import { useEffect, useState } from 'react'
+import { Label } from '@/shared/components'
 import { useModalScrollLock } from '@/shared/hook/useModalScrollLock'
 import { useToast } from '@/shared/hook/useToast'
 import SplitCostModal from '../SplitCostModal/SplitCostModal'
@@ -85,16 +86,16 @@ function ConfirmModal({
 }
 
 const ITINERARY_TYPES = [
-  { id: 'cafe', label: 'Cà phê', icon: Coffee, color: 'bg-emerald-100 text-emerald-700' },
-  { id: 'restaurant', label: 'Nhà hàng', icon: Utensils, color: 'bg-orange-100 text-orange-700' },
-  { id: 'hotel', label: 'Khách sạn', icon: Hotel, color: 'bg-blue-100 text-blue-700' },
+  { id: 'cafe', Label: 'Cà phê', icon: Coffee, color: 'bg-emerald-100 text-emerald-700' },
+  { id: 'restaurant', Label: 'Nhà hàng', icon: Utensils, color: 'bg-orange-100 text-orange-700' },
+  { id: 'hotel', Label: 'Khách sạn', icon: Hotel, color: 'bg-blue-100 text-blue-700' },
   {
     id: 'landmark',
-    label: 'Điểm tham quan',
+    Label: 'Điểm tham quan',
     icon: Landmark,
     color: 'bg-purple-100 text-purple-700',
   },
-  { id: 'atm', label: 'ATM', icon: Calculator, color: 'bg-gray-100 text-gray-700' },
+  { id: 'atm', Label: 'ATM', icon: Calculator, color: 'bg-gray-100 text-gray-700' },
 ]
 
 const MOCK_PLACES = [
@@ -249,9 +250,9 @@ export default function TripItineraryBuild({ onBack }: TripItineraryBuildProps) 
             <div className='space-y-4 sm:space-y-6'>
               <div className='flex flex-row gap-3 sm:gap-5'>
                 <div className='w-[30%] sm:w-1/2 space-y-2'>
-                  <label className='text-[9px] sm:text-xs font-black uppercase tracking-widest text-on-surface/60'>
+                  <Label className='text-[9px] sm:text-xs font-black uppercase tracking-widest text-on-surface/60'>
                     Số người
-                  </label>
+                  </Label>
                   <input
                     type='text'
                     placeholder='Ví dụ: 4'
@@ -259,9 +260,9 @@ export default function TripItineraryBuild({ onBack }: TripItineraryBuildProps) 
                   />
                 </div>
                 <div className='w-[70%] sm:w-1/2 space-y-2'>
-                  <label className='text-[9px] sm:text-xs font-black uppercase tracking-widest text-on-surface/60'>
+                  <Label className='text-[9px] sm:text-xs font-black uppercase tracking-widest text-on-surface/60'>
                     Chi phí ước tính (VNĐ)
-                  </label>
+                  </Label>
                   <div className='relative group'>
                     <input
                       type='text'
@@ -287,9 +288,9 @@ export default function TripItineraryBuild({ onBack }: TripItineraryBuildProps) 
               </div>
 
               <div className='space-y-2'>
-                <label className='text-[9px] sm:text-xs font-black uppercase tracking-widest text-on-surface/60'>
+                <Label className='text-[9px] sm:text-xs font-black uppercase tracking-widest text-on-surface/60'>
                   Địa điểm muốn tới
-                </label>
+                </Label>
                 <div className='relative'>
                   <MapPin
                     size={16}
@@ -305,9 +306,9 @@ export default function TripItineraryBuild({ onBack }: TripItineraryBuildProps) 
 
               <div className='grid grid-cols-2 gap-3 sm:gap-5'>
                 <div className='space-y-2'>
-                  <label className='text-[9px] sm:text-xs font-black uppercase tracking-widest text-on-surface/60'>
+                  <Label className='text-[9px] sm:text-xs font-black uppercase tracking-widest text-on-surface/60'>
                     Kiểu chuyến đi
-                  </label>
+                  </Label>
                   <select className='w-full px-3 sm:px-4 py-2.5 sm:py-3 bg-surface-container border border-outline-variant/10 rounded-xl text-xs sm:text-sm font-bold focus:ring-2 focus:ring-primary/20 outline-none transition-all appearance-none cursor-pointer'>
                     <option>Nghỉ dưỡng</option>
                     <option>Khám phá</option>
@@ -315,9 +316,9 @@ export default function TripItineraryBuild({ onBack }: TripItineraryBuildProps) 
                   </select>
                 </div>
                 <div className='space-y-2'>
-                  <label className='text-[9px] sm:text-xs font-black uppercase tracking-widest text-on-surface/60'>
+                  <Label className='text-[9px] sm:text-xs font-black uppercase tracking-widest text-on-surface/60'>
                     Nhịp độ
-                  </label>
+                  </Label>
                   <select className='w-full px-3 sm:px-4 py-2.5 sm:py-3 bg-surface-container border border-outline-variant/10 rounded-xl text-xs sm:text-sm font-bold focus:ring-2 focus:ring-primary/20 outline-none transition-all appearance-none cursor-pointer'>
                     <option>Thong thả</option>
                     <option>Vừa phải</option>
@@ -328,9 +329,9 @@ export default function TripItineraryBuild({ onBack }: TripItineraryBuildProps) 
 
               <div className='grid grid-cols-2 gap-3 sm:gap-5'>
                 <div className='space-y-2'>
-                  <label className='text-[10px] sm:text-xs font-black uppercase tracking-widest text-on-surface/60'>
+                  <Label className='text-[10px] sm:text-xs font-black uppercase tracking-widest text-on-surface/60'>
                     Đi cùng ai
-                  </label>
+                  </Label>
                   <select className='w-full px-3 sm:px-4 py-2.5 sm:py-3 bg-surface-container border border-outline-variant/10 rounded-xl text-xs sm:text-sm font-bold focus:ring-2 focus:ring-primary/20 outline-none transition-all appearance-none cursor-pointer'>
                     <option>Gia định</option>
                     <option>Bạn bè</option>
@@ -339,9 +340,9 @@ export default function TripItineraryBuild({ onBack }: TripItineraryBuildProps) 
                   </select>
                 </div>
                 <div className='space-y-2'>
-                  <label className='text-[10px] sm:text-xs font-black uppercase tracking-widest text-on-surface/60'>
+                  <Label className='text-[10px] sm:text-xs font-black uppercase tracking-widest text-on-surface/60'>
                     Phương tiện
-                  </label>
+                  </Label>
                   <select className='w-full px-3 sm:px-4 py-2.5 sm:py-3 bg-surface-container border border-outline-variant/10 rounded-xl text-xs sm:text-sm font-bold focus:ring-2 focus:ring-primary/20 outline-none transition-all appearance-none cursor-pointer'>
                     <option>Máy bay</option>
                     <option>Xe khách</option>
@@ -352,9 +353,9 @@ export default function TripItineraryBuild({ onBack }: TripItineraryBuildProps) 
               </div>
 
               <div className='space-y-2'>
-                <label className='text-[9px] sm:text-xs font-black uppercase tracking-widest text-on-surface/60'>
+                <Label className='text-[9px] sm:text-xs font-black uppercase tracking-widest text-on-surface/60'>
                   Yêu cầu thêm
-                </label>
+                </Label>
                 <textarea
                   placeholder='Nhập các yêu cầu đặc biệt như ăn chay, dị ứng, hoặc ưu tiên di chuyển ngắn...'
                   className='w-full px-3 sm:px-4 py-2.5 sm:py-3 bg-surface-container border border-outline-variant/10 rounded-xl text-xs sm:text-sm font-bold focus:ring-2 focus:ring-primary/20 outline-none transition-all h-20 sm:h-24 resize-none'
@@ -493,7 +494,7 @@ export default function TripItineraryBuild({ onBack }: TripItineraryBuildProps) 
                     style={{ height: '36px' }}
                   >
                     <type.icon size={12} className='sm:size-4' />
-                    {type.label}
+                    {type.Label}
                   </button>
                 ))}
               </div>
@@ -1098,9 +1099,9 @@ function SuggestionsOverviewModal({
 
         <div className='flex border-b border-outline-variant/10 overflow-x-auto no-scrollbar'>
           {[
-            { id: 'morning', label: 'Sáng', icon: Coffee },
-            { id: 'afternoon', label: 'Trưa-Chiều', icon: Utensils },
-            { id: 'evening', label: 'Tối', icon: Hotel },
+            { id: 'morning', Label: 'Sáng', icon: Coffee },
+            { id: 'afternoon', Label: 'Trưa-Chiều', icon: Utensils },
+            { id: 'evening', Label: 'Tối', icon: Hotel },
           ].map((tab) => (
             <button
               key={tab.id}
@@ -1112,7 +1113,7 @@ function SuggestionsOverviewModal({
               }`}
             >
               <tab.icon size={14} />
-              {tab.label}
+              {tab.Label}
             </button>
           ))}
         </div>
@@ -1321,9 +1322,9 @@ function PlaceScheduleModal({ place, onClose }: { place: any; onClose: () => voi
               </div>
               <div className='space-y-4'>
                 <div className='space-y-1.5'>
-                  <label className='text-[9px] font-black uppercase tracking-widest text-outline'>
+                  <Label className='text-[9px] font-black uppercase tracking-widest text-outline'>
                     Tên địa điểm
-                  </label>
+                  </Label>
                   <input
                     type='text'
                     value={name}
@@ -1333,9 +1334,9 @@ function PlaceScheduleModal({ place, onClose }: { place: any; onClose: () => voi
                   />
                 </div>
                 <div className='space-y-1.5'>
-                  <label className='text-[9px] font-black uppercase tracking-widest text-outline'>
+                  <Label className='text-[9px] font-black uppercase tracking-widest text-outline'>
                     Địa chỉ
-                  </label>
+                  </Label>
                   <div className='relative'>
                     <MapPin
                       size={16}
@@ -1390,9 +1391,9 @@ function PlaceScheduleModal({ place, onClose }: { place: any; onClose: () => voi
           {/* Form */}
           <div className='space-y-4 sm:space-y-5'>
             <div className='space-y-1.5 sm:space-y-2'>
-              <label className='text-[9px] sm:text-xs font-black uppercase tracking-widest text-on-surface/60'>
+              <Label className='text-[9px] sm:text-xs font-black uppercase tracking-widest text-on-surface/60'>
                 Chọn ngày ghé thăm
-              </label>
+              </Label>
               <div className='relative'>
                 <Calendar
                   size={16}
@@ -1419,9 +1420,9 @@ function PlaceScheduleModal({ place, onClose }: { place: any; onClose: () => voi
 
             <div className='grid grid-cols-2 gap-3 sm:gap-4'>
               <div className='space-y-1.5 sm:space-y-2'>
-                <label className='text-[9px] sm:text-xs font-black uppercase tracking-widest text-on-surface/60'>
+                <Label className='text-[9px] sm:text-xs font-black uppercase tracking-widest text-on-surface/60'>
                   Bắt đầu
-                </label>
+                </Label>
                 <input
                   type='time'
                   defaultValue={place.time?.split(' - ')[0] || '08:00'}
@@ -1429,9 +1430,9 @@ function PlaceScheduleModal({ place, onClose }: { place: any; onClose: () => voi
                 />
               </div>
               <div className='space-y-1.5 sm:space-y-2'>
-                <label className='text-[9px] sm:text-xs font-black uppercase tracking-widest text-on-surface/60'>
+                <Label className='text-[9px] sm:text-xs font-black uppercase tracking-widest text-on-surface/60'>
                   Kết thúc
-                </label>
+                </Label>
                 <input
                   type='time'
                   defaultValue={place.time?.split(' - ')[1] || '10:00'}
@@ -1441,9 +1442,9 @@ function PlaceScheduleModal({ place, onClose }: { place: any; onClose: () => voi
             </div>
 
             <div className='space-y-1.5 sm:space-y-2'>
-              <label className='text-[9px] sm:text-xs font-black uppercase tracking-widest text-on-surface/60'>
+              <Label className='text-[9px] sm:text-xs font-black uppercase tracking-widest text-on-surface/60'>
                 Dự tính chi phí (VNĐ)
-              </label>
+              </Label>
               <div className='relative'>
                 <Wallet
                   size={16}
@@ -1460,9 +1461,9 @@ function PlaceScheduleModal({ place, onClose }: { place: any; onClose: () => voi
             </div>
 
             <div className='space-y-1.5 sm:space-y-2'>
-              <label className='text-[9px] sm:text-xs font-black uppercase tracking-widest text-on-surface/60'>
+              <Label className='text-[9px] sm:text-xs font-black uppercase tracking-widest text-on-surface/60'>
                 Ghi chú
-              </label>
+              </Label>
               <textarea
                 placeholder='Nhập ghi chú của bạn...'
                 className='w-full px-3 sm:px-4 py-2.5 sm:py-3 bg-surface-container border border-outline-variant/10 rounded-xl sm:rounded-2xl text-xs sm:text-sm font-bold focus:ring-2 focus:ring-primary/20 outline-none transition-all h-20 sm:h-24 resize-none'

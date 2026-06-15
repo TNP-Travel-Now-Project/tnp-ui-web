@@ -45,7 +45,7 @@ const AuthProvider = ({
 }: AuthProviderProps) => {
   const [user, setUser] = useState<User | null>(initialUser)
   const [isLoading, setIsLoading] = useState(!initialUser)
-  
+
   useEffect(() => {
     // Check for existing token on mount
     if (!initialUser) {

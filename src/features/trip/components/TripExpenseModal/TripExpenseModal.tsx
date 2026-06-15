@@ -21,7 +21,7 @@ import {
 } from 'lucide-react'
 import type React from 'react'
 import { useState } from 'react'
-import { Button, Input } from '@/shared/components'
+import { Button, Input, Label } from '@/shared/components'
 import { useToast } from '@/shared/hook/useToast'
 import SplitCostModal from '../SplitCostModal/SplitCostModal'
 
@@ -317,15 +317,15 @@ export default function TripExpenseModal({
                 </div>
                 <div className='grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4'>
                   {[
-                    { icon: Utensils, label: 'Ăn uống', style: 'border-[1px] rounded-xl' },
-                    { icon: Navigation2, label: 'Di chuyển', style: 'rounded-xl' },
-                    { icon: Hotel, label: 'Lưu trú', style: 'rounded-xl' },
-                    { icon: Wallet, label: 'Khác', style: 'border-[2px] rounded-xl' },
+                    { icon: Utensils, Label: 'Ăn uống', style: 'border-[1px] rounded-xl' },
+                    { icon: Navigation2, Label: 'Di chuyển', style: 'rounded-xl' },
+                    { icon: Hotel, Label: 'Lưu trú', style: 'rounded-xl' },
+                    { icon: Wallet, Label: 'Khác', style: 'border-[2px] rounded-xl' },
                   ].map((item) => (
                     <Button
-                      key={item.label}
+                      key={item.Label}
                       onClick={() =>
-                        setSelectedExpenseModal({ isOpen: true, defaultCategory: item.label })
+                        setSelectedExpenseModal({ isOpen: true, defaultCategory: item.Label })
                       }
                       className={`group flex flex-col items-center justify-center p-4 sm:p-6 bg-white border border-outline-variant/50 hover:border-primary transition-all hover:shadow-md active:scale-95 text-center ${item.style}`}
                     >
@@ -336,7 +336,7 @@ export default function TripExpenseModal({
                         />
                       </div>
                       <span className='text-[11px] sm:text-xs font-bold text-on-surface'>
-                        {item.label}
+                        {item.Label}
                       </span>
                     </Button>
                   ))}
@@ -810,22 +810,22 @@ export default function TripExpenseModal({
                 </div>
                 <div className='grid grid-cols-2 md:grid-cols-4 gap-4'>
                   {[
-                    { icon: Utensils, label: 'Ăn uống chung' },
-                    { icon: Navigation2, label: 'Di chuyển chung' },
-                    { icon: Hotel, label: 'Lưu trú' },
-                    { icon: Wallet, label: 'Khác' },
+                    { icon: Utensils, Label: 'Ăn uống chung' },
+                    { icon: Navigation2, Label: 'Di chuyển chung' },
+                    { icon: Hotel, Label: 'Lưu trú' },
+                    { icon: Wallet, Label: 'Khác' },
                   ].map((item) => (
                     <Button
-                      key={item.label}
+                      key={item.Label}
                       onClick={() =>
-                        setSelectedExpenseModal({ isOpen: true, defaultCategory: item.label })
+                        setSelectedExpenseModal({ isOpen: true, defaultCategory: item.Label })
                       }
                       className='group flex flex-col items-center justify-center p-6 bg-white border border-outline-variant/50 rounded-2xl hover:border-primary transition-all hover:shadow-md active:scale-95 text-center'
                     >
                       <div className='w-12 h-12 rounded-full bg-surface-container flex items-center justify-center mb-3 group-hover:bg-primary-container group-hover:text-white transition-colors'>
                         <item.icon size={20} className='text-primary group-hover:text-white' />
                       </div>
-                      <span className='text-xs font-bold text-on-surface'>{item.label}</span>
+                      <span className='text-xs font-bold text-on-surface'>{item.Label}</span>
                     </Button>
                   ))}
                 </div>
@@ -1242,9 +1242,9 @@ function ExpenseEditModal({
           <div className='grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8'>
             <div className='space-y-4 sm:space-y-5'>
               <div className='space-y-1.5'>
-                <label className='text-[9px] sm:text-[10px] font-black uppercase tracking-widest text-outline'>
+                <Label className='text-[9px] sm:text-[10px] font-black uppercase tracking-widest text-outline'>
                   Tên chi phí
-                </label>
+                </Label>
                 <Input
                   type='text'
                   value={name}
@@ -1257,9 +1257,9 @@ function ExpenseEditModal({
 
               <div className='grid grid-cols-2 gap-3 sm:gap-4'>
                 <div className='space-y-1.5'>
-                  <label className='text-[9px] sm:text-[10px] font-black uppercase tracking-widest text-outline'>
+                  <Label className='text-[9px] sm:text-[10px] font-black uppercase tracking-widest text-outline'>
                     Chi phí (VND)
-                  </label>
+                  </Label>
                   <div className='relative group'>
                     <Input
                       type='text'
@@ -1282,9 +1282,9 @@ function ExpenseEditModal({
                   </div>
                 </div>
                 <div className='space-y-1.5'>
-                  <label className='text-[9px] sm:text-[10px] font-black uppercase tracking-widest text-outline'>
+                  <Label className='text-[9px] sm:text-[10px] font-black uppercase tracking-widest text-outline'>
                     Danh mục
-                  </label>
+                  </Label>
                   <select
                     value={category}
                     onChange={(e) => setCategory(e.target.value)}
@@ -1301,9 +1301,9 @@ function ExpenseEditModal({
 
               <div className='grid grid-cols-2 gap-4'>
                 <div className='space-y-1.5'>
-                  <label className='text-[10px] font-black uppercase tracking-widest text-outline'>
+                  <Label className='text-[10px] font-black uppercase tracking-widest text-outline'>
                     Ngày
-                  </label>
+                  </Label>
                   <div className='relative'>
                     <Calendar
                       size={16}
@@ -1320,9 +1320,9 @@ function ExpenseEditModal({
                   </div>
                 </div>
                 <div className='space-y-1.5'>
-                  <label className='text-[10px] font-black uppercase tracking-widest text-outline'>
+                  <Label className='text-[10px] font-black uppercase tracking-widest text-outline'>
                     Giờ
-                  </label>
+                  </Label>
                   <Input
                     type='text'
                     value={time}
@@ -1337,9 +1337,9 @@ function ExpenseEditModal({
 
             <div className='space-y-5'>
               <div className='space-y-1.5'>
-                <label className='text-[10px] font-black uppercase tracking-widest text-outline'>
+                <Label className='text-[10px] font-black uppercase tracking-widest text-outline'>
                   Vị trí
-                </label>
+                </Label>
                 <div className='relative group'>
                   <Input
                     type='text'
@@ -1361,9 +1361,9 @@ function ExpenseEditModal({
               </div>
 
               <div className='space-y-2'>
-                <label className='text-[10px] font-black uppercase tracking-widest text-outline'>
+                <Label className='text-[10px] font-black uppercase tracking-widest text-outline'>
                   Phân loại chi tiêu
-                </label>
+                </Label>
                 <div className='flex gap-2 p-1 bg-surface-container rounded-xl'>
                   <Button
                     type='button'
@@ -1385,11 +1385,11 @@ function ExpenseEditModal({
               </div>
 
               <div className='space-y-3'>
-                <label className='text-[10px] font-black text-outline uppercase tracking-[0.1em]'>
+                <Label className='text-[10px] font-black text-outline uppercase tracking-[0.1em]'>
                   Hình ảnh hóa đơn
-                </label>
+                </Label>
                 {!billImage ? (
-                  <label
+                  <Label
                     className={`block w-full py-4 border-2 border-dashed border-outline-variant/30 rounded-2xl text-center bg-surface-container-low/50 hover:bg-surface-container transition-colors ${!isViewOnly ? 'cursor-pointer hover:border-primary/50' : 'opacity-50 cursor-default'}`}
                   >
                     <span className='text-[11px] font-bold text-outline'>Thêm hình ảnh</span>
@@ -1405,7 +1405,7 @@ function ExpenseEditModal({
                         }}
                       />
                     )}
-                  </label>
+                  </Label>
                 ) : (
                   <div className='relative inline-block w-full'>
                     <img
@@ -1427,9 +1427,9 @@ function ExpenseEditModal({
 
               <div className='pt-4 border-t border-outline-variant/10 space-y-3'>
                 <div className='flex items-center justify-between'>
-                  <label className='text-[10px] font-black text-outline uppercase tracking-[0.1em]'>
+                  <Label className='text-[10px] font-black text-outline uppercase tracking-[0.1em]'>
                     Người tham gia ({participants.length})
-                  </label>
+                  </Label>
                   {!isViewOnly && (
                     <Button
                       onClick={() => {
@@ -1572,9 +1572,9 @@ function ExpenseEditModal({
                       animate={{ opacity: 1, y: 0 }}
                       className='space-y-3 pb-2'
                     >
-                      <label className='text-[9px] font-black text-outline uppercase tracking-widest flex items-center gap-2'>
+                      <Label className='text-[9px] font-black text-outline uppercase tracking-widest flex items-center gap-2'>
                         <UserPlus size={12} /> Nhập Email
-                      </label>
+                      </Label>
                       <div className='flex gap-2 p-[2px]'>
                         <Input
                           autoFocus
@@ -1911,11 +1911,11 @@ function SettlementConfirmModal({
           {!settlement.isPersonalLog &&
             (settlement.status !== 'verifying' ? (
               <div className='space-y-4 pt-4 border-t border-outline-variant/10'>
-                <label className='text-[10px] font-black uppercase tracking-[0.1em] text-outline'>
+                <Label className='text-[10px] font-black uppercase tracking-[0.1em] text-outline'>
                   Hình ảnh hóa đơn chuyển khoản
-                </label>
+                </Label>
                 {!image ? (
-                  <label className='block w-full py-8 border-2 border-dashed border-outline-variant/30 rounded-2xl text-center bg-surface-container-low/50 hover:bg-surface-container cursor-pointer transition-all hover:border-primary/50 group'>
+                  <Label className='block w-full py-8 border-2 border-dashed border-outline-variant/30 rounded-2xl text-center bg-surface-container-low/50 hover:bg-surface-container cursor-pointer transition-all hover:border-primary/50 group'>
                     <div className='w-12 h-12 rounded-full bg-white shadow-sm flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-transform'>
                       <Plus size={20} className='text-primary' />
                     </div>
@@ -1928,7 +1928,7 @@ function SettlementConfirmModal({
                         if (e.target.files?.[0]) setImage(URL.createObjectURL(e.target.files[0]))
                       }}
                     />
-                  </label>
+                  </Label>
                 ) : (
                   <div className='relative'>
                     <img

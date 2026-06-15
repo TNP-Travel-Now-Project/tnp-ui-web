@@ -15,7 +15,7 @@ export const navItems = [
   },
 ]
 
-export const    notifications = {
+export const notifications = {
   all: [
     {
       id: 1,
