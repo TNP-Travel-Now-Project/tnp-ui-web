@@ -2,11 +2,12 @@
 
 ## Tổng quan
 
-Tầng API được xây dựng trên **Axios** với 3 lớp:
+Có **2 pattern** song song:
 
-1. **Axios Client** — instance dùng chung + interceptors
-2. **ApiError** — structured error class
-3. **Feature API functions** — mỗi feature có `api/` riêng
+| Pattern | Công nghệ | Trạng thái |
+|---------|-----------|-----------|
+| **Generated SDK** (mới) | `@hey-api/openapi-ts` gen từ OpenAPI spec BE | Đang dùng cho login |
+| **Manual API functions** (cũ) | `axiosClient.post()` viết tay | Đang dùng cho register, contact |
 
 ---
 
@@ -169,7 +170,116 @@ interface BaseSearchRequest {
 
 ---
 
-## Feature API Functions
+## Generated SDK (Pattern mới)
+
+### Tổng quan
+
+Sử dụng `@hey-api/openapi-ts` để tự động sinh TypeScript types + SDK functions từ OpenAPI spec của BE.
+
+### Config
+
+**File**: `openapi.config.ts` (thư mục gốc)
+
+```typescript
+import { defineConfig } from '@hey-api/openapi-ts'
+
+export default defineConfig({
+  input: process.env.BE_SWAGGER_URL || 'http://localhost:5246/swagger/v1/swagger.json',
+  output: 'src/shared/api/generated',
+  plugins: ['@hey-api/client-axios', '@hey-api/sdk', '@hey-api/typescript'],
+})
+```
+
+| Field | Ý nghĩa |
+|-------|---------|
+| `input` | URL OpenAPI spec của BE (có thể override bằng env `BE_SWAGGER_URL`) |
+| `output` | Thư mục chứa code được gen |
+| `plugins` | `client-axios`: HTTP client, `sdk`: functions gọi API, `typescript`: types |
+
+### Generate
+
+```bash
+pnpm generate
+# => openapi-ts --file openapi.config.ts
+#    Fetch BE swagger → Gen types + SDK vào src/shared/api/generated/
+```
+
+### Output structure
+
+```
+src/shared/api/generated/
+├── types.gen.ts      # TypeScript interfaces (LoginCommand, LoginResponse, ...)
+├── sdk.gen.ts        # API functions (postApiAuthLogin, getApiUsersMe, ...)
+└── client.gen.ts     # Axios client instance
+```
+
+### Cấu hình client & interceptors
+
+**File**: `src/shared/api/index.ts`
+
+```typescript
+import { client } from '@/shared/api/generated/client.gen'
+
+client.setConfig({ baseURL: config.apiBaseOrigin, throwOnError: true })
+
+// CSRF interceptor
+client.instance.interceptors.request.use((config) => {
+  const csrf = getCSRFToken()
+  if (csrf) config.headers['X-CSRF-TOKEN'] = csrf
+  return config
+})
+
+// Error interceptor
+client.instance.interceptors.response.use(
+  (response) => response,
+  (error) => Promise.reject(ApiError.fromAxiosError(error)),
+)
+```
+
+**Lưu ý**: `client.gen.ts` dùng Axios internally → không cần tạo `api-client.ts` riêng.
+
+### Cách dùng trong feature
+
+```typescript
+import { useMutation } from '@tanstack/react-query'
+import { postApiAuthLogin } from '@/shared/api'
+import type { LoginCommand, LoginResponse } from '@/shared/api'
+
+export function useLogin() {
+  return useMutation<LoginResponse, Error, LoginCommand>({
+    mutationFn: async (data) => {
+      const { data: result } = await postApiAuthLogin({ body: data, throwOnError: true })
+      return result
+    },
+  })
+}
+```
+
+### Luồng dữ liệu
+
+```mermaid
+graph LR
+    BE[".NET Backend"] -->|"/swagger/v1/swagger.json"| OPENAPI["openapi-ts (pnpm generate)"]
+    OPENAPI --> GEN["src/shared/api/generated/\n types.gen.ts + sdk.gen.ts"]
+    GEN --> HOOK["Hook (useMutation)"]
+    HOOK --> SDK["sdk.gen.ts (postApiAuthLogin)"]
+    SDK --> CLIENT["client.gen.ts (Axios)"]
+    CLIENT --> BE
+```
+
+### So sánh Manual vs Generated
+
+| Khía cạnh | Manual (cũ) | Generated SDK (mới) |
+|-----------|-------------|-------------------|
+| Định nghĩa type | Viết tay `auth/type.ts` | Auto-gen từ BE DTOs |
+| API function | Viết tay `login.api.ts` | Auto-gen `sdk.gen.ts` |
+| Đồng bộ BE | Thủ công, dễ lệch | Tự động qua Swagger |
+| Thêm endpoint mới | Tạo file + type tay | `pnpm generate` là xong |
+| BE đổi DTO | Phải update thủ công | `pnpm generate` sync lại |
+
+---
+
+## Feature API Functions (Pattern cũ)
 
 ### Pattern
 
