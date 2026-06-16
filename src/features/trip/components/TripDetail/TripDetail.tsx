@@ -38,8 +38,8 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/shared/components/ui/navigation/dropdown-menu'
-import { useModalScrollLock } from '@/shared/hook/useModalScrollLock'
-import { useToast } from '@/shared/hook/useToast'
+import { useModalScrollLock } from '@/shared/hooks/useModalScrollLock'
+import { useToast } from '@/shared/hooks/useToast'
 import type { TripDetailData } from '@/shared/types'
 import SplitCostModal from '../SplitCostModal/SplitCostModal'
 import TripExpenseModal from '../TripExpenseModal/TripExpenseModal'

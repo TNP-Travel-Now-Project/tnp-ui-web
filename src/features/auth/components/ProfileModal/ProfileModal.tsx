@@ -2,7 +2,7 @@
 
 import { AnimatePresence, motion } from 'framer-motion'
 import { useEffect, useState } from 'react'
-import { useModalScrollLock } from '@/shared/hook/useModalScrollLock'
+import { useModalScrollLock } from '@/shared/hooks/useModalScrollLock'
 import FinanceTab from './FinanceTab'
 import NotificationsTab from './NotificationsTab'
 import PersonalInfoTab from './PersonalInfoTab'

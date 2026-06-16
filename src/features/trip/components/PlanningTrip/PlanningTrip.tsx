@@ -18,8 +18,8 @@ import {
 import type React from 'react'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { DatePickerWithTime } from '@/shared/components/composite/DatePickerWithTime'
-import { useModalScrollLock } from '@/shared/hook/useModalScrollLock'
-import { useToast } from '@/shared/hook/useToast'
+import { useModalScrollLock } from '@/shared/hooks/useModalScrollLock'
+import { useToast } from '@/shared/hooks/useToast'
 
 interface PlanningTripProps {
   onBack: () => void

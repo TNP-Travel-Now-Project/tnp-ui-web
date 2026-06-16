@@ -4,7 +4,7 @@ import { useEffect } from 'react'
 import axios from 'axios'
 
 import { config } from '@/lib/config'
-import { callRefreshApi, performRefresh } from '@/shared/api'
+import { performRefresh } from '@/shared/api'
 import { useAuthStore } from '@/shared/stores/auth-store'
 import type { User } from '@/shared/stores/auth-store'
 
@@ -105,13 +105,10 @@ export function useAuth() {
         if (cancelled) return
 
         // ── Có token → fetch user profile ──
-        const { data: meData } = await axios.get(
-          `${config.apiBaseUrl}/auth/me`,
-          {
-            headers: { Authorization: `Bearer ${newToken}` },
-            withCredentials: true,
-          },
-        )
+        const { data: meData } = await axios.get(`${config.apiBaseUrl}/auth/me`, {
+          headers: { Authorization: `Bearer ${newToken}` },
+          withCredentials: true,
+        })
 
         if (cancelled) return
 

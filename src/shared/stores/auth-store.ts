@@ -32,13 +32,11 @@ export const useAuthStore = create<AuthState>((set) => ({
   isLoading: true,
   isRefreshing: false,
 
-  setToken: (token) =>
-    set({ token, isAuthenticated: token !== null }),
+  setToken: (token) => set({ token, isAuthenticated: token !== null }),
 
   setUser: (user) => set({ user }),
 
-  login: (token, user) =>
-    set({ token, user, isAuthenticated: true, isLoading: false }),
+  login: (token, user) => set({ token, user, isAuthenticated: true, isLoading: false }),
 
   logout: () =>
     set({

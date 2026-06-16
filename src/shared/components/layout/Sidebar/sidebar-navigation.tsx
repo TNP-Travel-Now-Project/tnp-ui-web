@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import useSidebarNavigation from '@/shared/hook/useSidebarNavigation'
+import useSidebarNavigation from '@/shared/hooks/useSidebarNavigation'
 
 export interface SidebarNavigationProps {
   isExpanded: boolean

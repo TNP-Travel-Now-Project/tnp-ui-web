@@ -3,7 +3,7 @@
 import { AuthModal } from '@/features/auth/components/AuthModal'
 import Sidebar from '@/shared/components/layout/Sidebar'
 import LandingContextProvider from '@/shared/contexts/landing-context'
-import { useLandingLayoutController } from '@/shared/hook/useLandingLayoutController'
+import { useLandingLayoutController } from '@/shared/hooks/useLandingLayoutController'
 import Header from './Header'
 
 export default function LandingLayout({ children }: { children?: React.ReactNode }) {

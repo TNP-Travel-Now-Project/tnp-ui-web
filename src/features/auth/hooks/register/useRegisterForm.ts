@@ -3,15 +3,15 @@ import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 import { useRegister } from '@/features/auth/hooks/register/useRegister'
 import { type RegisterFormData, RegisterSchema } from '@/features/auth/schemas/register.schema'
-import { useAuth } from '@/shared/components/providers'
+import { useAuthStore } from '@/shared/stores/auth-store'
 
 export const useRegisterForm = ({ onSuccess }: { onSuccess?: () => void } = {}) => {
   const mutation = useRegister()
-  const { login } = useAuth()
+  const login = useAuthStore((s) => s.login)
 
   const form = useForm<RegisterFormData>({
     resolver: zodResolver(RegisterSchema),
-    mode: 'onSubmit',
+    mode: 'onChange',
     reValidateMode: 'onChange',
     defaultValues: {
       email: '',
@@ -25,16 +25,14 @@ export const useRegisterForm = ({ onSuccess }: { onSuccess?: () => void } = {}) 
     try {
       const result = await mutation.mutateAsync(data)
 
-      toast.success('Đăng ký thành công.')
+      const user = {
+        id: result.userId,
+        email: result.email,
+        name: result.fullName,
+      }
 
-      login(
-        {
-          id: result.userId,
-          email: result.email,
-          name: result.fullName,
-        },
-        result.userId,
-      )
+      login(result.userId, user)
+      toast.success('Đăng ký thành công.')
 
       form.reset()
       onSuccess?.()

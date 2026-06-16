@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion'
 import { Plus } from 'lucide-react'
 import { ProfileModal } from '@/features/auth/components/ProfileModal'
-import { useMainLayoutController } from '@/shared/hook/useMainLayoutController'
+import { useMainLayoutController } from '@/shared/hooks/useMainLayoutController'
 import Header from './Header'
 import Sidebar from './Sidebar'
 

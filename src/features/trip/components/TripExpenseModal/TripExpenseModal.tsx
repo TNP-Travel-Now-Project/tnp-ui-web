@@ -22,7 +22,7 @@ import {
 import type React from 'react'
 import { useState } from 'react'
 import { Button, Input, Label } from '@/shared/components'
-import { useToast } from '@/shared/hook/useToast'
+import { useToast } from '@/shared/hooks/useToast'
 import SplitCostModal from '../SplitCostModal/SplitCostModal'
 
 export default function TripExpenseModal({

@@ -22,8 +22,8 @@ import {
 import type React from 'react'
 import { useEffect, useState } from 'react'
 import { Label } from '@/shared/components'
-import { useModalScrollLock } from '@/shared/hook/useModalScrollLock'
-import { useToast } from '@/shared/hook/useToast'
+import { useModalScrollLock } from '@/shared/hooks/useModalScrollLock'
+import { useToast } from '@/shared/hooks/useToast'
 import SplitCostModal from '../SplitCostModal/SplitCostModal'
 
 interface TripItineraryBuildProps {
