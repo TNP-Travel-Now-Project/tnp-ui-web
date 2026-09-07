@@ -22,7 +22,7 @@ export function DashboardView({
 }: DashboardViewProps) {
   return (
     <>
-      <ThemeSetter theme='light' />
+      {/* <ThemeSetter theme='light' /> */}
       <WelcomeHero />
 
       <PageSection className='py-0 md:py-0'>

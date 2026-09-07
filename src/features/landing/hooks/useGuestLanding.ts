@@ -1,19 +1,13 @@
 'use client'
 
 import { useRouter } from 'next/navigation'
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useState } from 'react'
 import { testimonialsData } from '@/features/landing/constants/guest.constant'
 import { useAuth } from '@/shared/components/providers'
 
 export function useGuestLanding() {
   const router = useRouter()
   const { isAuthenticated, isLoading } = useAuth()
-
-  useEffect(() => {
-    if (!isLoading && isAuthenticated) {
-      router.replace('/dashboard')
-    }
-  }, [isAuthenticated, isLoading, router])
 
   const [currentIndex, setCurrentIndex] = useState(0)
   const currentCustomer = testimonialsData[currentIndex]

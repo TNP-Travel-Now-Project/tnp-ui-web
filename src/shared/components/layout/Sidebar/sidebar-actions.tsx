@@ -5,12 +5,14 @@ export interface SidebarActionsProps {
   isExpanded: boolean
   isLoggedIn?: boolean
   onSettingsClick?: () => void
+  onLogoutClick?: () => void
 }
 
 export default function SidebarActions({
   isExpanded,
   isLoggedIn,
   onSettingsClick,
+  onLogoutClick,
 }: SidebarActionsProps) {
   if (!isLoggedIn) return null
 
@@ -25,13 +27,13 @@ export default function SidebarActions({
         <Settings size={20} className='shrink-0' />
         {isExpanded && <span className='text-sm font-bold whitespace-nowrap'>Cài đặt</span>}
       </Button>
-      <a
-        href='#sidebar'
+      <Button
+        onClick={onLogoutClick}
         className={`flex items-center rounded-xl transition-all text-error hover:bg-error-soft ${isExpanded ? 'px-4 py-3 gap-4' : 'px-0 py-3 justify-center'}`}
       >
         <LogOut size={20} className='shrink-0' />
         {isExpanded && <span className='text-sm font-bold whitespace-nowrap'>Đăng xuất</span>}
-      </a>
+      </Button>
     </div>
   )
 }

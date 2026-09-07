@@ -1,8 +1,9 @@
 'use client'
 
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
-import { useCallback, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { useAuth } from '@/shared/components/providers'
+import { useLogout } from '@/features/auth/hooks/logout/useLogout'
 import { currentPageMap as currentPageHeaderMap } from '@/shared/constants/header.constant'
 import {
   currentPageMap as currentPageSidebarMap,
@@ -14,7 +15,8 @@ export function useMainLayoutController() {
   const router = useRouter()
   const pathname = usePathname()
   const searchParams = useSearchParams()
-  const { isAuthenticated } = useAuth()
+  const { isAuthenticated, isLoading } = useAuth()
+  const { mutate: logout } = useLogout()
 
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(true)
@@ -30,6 +32,13 @@ export function useMainLayoutController() {
   const activeTab = searchParams.get('tab') || 'Tổng quan'
   const currentPageSidebar = currentPageSidebarMap[pathname] || '/'
   const currentPageHeader = currentPageHeaderMap[pathname] || '/'
+
+  // ngăn chặn người dùng không xác thực truy cập vào các trang bên trong
+  useEffect(() => {
+  if (!isLoading && !isAuthenticated) {
+    router.replace('/')  // Về landing page
+  }
+}, [isAuthenticated, isLoading, router])
 
   const handleTabClick = (tab: string) => {
     const params = new URLSearchParams(searchParams.toString())
@@ -71,7 +80,6 @@ export function useMainLayoutController() {
   const toggleSidebarCollapsed = useCallback(() => {
     setIsSidebarOpen(false)
     setIsSidebarCollapsed((prev) => !prev)
-    // setIsShowNav((prev) => !prev)
     setIsHiddenLogo((prev) => !prev)
   }, [])
 
@@ -84,9 +92,14 @@ export function useMainLayoutController() {
     setIsProfileModalOpen(true)
   }
 
+  const handleLogout = useCallback(() => {
+    logout()
+  }, [logout])
+
   return {
     router,
     isAuthenticated,
+    isLoading,
     isSidebarOpen,
     isSidebarCollapsed,
     isShowNav,
@@ -111,5 +124,6 @@ export function useMainLayoutController() {
     openProfile,
     goHome,
     goToCreateTrip,
+    handleLogout
   }
 }

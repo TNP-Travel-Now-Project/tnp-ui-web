@@ -12,7 +12,7 @@ export default function LoginPage() {
       onClose={() => router.push('/')}
       onSuccess={() => router.push('/dashboard')}
       activeTab='login'
-      onTabChange={() => {}}
+      onTabChange={() => { }}
     />
   )
 }

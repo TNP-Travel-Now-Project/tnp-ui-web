@@ -14,6 +14,7 @@ interface RetryConfig extends InternalAxiosRequestConfig {
 client.setConfig({
   baseURL: config.apiBaseOrigin,
   throwOnError: true,
+  withCredentials: true,
 })
 
 /* ============================================================
@@ -231,9 +232,10 @@ client.instance.interceptors.response.use(
   },
 )
 
-export { postApiAuthLogin } from '@/shared/api/generated/sdk.gen'
+export { postApiAuthLogin, postApiAuthLogout } from '@/shared/api/generated/sdk.gen'
 export type {
   LoginCommand,
   LoginResponse,
+  LogoutResponse
 } from '@/shared/api/generated/types.gen'
 export { client, performRefresh, getRefreshEndpoint, callRefreshApi }

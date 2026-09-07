@@ -43,11 +43,11 @@ export function useLandingLayoutController() {
     return () => observer.disconnect()
   }, [])
 
-  useEffect(() => {
-    if (!isLoading && isAuthenticated) {
-      router.replace('/dashboard')
-    }
-  }, [isAuthenticated, isLoading, router])
+  // useEffect(() => {
+  //   if (!isLoading && isAuthenticated) {
+  //     router.replace('/dashboard')
+  //   }
+  // }, [isAuthenticated, isLoading, router])
 
   const handleSidebarNavigate = useCallback(
     (itemId: string) => {
@@ -84,6 +84,8 @@ export function useLandingLayoutController() {
 
   const goContact = useCallback(() => router.push('/contact'), [router])
 
+  const goDashboard = useCallback(() => router.replace('/dashboard'), [router])
+
   const refresh = useCallback(() => router.refresh(), [router])
 
   const goLogin = useCallback(() => {
@@ -119,6 +121,7 @@ export function useLandingLayoutController() {
       contact: goContact,
       login: goLogin,
       register: goRegister,
+      dashboard: goDashboard,
       refresh,
     },
   }

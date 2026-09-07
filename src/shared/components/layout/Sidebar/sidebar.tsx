@@ -17,6 +17,7 @@ export interface SidebarProps {
   onSettingsClick?: () => void
   onNavigateItem?: (id: string) => void
   onBrandClick?: () => void
+  onLogoutClick?: () => void
 }
 
 export default function Sidebar({
@@ -31,6 +32,7 @@ export default function Sidebar({
   currentPage = 'landing',
   onNavigateItem,
   onBrandClick,
+  onLogoutClick
 }: SidebarProps) {
   const isExpanded = isOpen || !isCollapsed
 
@@ -66,6 +68,7 @@ export default function Sidebar({
           isExpanded={isExpanded}
           isLoggedIn={isLoggedIn}
           onSettingsClick={onSettingsClick}
+          onLogoutClick={onLogoutClick}
         />
       </aside>
     </>

@@ -10,7 +10,7 @@ export interface HeaderBrandProps {
   onNavigateLanding: () => void
 }
 
-export default function HeaderBrand({
+export default function   HeaderBrand({
   isLoggedIn,
   showNav,
   hiddenLogo,

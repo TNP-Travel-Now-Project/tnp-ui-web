@@ -23,23 +23,22 @@ export default function SidebarNavigation({
           key={item.id}
           onClick={() => (isLoggedIn ? null : onNavigateItem?.(item.id))}
           whileTap={{ scale: 0.98 }}
-          className={`w-full flex items-center rounded-xl transition-all duration-300 text-left ${
-            isExpanded ? 'px-4 py-3 gap-4' : 'px-0 py-3 justify-center'
-          } ${
-            (isLoggedIn && (item as any).active) || (!isLoggedIn && currentPage === item.id)
+          className={`w-full flex items-center rounded-xl transition-all duration-300 text-left ${isExpanded ? 'px-4 py-3 gap-4' : 'px-0 py-3 justify-center'
+            } ${(isLoggedIn && (item as any).active) || (!isLoggedIn && currentPage === item.id)
               ? 'text-primary bg-leaf font-bold shadow-sm'
               : 'text-sidebar-foreground hover:text-primary hover:bg-sidebar-accent'
-          }`}
+            }`}
         >
           <item.icon
             size={22}
-            className={`shrink-0 ${(isLoggedIn && (item as any).active) || (!isLoggedIn && currentPage === item.id) ? 'text-primary' : 'text-muted-foreground group-hover:text-primary'}`}
+            className={`shrink-0 ${(isLoggedIn && (item as any).active) || (!isLoggedIn && currentPage === item.id)
+              ? 'text-primary' : ' text-primary group-hover:text-primary'}`}
           />
           {isExpanded && (
             <motion.span
               initial={{ opacity: 0, x: -10 }}
               animate={{ opacity: 1, x: 0 }}
-              className='text-base font-bold whitespace-nowrap'
+              className='text-neutral-90/70 font-bold whitespace-nowrap'
             >
               {item.label}
             </motion.span>

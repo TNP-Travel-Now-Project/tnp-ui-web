@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion'
 import { Plus } from 'lucide-react'
 import { ProfileModal } from '@/features/auth/components/ProfileModal'
+import { Loading } from '@/shared/components/feedback/Loading/loading'
 import { useMainLayoutController } from '@/shared/hooks/useMainLayoutController'
 import Header from './Header'
 import Sidebar from './Sidebar'
@@ -10,6 +11,7 @@ import Sidebar from './Sidebar'
 export default function MainLayout({ children }: { children: React.ReactNode }) {
   const {
     isAuthenticated,
+    isLoading,
     isSidebarOpen,
     isSidebarCollapsed,
     isHiddenLogo,
@@ -31,7 +33,16 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
     openProfile,
     goHome,
     goToCreateTrip,
+    handleLogout
   } = useMainLayoutController()
+
+  if (isLoading) {
+    return <Loading fullScreen text='Đang tải...' />
+  }
+
+  if (!isAuthenticated) {
+    return <Loading fullScreen inline text='Đang chuyển hướng ...' />
+  }
 
   return (
     <div className='lg:flex min-h-screen w-full bg-background'>
@@ -47,6 +58,7 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
         onNavigateItem={handleSidebarNavigate}
         onBrandClick={goHome}
         isHeroVisible={false}
+        onLogoutClick={handleLogout}
       />
       <div className='flex-1 min-w-0'>
         <Header

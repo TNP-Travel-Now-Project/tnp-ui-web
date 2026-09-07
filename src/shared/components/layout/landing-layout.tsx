@@ -4,6 +4,7 @@ import { AuthModal } from '@/features/auth/components/AuthModal'
 import Sidebar from '@/shared/components/layout/Sidebar'
 import LandingContextProvider from '@/shared/contexts/landing-context'
 import { useLandingLayoutController } from '@/shared/hooks/useLandingLayoutController'
+import { Loading } from '@/shared/components/feedback'
 import Header from './Header'
 
 export default function LandingLayout({ children }: { children?: React.ReactNode }) {
@@ -28,14 +29,8 @@ export default function LandingLayout({ children }: { children?: React.ReactNode
   } = useLandingLayoutController()
 
   if (isLoading) {
-    return (
-      <div className='flex items-center justify-center min-h-screen bg-white'>
-        <div className='w-10 h-10 border-2 border-primary border-t-transparent rounded-full animate-spin' />
-      </div>
-    )
+    return <Loading fullScreen inline text='Đang xử lý ...' />
   }
-
-  if (isAuthenticated) return null
 
   return (
     <LandingContextProvider
@@ -76,7 +71,7 @@ export default function LandingLayout({ children }: { children?: React.ReactNode
       <AuthModal
         isOpen={isAuthModalOpen}
         onClose={() => setIsAuthModalOpen(false)}
-        onSuccess={navigate.refresh}
+        onSuccess={navigate.dashboard}
         activeTab={authInitialTab}
         onTabChange={setAuthInitialTab}
       />
