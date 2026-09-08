@@ -60,6 +60,7 @@ export default function Sidebar({
         <SidebarNavigation
           isExpanded={isExpanded}
           isLoggedIn={isLoggedIn}
+          isHeroVisible={isHeroVisible}
           currentPage={currentPage}
           onNavigateItem={onNavigateItem}
         />

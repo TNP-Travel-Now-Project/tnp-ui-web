@@ -1,6 +1,8 @@
 'use client'
 
+import { GoogleLogin } from '@react-oauth/google'
 import { useLoginForm } from '@/features/auth/hooks/login/useLoginForm'
+import { useGoogleLogin } from '@/features/auth/hooks/login/useGoogleLogin'
 import { Button } from '@/shared/components/common/Button'
 import { Form, FormInput, FormPassword } from '@/shared/components/form'
 
@@ -10,21 +12,20 @@ interface LoginFormProps {
 
 export default function LoginForm({ onSuccess }: LoginFormProps) {
   const { form, mutation, onSubmit } = useLoginForm({ onSuccess })
+  const { handleGoogleSuccess, isLoading: isGoogleLoading } = useGoogleLogin({ onSuccess })
 
   return (
     <div className='space-y-5 sm:space-y-6'>
       <div className='space-y-3'>
-        <Button
-          variant='default'
-          className='w-full h-12 sm:h-14 rounded-xl sm:rounded-2xl bg-ghost-white hover:bg-near-white border-outline-variant/30 font-bold text-sm sm:text-[15px] flex items-center justify-center gap-3 transition-all shadow-sm dark:hover:text-green-dark border-[1.5px] text-neutral-100'
-        >
-          <img
-            src='https://www.google.com/favicon.ico'
-            className='w-4 h-4 sm:w-5 sm:h-5'
-            alt='Google'
-          />
-          Tiếp tục với Google
-        </Button>
+        <GoogleLogin
+          onSuccess={handleGoogleSuccess}
+          onError={() => {}}
+          theme='outline'
+          size='large'
+          width='100%'
+          text='continue_with'
+          shape='rectangular'
+        />
       </div>
 
       <div className='relative pt-1 sm:pt-2 pb-1'>

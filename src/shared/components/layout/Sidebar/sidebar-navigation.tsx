@@ -4,6 +4,7 @@ import useSidebarNavigation from '@/shared/hooks/useSidebarNavigation'
 export interface SidebarNavigationProps {
   isExpanded: boolean
   isLoggedIn?: boolean
+  isHeroVisible?: boolean
   currentPage?: string
   onNavigateItem?: (id: string) => void
 }
@@ -11,6 +12,7 @@ export interface SidebarNavigationProps {
 export default function SidebarNavigation({
   isExpanded,
   isLoggedIn,
+  isHeroVisible,
   currentPage = 'landing',
   onNavigateItem,
 }: SidebarNavigationProps) {
@@ -38,7 +40,7 @@ export default function SidebarNavigation({
             <motion.span
               initial={{ opacity: 0, x: -10 }}
               animate={{ opacity: 1, x: 0 }}
-              className='text-neutral-90/70 font-bold whitespace-nowrap'
+              className={`font-bold whitespace-nowrap ${isHeroVisible ? 'text-green-bright' : 'text-neutral-90/70'}`}
             >
               {item.label}
             </motion.span>
