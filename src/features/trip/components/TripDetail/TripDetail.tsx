@@ -39,7 +39,7 @@ import {
   DropdownMenuTrigger,
 } from '@/shared/components/ui/navigation/dropdown-menu'
 import { useModalScrollLock } from '@/shared/hooks/useModalScrollLock'
-import { useToast } from '@/shared/hooks/useToast'
+import { toast } from 'sonner'
 import type { TripDetailData } from '@/shared/types'
 import SplitCostModal from '../SplitCostModal/SplitCostModal'
 import TripExpenseModal from '../TripExpenseModal/TripExpenseModal'
@@ -51,7 +51,6 @@ interface TripDetailProps {
 }
 
 export default function TripDetail({ trip, onBack, onImminentActivity }: TripDetailProps) {
-  const { showToast } = useToast()
   const [showMembersModal, setShowMembersModal] = useState(false)
   const [showInviteModal, setShowInviteModal] = useState(false)
   const [showExpenseModal, setShowExpenseModal] = useState(false)
@@ -135,7 +134,7 @@ export default function TripDetail({ trip, onBack, onImminentActivity }: TripDet
     if (confirmDeleteId !== null) {
       setParticipants(participants.filter((p) => p.id !== confirmDeleteId))
       setConfirmDeleteId(null)
-      showToast('Đã xóa thành viên. Ngân sách chia sẻ đã được cập nhật lại.', 'success')
+      toast.success('Đã xóa thành viên. Ngân sách chia sẻ đã được cập nhật lại.')
     }
   }
 
@@ -314,7 +313,7 @@ export default function TripDetail({ trip, onBack, onImminentActivity }: TripDet
             activity={editingActivity}
             onClose={() => setEditingActivity(null)}
             onSave={(updated) => {
-              showToast(`Đã cập nhật: ${updated?.name || 'hoạt động'}`, 'success')
+              toast.success(`Đã cập nhật: ${updated?.name || 'hoạt động'}`)
               setEditingActivity(null)
             }}
           />
@@ -334,7 +333,7 @@ export default function TripDetail({ trip, onBack, onImminentActivity }: TripDet
                 role: 'Member',
               }
               setParticipants([...participants, newMember])
-              showToast(`Đã gửi lời mời tới ${email}`, 'success')
+              toast.success(`Đã gửi lời mời tới ${email}`)
               setShowInviteModal(false)
             }}
           />
@@ -517,7 +516,7 @@ export default function TripDetail({ trip, onBack, onImminentActivity }: TripDet
             <DropdownMenuContent align='end' className='w-56'>
               <DropdownMenuItem
                 className='cursor-pointer font-bold gap-2 focus:bg-primary/5'
-                onClick={() => showToast('Đang chuyển tới trang Chỉnh sửa chuyến đi...', 'info')}
+                onClick={() => toast.info('Đang chuyển tới trang Chỉnh sửa chuyến đi...')}
               >
                 <Edit size={16} />
                 Chỉnh sửa chuyến đi
@@ -534,7 +533,7 @@ export default function TripDetail({ trip, onBack, onImminentActivity }: TripDet
               <DropdownMenuItem
                 className='cursor-pointer font-bold gap-2 text-error focus:text-error'
                 onClick={() =>
-                  showToast('Yêu cầu xóa chuyến đi đã được gửi tới quản trị viên', 'warning')
+                  toast.warning('Yêu cầu xóa chuyến đi đã được gửi tới quản trị viên')
                 }
               >
                 <Trash2 size={16} />
@@ -625,7 +624,7 @@ export default function TripDetail({ trip, onBack, onImminentActivity }: TripDet
               <QuickActionButton
                 icon={<MessageCircle size={20} className='sm:size-6' />}
                 Label='Mở Chat'
-                onClick={() => showToast('Đang kết nối phòng chat nhóm...', 'success')}
+                onClick={() => toast.success('Đang kết nối phòng chat nhóm...')}
               />
             </div>
           </div>
@@ -787,7 +786,6 @@ export default function TripDetail({ trip, onBack, onImminentActivity }: TripDet
 function ItineraryModal({ onClose, onAddPlace }: { onClose: () => void; onAddPlace: () => void }) {
   const [selectedDate, setSelectedDate] = useState('15')
   const [internalEditingActivity, setInternalEditingActivity] = useState<any>(null)
-  const { showToast } = useToast()
 
   const vietnamNow = new Date(new Date().toLocaleString('en-US', { timeZone: 'Asia/Ho_Chi_Minh' }))
 
@@ -912,7 +910,7 @@ function ItineraryModal({ onClose, onAddPlace }: { onClose: () => void; onAddPla
               activity={internalEditingActivity}
               onClose={() => setInternalEditingActivity(null)}
               onSave={(updated) => {
-                showToast(`Đã cập nhật: ${updated.name}`, 'success')
+                toast.success(`Đã cập nhật: ${updated.name}`)
                 setInternalEditingActivity(null)
               }}
             />
@@ -1028,7 +1026,6 @@ function ActivityEditModal({
   onClose: () => void
   onSave: (data: any) => void
 }) {
-  const { showToast } = useToast()
   const [isLoading, setIsLoading] = useState(false)
   const [formData] = useState({ ...activity })
   const [showManageParticipants, setShowManageParticipants] = useState(false)
@@ -1348,14 +1345,14 @@ function ActivityEditModal({
                     <Button
                       onClick={() => {
                         if (!payer || !amount) {
-                          showToast('Vui lòng nhập đầy đủ thông tin thanh toán!', 'error')
+                          toast.error('Vui lòng nhập đầy đủ thông tin thanh toán!')
                           setIsCompleteExpanded(true)
                           return
                         }
                         setIsLoading(true)
                         setTimeout(() => {
                           setIsLoading(false)
-                          showToast('Đã chốt sổ và lưu chi phí hoạt động!', 'success')
+                          toast.success('Đã chốt sổ và lưu chi phí hoạt động!')
                           onClose()
                         }, 1000)
                       }}

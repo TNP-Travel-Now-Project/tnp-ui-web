@@ -67,6 +67,16 @@ export function useMainLayoutController() {
         router.push('/contact')
       } else if (itemId === 'landing') {
         router.push('/')
+      } else if (itemId === 'trips') {
+        router.push('/trips')
+      } else if (itemId === 'overview') {
+        router.push('/dashboard')
+      } else if (itemId === 'explore') {
+        router.push('/trips')
+      } else if (itemId === 'messages') {
+        router.push('/dashboard')
+      } else if (itemId === 'expenses') {
+        router.push('/dashboard')
       }
       setIsSidebarOpen(false)
     },

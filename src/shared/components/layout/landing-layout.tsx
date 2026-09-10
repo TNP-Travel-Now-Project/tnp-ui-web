@@ -19,6 +19,7 @@ export default function LandingLayout({ children }: { children?: React.ReactNode
     authInitialTab,
     currentPage,
     isHeroVisible,
+    changeColorIsHeroVisible,
     setAuthInitialTab,
     setIsAuthModalOpen,
     handleSidebarNavigate,
@@ -53,6 +54,7 @@ export default function LandingLayout({ children }: { children?: React.ReactNode
           currentPage={currentPage}
           onNavigateItem={handleSidebarNavigate}
           onBrandClick={navigate.home}
+          changeColorIsHeroVisible={changeColorIsHeroVisible}
         />
         <div className='flex-1 min-w-0'>
           <Header

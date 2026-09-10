@@ -19,7 +19,7 @@ import type React from 'react'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { DatePickerWithTime } from '@/shared/components/composite/DatePickerWithTime'
 import { useModalScrollLock } from '@/shared/hooks/useModalScrollLock'
-import { useToast } from '@/shared/hooks/useToast'
+import { toast } from 'sonner'
 
 interface PlanningTripProps {
   onBack: () => void
@@ -27,7 +27,6 @@ interface PlanningTripProps {
 }
 
 export default function PlanningTrip({ onBack, onNext }: PlanningTripProps) {
-  const { showToast } = useToast()
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
   const [startDate, setStartDate] = useState<Date | null>(new Date('2026-05-03'))
@@ -79,7 +78,7 @@ export default function PlanningTrip({ onBack, onNext }: PlanningTripProps) {
   const handleAddCompanion = () => {
     if (companionEmail && companions.length < 10) {
       if (companions.some((c) => c.email === companionEmail)) {
-        showToast('Email này đã được thêm', 'warning')
+        toast.warning('Email này đã được thêm')
         return
       }
       setCompanions([
@@ -108,7 +107,7 @@ export default function PlanningTrip({ onBack, onNext }: PlanningTripProps) {
 
   const handleNextClick = () => {
     if (!title.trim()) {
-      showToast('Vui lòng nhập tên lịch trình', 'warning')
+      toast.warning('Vui lòng nhập tên lịch trình')
       return
     }
     onNext()

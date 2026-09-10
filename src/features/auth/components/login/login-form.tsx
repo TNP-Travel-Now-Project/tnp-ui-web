@@ -5,27 +5,27 @@ import { useLoginForm } from '@/features/auth/hooks/login/useLoginForm'
 import { useGoogleLogin } from '@/features/auth/hooks/login/useGoogleLogin'
 import { Button } from '@/shared/components/common/Button'
 import { Form, FormInput, FormPassword } from '@/shared/components/form'
+import { toast } from 'sonner'
 
-interface LoginFormProps {
-  onSuccess?: () => void
-}
-
-export default function LoginForm({ onSuccess }: LoginFormProps) {
+export default function LoginForm({ onSuccess }: { onSuccess?: () => void }) {
   const { form, mutation, onSubmit } = useLoginForm({ onSuccess })
-  const { handleGoogleSuccess, isLoading: isGoogleLoading } = useGoogleLogin({ onSuccess })
+  const { handleGoogleSuccess } = useGoogleLogin({ onSuccess })
 
   return (
     <div className='space-y-5 sm:space-y-6'>
       <div className='space-y-3'>
-        <GoogleLogin
-          onSuccess={handleGoogleSuccess}
-          onError={() => {}}
-          theme='outline'
-          size='large'
-          width='100%'
-          text='continue_with'
-          shape='rectangular'
-        />
+        <div className='relative h-5'>
+          <div className='absolute inset-0 z-10 flex items-center justify-center'>
+            <GoogleLogin
+              width='100%'
+              text='continue_with'
+              onSuccess={handleGoogleSuccess}
+              onError={() => {
+                toast.error('Không thể xác thực với Google.')
+              }}
+            />
+          </div>
+        </div>
       </div>
 
       <div className='relative pt-1 sm:pt-2 pb-1'>

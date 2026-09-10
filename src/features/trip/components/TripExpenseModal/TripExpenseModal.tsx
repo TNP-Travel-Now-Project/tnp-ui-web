@@ -22,7 +22,7 @@ import {
 import type React from 'react'
 import { useState } from 'react'
 import { Button, Input, Label } from '@/shared/components'
-import { useToast } from '@/shared/hooks/useToast'
+import { toast } from 'sonner'
 import SplitCostModal from '../SplitCostModal/SplitCostModal'
 
 export default function TripExpenseModal({
@@ -91,8 +91,6 @@ export default function TripExpenseModal({
     },
   ])
   const [activities, setActivities] = useState<any[]>([])
-
-  const { showToast } = useToast()
 
   const formatCurrency = (num: number) => num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')
 
@@ -689,7 +687,7 @@ export default function TripExpenseModal({
                               <div
                                 className='relative cursor-pointer'
                                 onClick={() =>
-                                  showToast(`Thông tin chung của ${member.name}`, 'info')
+                                  toast.info(`Thông tin chung của ${member.name}`)
                                 }
                               >
                                 <img
@@ -1012,7 +1010,7 @@ export default function TripExpenseModal({
             context={activeTab}
             onClose={() => setSelectedExpenseModal({ isOpen: false })}
             onSave={() => {
-              showToast('Đã lưu chi phí!', 'success')
+              toast.success('Đã lưu chi phí!')
               setSelectedExpenseModal({ isOpen: false })
             }}
           />
@@ -1023,7 +1021,6 @@ export default function TripExpenseModal({
             onClose={() => setSelectedSettlement(null)}
             setShowQRModal={setShowQRModal}
             setShowComplaintModal={setShowComplaintModal}
-            showToast={showToast}
             onConfirm={(image) => {
               setSettlements((prev) =>
                 prev.map((s) =>
@@ -1037,7 +1034,7 @@ export default function TripExpenseModal({
                 status: 'verifying',
                 billImage: image,
               }))
-              showToast('Đã gửi yêu cầu xác nhận', 'success')
+              toast.success('Đã gửi yêu cầu xác nhận')
             }}
             onVerify={() => {
               setSettlements((prev) =>
@@ -1055,7 +1052,7 @@ export default function TripExpenseModal({
                 ...prev,
               ])
               setSelectedSettlement(null)
-              showToast(`Đã xác nhận thanh toán từ ${selectedSettlement.fromName}`, 'success')
+              toast.success(`Đã xác nhận thanh toán từ ${selectedSettlement.fromName}`)
             }}
           />
         )}
@@ -1079,7 +1076,6 @@ export default function TripExpenseModal({
             onClose={() => setShowStatsModal(false)}
             formatCurrency={formatCurrency}
             settlements={settlements}
-            showToast={showToast}
           />
         )}
         {showSettlementsModal && (
@@ -1126,7 +1122,7 @@ export default function TripExpenseModal({
                   }))
                 }
 
-                showToast('Đã gửi khiếu nại thành công!', 'success')
+                toast.success('Đã gửi khiếu nại thành công!')
               }, 1500)
             }}
             isLoading={isComplaining}
@@ -1652,7 +1648,6 @@ function SettlementConfirmModal({
   onVerify,
   setShowQRModal,
   setShowComplaintModal,
-  showToast,
 }: {
   settlement: any
   onClose: () => void
@@ -1660,7 +1655,6 @@ function SettlementConfirmModal({
   onVerify: () => void
   setShowQRModal: (v: boolean) => void
   setShowComplaintModal: (v: any) => void
-  showToast: any
 }) {
   const [image, setImage] = useState<string | null>(settlement.billImage || null)
   const [isEditing, setIsEditing] = useState(false)
@@ -1672,7 +1666,7 @@ function SettlementConfirmModal({
 
   const handleResponse = () => {
     if (settlement.hasComplaint || isEditing) {
-      showToast('Đã gửi phản hồi thành công!', 'success')
+      toast.success('Đã gửi phản hồi thành công!')
       setIsEditing(false)
     } else {
       onVerify()
@@ -1989,7 +1983,7 @@ function SettlementConfirmModal({
                 {settlement.hasComplaint && settlement.complaintFrom === 'receiver' && (
                   <Button
                     onClick={() => {
-                      showToast(`Đã gửi phản hồi cho ${settlement.toName}`, 'success')
+                      toast.success(`Đã gửi phản hồi cho ${settlement.toName}`)
                       // In a real app we'd update some state here
                     }}
                     className='w-full py-4 bg-primary text-white rounded-xl font-black text-xs uppercase tracking-widest hover:opacity-90 shadow-lg shadow-primary/20 active:scale-95 transition-all'
@@ -2155,12 +2149,10 @@ function MemberStatsListModal({
   onClose,
   formatCurrency,
   settlements,
-  showToast,
 }: {
   onClose: () => void
   formatCurrency: (n: number) => string
   settlements: any[]
-  showToast: any
 }) {
   const members = [
     {

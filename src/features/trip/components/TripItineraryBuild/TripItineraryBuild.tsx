@@ -23,7 +23,7 @@ import type React from 'react'
 import { useEffect, useState } from 'react'
 import { Label } from '@/shared/components'
 import { useModalScrollLock } from '@/shared/hooks/useModalScrollLock'
-import { useToast } from '@/shared/hooks/useToast'
+import { toast } from 'sonner'
 import SplitCostModal from '../SplitCostModal/SplitCostModal'
 
 interface TripItineraryBuildProps {
@@ -135,7 +135,6 @@ const MOCK_PLACES = [
 ]
 
 export default function TripItineraryBuild({ onBack }: TripItineraryBuildProps) {
-  const { showToast } = useToast()
   const [activeCategory, setActiveCategory] = useState<string | null>(null)
   const [locationStatus, setLocationStatus] = useState<'prompt' | 'granted' | 'denied'>('prompt')
   const [selectedPlace, setSelectedPlace] = useState<any>(null)
@@ -274,7 +273,7 @@ export default function TripItineraryBuild({ onBack }: TripItineraryBuildProps) 
                     <button
                       onClick={() => {
                         if (!estimatedCost || estimatedCost === '0') {
-                          showToast('Vui lòng nhập chi phí dự kiến trước', 'info')
+                          toast.info('Vui lòng nhập chi phí dự kiến trước')
                           return
                         }
                         setShowSplitModal(true)
@@ -706,7 +705,7 @@ export default function TripItineraryBuild({ onBack }: TripItineraryBuildProps) 
             onClose={() => setShowSuggestionsOverview(false)}
             onSelectPlace={(place) => {
               setSelectedPlace(place)
-              showToast(`Đã chọn: ${place.name}`, 'success')
+              toast.success(`Đã chọn: ${place.name}`)
             }}
           />
         )}
@@ -732,11 +731,11 @@ export default function TripItineraryBuild({ onBack }: TripItineraryBuildProps) 
             isOpen={showConfirmModal}
             onClose={() => setShowConfirmModal(false)}
             onStartNow={() => {
-              showToast('Đã kích hoạt chuyến đi của bạn!', 'success')
+              toast.success('Đã kích hoạt chuyến đi của bạn!')
               onBack()
             }}
             onDoLater={() => {
-              showToast('Lịch trình đã được lưu vào bản nháp.', 'info')
+              toast.info('Lịch trình đã được lưu vào bản nháp.')
               onBack()
             }}
           />

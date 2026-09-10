@@ -10,7 +10,7 @@ export interface SidebarNavigationProps {
 }
 
 export default function useSidebarNavigation({ isLoggedIn, currentPage }: SidebarNavigationProps) {
-  const navItems = !isLoggedIn
+  const navItems = isLoggedIn
     ? loggedInNavItems
     : currentPage === 'landing'
       ? guestLandingNavItems

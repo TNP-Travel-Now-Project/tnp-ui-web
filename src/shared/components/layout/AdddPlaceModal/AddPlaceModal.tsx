@@ -20,8 +20,7 @@ import {
 } from 'lucide-react'
 import { useState } from 'react'
 import { Button, Label } from '@/shared/components'
-import { Toaster } from '@/shared/components/feedback/Toast'
-import { useToast } from '@/shared/hooks/useToast'
+import { toast } from 'sonner'
 
 const ITINERARY_TYPES = [
   { id: 'cafe', Label: 'Cà phê', icon: Coffee, color: 'bg-emerald-100 text-emerald-700' },
@@ -77,7 +76,6 @@ export default function AddPlaceModal({ onClose }: { onClose: () => void }) {
   const [locationStatus, setLocationStatus] = useState<'prompt' | 'granted' | 'denied'>('prompt')
   const [selectedPlace, setSelectedPlace] = useState<any>(null)
   const [showSuggestions, setShowSuggestions] = useState(false)
-  const { showToast } = useToast()
 
   const requestLocation = () => {
     if (!navigator.geolocation) {
@@ -359,7 +357,7 @@ export default function AddPlaceModal({ onClose }: { onClose: () => void }) {
             place={selectedPlace}
             onClose={() => setSelectedPlace(null)}
             onAdd={() => {
-              showToast('success', 'Đã thêm địa điểm vào phân loại lộ trình')
+              toast.success('Đã thêm địa điểm vào phân loại lộ trình')
               setSelectedPlace(null)
               onClose()
             }}

@@ -4,15 +4,15 @@ import useSidebarNavigation from '@/shared/hooks/useSidebarNavigation'
 export interface SidebarNavigationProps {
   isExpanded: boolean
   isLoggedIn?: boolean
-  isHeroVisible?: boolean
   currentPage?: string
+  changeColorIsHeroVisible?: string
   onNavigateItem?: (id: string) => void
 }
 
 export default function SidebarNavigation({
   isExpanded,
   isLoggedIn,
-  isHeroVisible,
+  changeColorIsHeroVisible,
   currentPage = 'landing',
   onNavigateItem,
 }: SidebarNavigationProps) {
@@ -23,7 +23,7 @@ export default function SidebarNavigation({
       {navItems.map((item) => (
         <motion.button
           key={item.id}
-          onClick={() => (isLoggedIn ? null : onNavigateItem?.(item.id))}
+          onClick={() => onNavigateItem?.(item.id)}
           whileTap={{ scale: 0.98 }}
           className={`w-full flex items-center rounded-xl transition-all duration-300 text-left ${isExpanded ? 'px-4 py-3 gap-4' : 'px-0 py-3 justify-center'
             } ${(isLoggedIn && (item as any).active) || (!isLoggedIn && currentPage === item.id)
@@ -40,7 +40,7 @@ export default function SidebarNavigation({
             <motion.span
               initial={{ opacity: 0, x: -10 }}
               animate={{ opacity: 1, x: 0 }}
-              className={`font-bold whitespace-nowrap ${isHeroVisible ? 'text-green-bright' : 'text-neutral-90/70'}`}
+              className={`font-bold whitespace-nowrap ${changeColorIsHeroVisible}`}
             >
               {item.label}
             </motion.span>
