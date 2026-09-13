@@ -11,9 +11,7 @@ export function useLandingLayoutController() {
 
   const { isAuthenticated, isLoading } = useAuth()
 
-  // Mobile drawer visibility
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
-  // Desktop compact mode
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(true)
 
   const [isShowNav, setIsShowNav] = useState(true)
@@ -23,31 +21,37 @@ export function useLandingLayoutController() {
   const [authInitialTab, setAuthInitialTab] = useState<'login' | 'register'>('login')
 
   const [isHeroVisible, setIsHeroVisible] = useState(false)
+  const [changeColorIsHeroVisible, setChangeColorIsHeroVisible] = useState('text-primary')
 
   useEffect(() => {
-    const hero = document.getElementById('hero-section')
+    let observer: IntersectionObserver | null = null
 
-    if (!hero) return
+    const setupObserver = () => {
+      const hero = document.getElementById('hero-section')
+      if (!hero) {
+        requestAnimationFrame(setupObserver)
+        return
+      }
 
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        setIsHeroVisible(!entry.isIntersecting)
-      },
-      {
-        threshold: 0.7,
-      },
-    )
+      observer = new IntersectionObserver(
+        ([entry]) => {
+          setIsHeroVisible(!entry.isIntersecting)
+          setChangeColorIsHeroVisible(
+            entry.isIntersecting ? 'text-primary' : 'text-green-bright/90',
+          )
+        },
+        {
+          threshold: 0.7,
+        },
+      )
 
-    observer.observe(hero)
-
-    return () => observer.disconnect()
-  }, [])
-
-  useEffect(() => {
-    if (!isLoading && isAuthenticated) {
-      router.replace('/dashboard')
+      observer.observe(hero)
     }
-  }, [isAuthenticated, isLoading, router])
+
+    setupObserver()
+
+    return () => observer?.disconnect()
+  }, [])
 
   const handleSidebarNavigate = useCallback(
     (itemId: string) => {
@@ -84,6 +88,8 @@ export function useLandingLayoutController() {
 
   const goContact = useCallback(() => router.push('/contact'), [router])
 
+  const goDashboard = useCallback(() => router.replace('/dashboard'), [router])
+
   const refresh = useCallback(() => router.refresh(), [router])
 
   const goLogin = useCallback(() => {
@@ -106,6 +112,7 @@ export function useLandingLayoutController() {
     authInitialTab,
     currentPage,
     isHeroVisible,
+    changeColorIsHeroVisible,
 
     setIsAuthModalOpen,
     setAuthInitialTab,
@@ -119,6 +126,7 @@ export function useLandingLayoutController() {
       contact: goContact,
       login: goLogin,
       register: goRegister,
+      dashboard: goDashboard,
       refresh,
     },
   }

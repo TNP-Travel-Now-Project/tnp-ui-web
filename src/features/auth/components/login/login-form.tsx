@@ -1,30 +1,31 @@
 'use client'
 
+import { GoogleLogin } from '@react-oauth/google'
 import { useLoginForm } from '@/features/auth/hooks/login/useLoginForm'
+import { useGoogleLogin } from '@/features/auth/hooks/login/useGoogleLogin'
 import { Button } from '@/shared/components/common/Button'
 import { Form, FormInput, FormPassword } from '@/shared/components/form'
+import { toast } from 'sonner'
 
-interface LoginFormProps {
-  onSuccess?: () => void
-}
-
-export default function LoginForm({ onSuccess }: LoginFormProps) {
+export default function LoginForm({ onSuccess }: { onSuccess?: () => void }) {
   const { form, mutation, onSubmit } = useLoginForm({ onSuccess })
+  const { handleGoogleSuccess } = useGoogleLogin({ onSuccess })
 
   return (
     <div className='space-y-5 sm:space-y-6'>
       <div className='space-y-3'>
-        <Button
-          variant='default'
-          className='w-full h-12 sm:h-14 rounded-xl sm:rounded-2xl bg-ghost-white hover:bg-near-white border-outline-variant/30 font-bold text-sm sm:text-[15px] flex items-center justify-center gap-3 transition-all shadow-sm dark:hover:text-green-dark border-[1.5px] text-neutral-100'
-        >
-          <img
-            src='https://www.google.com/favicon.ico'
-            className='w-4 h-4 sm:w-5 sm:h-5'
-            alt='Google'
-          />
-          Tiếp tục với Google
-        </Button>
+        <div className='relative h-5'>
+          <div className='absolute inset-0 z-10 flex items-center justify-center'>
+            <GoogleLogin
+              width='100%'
+              text='continue_with'
+              onSuccess={handleGoogleSuccess}
+              onError={() => {
+                toast.error('Không thể xác thực với Google.')
+              }}
+            />
+          </div>
+        </div>
       </div>
 
       <div className='relative pt-1 sm:pt-2 pb-1'>

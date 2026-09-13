@@ -70,13 +70,13 @@ export { QueryProvider }
 
 {
   /* <QueryProvider 
-  defaultOptions={{
-    queries: {
-      staleTime: 30 * 1000,
-      refetchOnWindowFocus: false,
-    }
-  }}
->
-  {children}
-</QueryProvider> */
+    defaultOptions={{
+      queries: {
+        staleTime: 30 * 1000,
+        refetchOnWindowFocus: false,
+      }
+    }}
+  >
+    {children}
+  </QueryProvider> */
 }

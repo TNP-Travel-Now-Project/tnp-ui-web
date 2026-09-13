@@ -51,7 +51,7 @@ export class ApiError extends Error {
 
     if (error instanceof ApiError) return error
 
-    return new ApiError(0, 'UNKNOWN', 'Network error')
+    return new ApiError(0, 'UNKNOWN', 'Kết nối không ổn định!')
   }
 
   /** Kiểm tra có lỗi validation field không */

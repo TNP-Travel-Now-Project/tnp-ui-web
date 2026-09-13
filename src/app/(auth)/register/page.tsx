@@ -12,7 +12,7 @@ export default function RegisterPage() {
       onClose={() => router.push('/')}
       onSuccess={() => router.push('/dashboard')}
       activeTab='register'
-      onTabChange={() => {}}
+      onTabChange={() => { }}
     />
   )
 }

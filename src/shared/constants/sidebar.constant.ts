@@ -41,5 +41,3 @@ export const currentPageMap: Record<string, string> = {
 }
 
 export const tripDetailTabs = ['Tổng quan', 'Lịch trình', 'Chi phí', 'Trò chuyện', 'Thành viên']
-
-export type profileTab = 'personal' | 'security' | 'finance' | 'notifications' | 'settings'

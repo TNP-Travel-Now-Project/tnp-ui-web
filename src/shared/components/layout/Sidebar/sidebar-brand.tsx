@@ -7,6 +7,7 @@ export interface SidebarBrandProps {
   onToggleCollapse?: () => void
   onClose: () => void
   onBrandClick?: () => void
+  changeColorIsHeroVisible?: string
 }
 
 export default function SidebarBrand({
@@ -14,7 +15,9 @@ export default function SidebarBrand({
   onToggleCollapse,
   onClose,
   onBrandClick,
+  changeColorIsHeroVisible
 }: SidebarBrandProps) {
+  
   return (
     <div className={`mb-8 mt-2 flex items-center gap-2 ${isExpanded ? 'px-2' : 'justify-center'}`}>
       <div className={`flex items-center gap-2 ${isExpanded ? 'flex-1' : ''}`}>
@@ -34,10 +37,10 @@ export default function SidebarBrand({
             className='overflow-hidden flex flex-col'
           >
             <div className='text-lg font-bold whitespace-nowrap leading-none'>
-              <span className='text-tertiary text-primary'>chudu</span>
-              <span className='text-primary font-extrabold uppercase tracking-tight'>4be</span>
+              <span className={`text-tertiary ${changeColorIsHeroVisible}`}>chudu</span>
+              <span className={`text-tertiary font-extrabold uppercase tracking-tight ${changeColorIsHeroVisible}`}>4be</span>
             </div>
-            <div className='text-[8px] font-bold text-primary/60 uppercase tracking-widest whitespace-nowrap'>
+            <div className={`text-[8px] font-bold ${changeColorIsHeroVisible} uppercase tracking-widest whitespace-nowrap`}>
               Đâu đâu cũng là nhà
             </div>
           </motion.div>
@@ -46,7 +49,7 @@ export default function SidebarBrand({
 
       <Button
         onClick={onToggleCollapse || onClose}
-        className='absolute -right-4 top-6 w-8 h-8 rounded-lg  border border-sidebar-border text-sidebar-foreground hover:text-primary hover:border-primary shadow-md flex items-center justify-center transition-all z-[60]'
+        className='absolute -right-4 top-6 w-8 h-8 rounded-lg  border border-sidebar-border text-sidebar-foreground hover:text-primary hover:border-primary shadow-md flex items-center justify-center transition-all z-60'
       >
         {isExpanded ? <ChevronLeft size={20} /> : <ChevronRight size={20} />}
       </Button>

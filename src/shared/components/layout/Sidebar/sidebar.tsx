@@ -10,6 +10,7 @@ export interface SidebarProps {
   isLoggedIn?: boolean
   isHeroVisible: boolean
   currentPage?: string
+  changeColorIsHeroVisible?: string
 
   onClose: () => void
   onToggleCollapse?: () => void
@@ -17,6 +18,7 @@ export interface SidebarProps {
   onSettingsClick?: () => void
   onNavigateItem?: (id: string) => void
   onBrandClick?: () => void
+  onLogoutClick?: () => void
 }
 
 export default function Sidebar({
@@ -31,6 +33,8 @@ export default function Sidebar({
   currentPage = 'landing',
   onNavigateItem,
   onBrandClick,
+  onLogoutClick,
+  changeColorIsHeroVisible
 }: SidebarProps) {
   const isExpanded = isOpen || !isCollapsed
 
@@ -49,6 +53,7 @@ export default function Sidebar({
           onToggleCollapse={onToggleCollapse}
           onClose={onClose}
           onBrandClick={onBrandClick}
+          changeColorIsHeroVisible={changeColorIsHeroVisible}
         />
 
         {/* {!isLoggedIn && (
@@ -60,12 +65,14 @@ export default function Sidebar({
           isLoggedIn={isLoggedIn}
           currentPage={currentPage}
           onNavigateItem={onNavigateItem}
+          changeColorIsHeroVisible={changeColorIsHeroVisible}
         />
 
         <SidebarActions
           isExpanded={isExpanded}
           isLoggedIn={isLoggedIn}
           onSettingsClick={onSettingsClick}
+          onLogoutClick={onLogoutClick}
         />
       </aside>
     </>

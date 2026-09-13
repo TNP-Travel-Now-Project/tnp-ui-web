@@ -33,17 +33,7 @@ export default function HeaderBrand({
         disabled={!showNav || !hiddenLogo}
         className='hidden lg:flex items-center gap-2 overflow-hidden hover:no-underline'
       >
-        {isLoggedIn ? (
-          <div className='flex items-center gap-2'>
-            <div className='p-1.5 bg-primary rounded-lg text-white'>
-              <Plane size={16} className='transform -rotate-45' />
-            </div>
-            <span className='text-xl font-bold whitespace-nowrap'>
-              <span className='text-tertiary'>chudu</span>
-              <span className='text-primary font-extrabold uppercase tracking-tight'>4be</span>
-            </span>
-          </div>
-        ) : (
+        {(
           <div
             className={cn(
               'flex items-center gap-2 transition-all duration-300 ease-in-out',

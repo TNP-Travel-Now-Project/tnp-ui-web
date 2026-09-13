@@ -1,11 +1,11 @@
 'use client'
 
-import { motion } from 'framer-motion'
 import { Lock, Smartphone } from 'lucide-react'
+import TabContentWrapper from '../TabContentWrapper'
 
 export default function SecurityTab() {
   return (
-    <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }}>
+    <TabContentWrapper>
       <div className='space-y-4'>
         <div className='p-3.5 sm:p-4 bg-surface-container rounded-2xl flex items-center justify-between border border-outline-variant/10'>
           <div className='flex items-center gap-3 sm:gap-4 overflow-hidden'>
@@ -50,7 +50,7 @@ export default function SecurityTab() {
           </div>
         </div>
       </div>
-    </motion.div>
+    </TabContentWrapper>
   )
 }
 

@@ -43,30 +43,36 @@ export const FormPassword = <
     <FormField
       control={control}
       name={name}
-      render={({ field }) => (
-        <FormItem className={className}>
-          {label && <FormLabel>{label}</FormLabel>}
-          <FormControl>
-            <Input
-              type={showPassword ? 'text' : 'password'}
-              placeholder={placeholder}
-              className={inputClassName}
-              rightIcon={
-                <button
-                  type='button'
-                  onClick={() => setShowPassword(!showPassword)}
-                  tabIndex={-1}
-                  className='text-muted-foreground hover:text-foreground'
-                >
-                  {showPassword ? <EyeOff className='h-4 w-4' /> : <Eye className='h-4 w-4' />}
-                </button>
-              }
-              {...field}
-            />
-          </FormControl>
-          <FormMessage />
-        </FormItem>
-      )}
+      render={({ field, fieldState, formState }) => {
+        const value = field.value ?? ''
+        const showError = (value.toString().length > 0 || formState.isSubmitted) && fieldState.error
+
+        return (
+          <FormItem className={className}>
+            {label && <FormLabel>{label}</FormLabel>}
+            <FormControl>
+              <Input
+                type={showPassword ? 'text' : 'password'}
+                placeholder={placeholder}
+                className={inputClassName}
+                rightIcon={
+                  <button
+                    type='button'
+                    onClick={() => setShowPassword(!showPassword)}
+                    tabIndex={-1}
+                    className='text-muted-foreground hover:text-foreground'
+                  >
+                    {showPassword ? <EyeOff className='h-4 w-4' /> : <Eye className='h-4 w-4' />}
+                  </button>
+                }
+                {...field}
+              />
+            </FormControl>
+
+            {showError && <FormMessage />}
+          </FormItem>
+        )
+      }}
     />
   )
 }

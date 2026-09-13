@@ -2,15 +2,14 @@
 
 import { motion } from 'framer-motion'
 import { Camera } from 'lucide-react'
-import { type ChangeEvent, useState } from 'react'
+import { type ChangeEvent, useRef, useState } from 'react'
 import { Popover, PopoverContent, PopoverTrigger } from '@/shared/components/overlay'
-import { GENDER_BG, GENDER_HOVER_BG, GENDER_ICONS, GENDER_OPTIONS } from './profile-modal.constants'
-import type { Gender, GenderAvatarProps } from './profile-modal.types'
+import { GENDER_BG, GENDER_HOVER_BG, GENDER_ICONS, GENDER_OPTIONS } from '../constants'
+import type { Gender, GenderAvatarProps } from '../types'
 
-export default function GenderAvatar({ gender, onGenderChange }: GenderAvatarProps) {
-  const [avatar, setAvatar] = useState(
-    'https://lh3.googleusercontent.com/aida-public/AB6AXuD2TLzey_rvR3RLYd4skh0wp5_tpZnVFMr2v_QT9m_Zq5K50hDUKa36YQYikfcaJDSZ3Xsyi_FPFY3JlEGRZdanoVBlvbf-e6K_ta28M-cT5xK1ZbRMAF_NP7K0OEKyagXrs8lx3J5NwN31tgmEFYDTMnRut620qsRhK2CGci86ZL8DjHPgFKz3nKNloBFTB7VS0U436bLxxc6mA33uNiv6ZavY-O8D_kNHWgjdPULdHBICM5Lr51NHawrn8A9kOAPQvH_P_lVF7Ld4',
-  )
+export default function GenderAvatar({ gender, onGenderChange, defaultAvatar }: GenderAvatarProps) {
+  const [avatar, setAvatar] = useState(defaultAvatar)
+  const fileInputRef = useRef<HTMLInputElement>(null)
 
   const handleAvatarChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
@@ -18,10 +17,7 @@ export default function GenderAvatar({ gender, onGenderChange }: GenderAvatarPro
       const reader = new FileReader()
       reader.onload = (event) => {
         if (event.target?.result) {
-          const newAvatar = event.target.result as string
-          setAvatar(newAvatar)
-          const img = document.getElementById('profile-avatar-img') as HTMLImageElement
-          if (img) img.src = newAvatar
+          setAvatar(event.target.result as string)
         }
       }
       reader.readAsDataURL(file)
@@ -34,15 +30,16 @@ export default function GenderAvatar({ gender, onGenderChange }: GenderAvatarPro
     <div className='relative'>
       <div className='relative group cursor-pointer'>
         <div
-          onClick={() => (document.getElementById('avatar-input') as HTMLInputElement)?.click()}
+          onClick={() => fileInputRef.current?.click()}
           className='w-16 h-16 sm:w-20 sm:h-20 rounded-full overflow-hidden border-4 border-white shadow-xl ring-1 ring-primary/10 relative z-0'
         >
-          <img
-            src={avatar}
-            alt='Profile'
-            className='w-full h-full object-cover'
-            id='profile-avatar-img'
-          />
+          {avatar && (
+            <img
+              src={avatar}
+              alt='Profile'
+              className='w-full h-full object-cover'
+            />
+          )}
           <div className='absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity'>
             <Camera size={20} className='text-white' />
           </div>
@@ -96,7 +93,7 @@ export default function GenderAvatar({ gender, onGenderChange }: GenderAvatarPro
 
       <input
         type='file'
-        id='avatar-input'
+        ref={fileInputRef}
         onChange={handleAvatarChange}
         accept='image/jpeg, image/png'
         className='hidden'

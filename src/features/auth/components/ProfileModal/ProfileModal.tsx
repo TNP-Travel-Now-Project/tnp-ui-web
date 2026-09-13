@@ -2,15 +2,15 @@
 
 import { AnimatePresence, motion } from 'framer-motion'
 import { useEffect, useState } from 'react'
-import { useModalScrollLock } from '@/shared/hook/useModalScrollLock'
-import FinanceTab from './FinanceTab'
-import NotificationsTab from './NotificationsTab'
-import PersonalInfoTab from './PersonalInfoTab'
-import ProfileModalSidebar from './ProfileModalSidebar'
-import { TAB_HEADINGS } from './profile-modal.constants'
-import type { ProfileModalProps, TabType } from './profile-modal.types'
-import SecurityTab from './SecurityTab'
-import SettingsTab from './SettingsTab'
+import { useModalScrollLock } from '@/shared/hooks/useModalScrollLock'
+import { TAB_HEADINGS } from './constants'
+import type { ProfileModalProps, TabType } from './types'
+import ProfileModalSidebar from './components/ProfileModalSidebar'
+import FinanceTab from './components/tabs/FinanceTab'
+import NotificationsTab from './components/tabs/NotificationsTab'
+import PersonalInfoTab from './components/tabs/PersonalInfoTab'
+import SecurityTab from './components/tabs/SecurityTab'
+import SettingsTab from './components/tabs/SettingsTab'
 
 export default function ProfileModal({
   isOpen,
