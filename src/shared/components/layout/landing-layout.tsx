@@ -29,7 +29,7 @@ export default function LandingLayout({ children }: { children?: React.ReactNode
     navigate,
   } = useLandingLayoutController()
 
-  if (isLoading) {
+  if (isLoading && !isAuthenticated) {
     return <Loading fullScreen inline text='Đang xử lý ...' />
   }
 

@@ -1,5 +1,5 @@
 import { Bell, Settings as SettingsIcon, Shield, User, Wallet } from 'lucide-react'
-import type { TabType, WalletItem } from './profile-modal.types'
+import type { TabType, WalletItem } from './types'
 
 export const TABS: { id: TabType; label: string; icon: typeof User }[] = [
   { id: 'personal', label: 'Thông tin cá nhân', icon: User },

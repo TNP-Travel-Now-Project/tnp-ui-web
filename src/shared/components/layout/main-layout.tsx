@@ -36,12 +36,12 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
     handleLogout
   } = useMainLayoutController()
 
-  if (isLoading) {
-    return <Loading fullScreen text='Đang tải...' />
+  if (isLoading && !isAuthenticated) {
+    return <Loading fullScreen text='Đang xử lý...' />
   }
 
   if (!isAuthenticated) {
-    return <Loading fullScreen inline text='Đang chuyển hướng ...' />
+    return <Loading fullScreen inline text='Đang chuyển hướng...' />
   }
 
   return (

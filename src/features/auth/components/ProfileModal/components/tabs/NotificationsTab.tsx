@@ -1,16 +1,9 @@
 'use client'
 
-import { motion } from 'framer-motion'
 import { Bell, Mail, MessageSquare } from 'lucide-react'
 import { useState } from 'react'
-
-interface NotificationSetting {
-  id: string
-  title: string
-  desc: string
-  icon: typeof Bell
-  enabled: boolean
-}
+import TabContentWrapper from '../TabContentWrapper'
+import type { NotificationSetting } from '../../types'
 
 const DEFAULT_SETTINGS: NotificationSetting[] = [
   {
@@ -44,7 +37,7 @@ export default function NotificationsTab() {
   }
 
   return (
-    <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }}>
+    <TabContentWrapper>
       <div className='space-y-4'>
         {settings.map((item) => {
           const Icon = item.icon
@@ -76,6 +69,6 @@ export default function NotificationsTab() {
           )
         })}
       </div>
-    </motion.div>
+    </TabContentWrapper>
   )
 }

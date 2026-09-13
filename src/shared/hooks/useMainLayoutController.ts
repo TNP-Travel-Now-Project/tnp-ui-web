@@ -4,10 +4,10 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { useAuth } from '@/shared/components/providers'
 import { useLogout } from '@/features/auth/hooks/logout/useLogout'
+import type { TabType as ProfileTab } from '@/features/auth/components/ProfileModal/types'
 import { currentPageMap as currentPageHeaderMap } from '@/shared/constants/header.constant'
 import {
   currentPageMap as currentPageSidebarMap,
-  type profileTab as ProfileTab,
   tripDetailTabs,
 } from '@/shared/constants/sidebar.constant'
 
@@ -36,7 +36,7 @@ export function useMainLayoutController() {
   // ngăn chặn người dùng không xác thực truy cập vào các trang bên trong
   useEffect(() => {
   if (!isLoading && !isAuthenticated) {
-    router.replace('/')  // Về landing page
+    router.replace('/')
   }
 }, [isAuthenticated, isLoading, router])
 

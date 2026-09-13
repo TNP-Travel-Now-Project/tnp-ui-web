@@ -1,10 +1,6 @@
 import { CreditCard, Plus } from 'lucide-react'
-import { formatVND } from './profile-modal.constants'
-import type { WalletItem } from './profile-modal.types'
-
-interface WalletCardProps {
-  wallet: WalletItem
-}
+import { formatVND } from '../constants'
+import type { WalletCardProps } from '../types'
 
 export default function WalletCard({ wallet }: WalletCardProps) {
   return (

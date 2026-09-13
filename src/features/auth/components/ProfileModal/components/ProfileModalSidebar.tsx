@@ -1,13 +1,8 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { TABS } from './profile-modal.constants'
-import type { TabType } from './profile-modal.types'
-
-interface ProfileModalSidebarProps {
-  activeTab: TabType
-  onTabChange: (tab: TabType) => void
-}
+import { TABS } from '../constants'
+import type { ProfileModalSidebarProps } from '../types'
 
 export default function ProfileModalSidebar({ activeTab, onTabChange }: ProfileModalSidebarProps) {
   return (
