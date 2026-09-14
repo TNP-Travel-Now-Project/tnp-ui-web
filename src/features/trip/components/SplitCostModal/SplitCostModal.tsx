@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion'
 import { Calculator, X } from 'lucide-react'
 import React, { useState } from 'react'
+import { formatCurrencyInput } from '@/lib/format'
 
 interface Participant {
   id: number
@@ -37,14 +38,9 @@ export default function SplitCostModal({
     )
   })
 
-  const formatCurrency = (value: string) => {
-    const numericValue = value.replace(/\D/g, '')
-    return numericValue.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-  }
-
   const handleIndividualChange = (id: number, value: string) => {
     if (readOnly) return
-    setIndividualCosts((prev) => ({ ...prev, [id]: formatCurrency(value) }))
+    setIndividualCosts((prev) => ({ ...prev, [id]: formatCurrencyInput(value) }))
   }
 
   const currentTotal = (Object.values(individualCosts) as string[]).reduce(

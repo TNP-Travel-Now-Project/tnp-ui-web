@@ -2,7 +2,7 @@
 
 import { usePathname, useRouter } from 'next/navigation'
 import { useCallback, useEffect, useState } from 'react'
-import { currentPageMap } from '@/shared//constants/sidebar.constant'
+import { currentPageMap } from '@/shared/constants/sidebar.constant'
 import { useAuth } from '@/shared/components/providers'
 
 export function useLandingLayoutController() {

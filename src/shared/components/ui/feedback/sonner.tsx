@@ -12,7 +12,7 @@ import { useTheme } from '@/shared/components/providers'
 
 const Toaster = ({ ...props }: ToasterProps) => {
   // const { theme = 'light' } = useTheme()
-  const theme = 'light';
+  const theme = 'light'
 
   return (
     <Sonner

@@ -21,9 +21,10 @@ import {
 } from 'lucide-react'
 import type React from 'react'
 import { useState } from 'react'
+import { formatCurrency, formatCurrencyInput } from '@/lib/format'
 import { Button, Input, Label } from '@/shared/components'
 import { toast } from 'sonner'
-import SplitCostModal from '../SplitCostModal/SplitCostModal'
+import SplitCostModal from '@/features/trip/components/SplitCostModal/SplitCostModal'
 
 export default function TripExpenseModal({
   onClose,
@@ -91,8 +92,6 @@ export default function TripExpenseModal({
     },
   ])
   const [activities, setActivities] = useState<any[]>([])
-
-  const formatCurrency = (num: number) => num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')
 
   return (
     <div className='fixed inset-0 z-[200] flex items-end sm:items-center justify-center p-0 sm:p-6'>
@@ -686,9 +685,7 @@ export default function TripExpenseModal({
                             <div className='flex items-center gap-2 sm:gap-3'>
                               <div
                                 className='relative cursor-pointer'
-                                onClick={() =>
-                                  toast.info(`Thông tin chung của ${member.name}`)
-                                }
+                                onClick={() => toast.info(`Thông tin chung của ${member.name}`)}
                               >
                                 <img
                                   src={member.avatar}
@@ -1196,15 +1193,10 @@ function ExpenseEditModal({
 
   const isViewOnly = !!expense
 
-  const formatCurrency = (value: string) => {
-    const numericValue = value.replace(/\D/g, '')
-    return numericValue.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-  }
-
   const handleCostChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const rawVal = e.target.value.replace(/\D/g, '')
     if (rawVal.length > 9) return
-    setCost(formatCurrency(rawVal))
+    setCost(formatCurrencyInput(rawVal))
   }
 
   return (
@@ -1661,8 +1653,6 @@ function SettlementConfirmModal({
   const [editedAmount, setEditedAmount] = useState(settlement.amount.toString())
   const [editedReason, setEditedReason] = useState(settlement.reason || 'Thanh toán chốt sổ')
   const [showReasonCloud, setShowReasonCloud] = useState(false)
-
-  const formatCurrency = (num: number) => num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')
 
   const handleResponse = () => {
     if (settlement.hasComplaint || isEditing) {

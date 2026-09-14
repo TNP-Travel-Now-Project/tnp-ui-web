@@ -1,13 +1,18 @@
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 import { useRegister } from '@/features/auth/hooks/register/useRegister'
-import { type RegisterFormData, RegisterSchema } from '@/features/auth/schemas/register.schema'
-import { useAuthStore } from '@/shared/stores/auth-store'
+import {
+  type RegisterFormData,
+  RegisterSchema,
+  toRegisterRequest,
+} from '@/features/auth/schemas/register.schema'
+import { ApiError } from '@/lib/api-error'
 
 export const useRegisterForm = ({ onSuccess }: { onSuccess?: () => void } = {}) => {
   const mutation = useRegister()
-  const login = useAuthStore((s) => s.login)
+  const router = useRouter()
 
   const form = useForm<RegisterFormData>({
     resolver: zodResolver(RegisterSchema),
@@ -23,22 +28,15 @@ export const useRegisterForm = ({ onSuccess }: { onSuccess?: () => void } = {}) 
 
   const onSubmit = async (data: RegisterFormData) => {
     try {
-      const result = await mutation.mutateAsync(data)
+      await mutation.mutateAsync(toRegisterRequest(data))
 
-      const user = {
-        id: result.userId,
-        email: result.email,
-        name: result.fullName,
-      }
-
-      login(result.userId, user)
-      toast.success('Đăng ký thành công.')
-
+      toast.success('Đăng ký thành công! Vui lòng đăng nhập.')
       form.reset()
       onSuccess?.()
+      router.push('/')
     } catch (error) {
-      const message = error instanceof Error ? error.message : 'Đăng ký thất bại!'
-      toast.error(message)
+      const apiError = ApiError.fromAxiosError(error)
+      toast.error(apiError.message)
     }
   }
 

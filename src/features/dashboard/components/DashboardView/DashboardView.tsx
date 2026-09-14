@@ -1,5 +1,5 @@
 import PageSection from '@/shared/components/layout/page-section'
-import { ThemeSetter } from '@/shared/components/providers/ThemeProvider/theme-setter'
+import { ThemeSetter } from '@/shared/components/providers/ThemeProvider'
 import type { SummaryStat, Trip } from '@/shared/types'
 import { InsightsSummary } from '../InsightsSummary'
 import { UpcomingTrips } from '../UpcomingTrips'

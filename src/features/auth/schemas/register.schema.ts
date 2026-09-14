@@ -1,5 +1,6 @@
 import { z } from 'zod'
-import type { RegisterRequest } from '@/features/auth/type'
+import type { RegisterCommand } from '@/shared/api'
+import { passwordField } from './password.schema'
 
 export const RegisterSchema = z
   .object({
@@ -29,14 +30,7 @@ export const RegisterSchema = z
     //   message: 'Vui lòng nhập ngày sinh',
     // }),
 
-    password: z
-      .string()
-      .min(8, { message: 'Mật khẩu phải có ít nhất 8 ký tự' })
-      .max(20, { message: 'Mật khẩu không được vượt quá 20 ký tự' })
-      .regex(/[A-Z]/, { message: 'Mật khẩu phải chứa ít nhất 1 chữ in hoa' })
-      .regex(/[a-z]/, { message: 'Mật khẩu phải chứa ít nhất 1 chữ thường' })
-      .regex(/[0-9]/, { message: 'Mật khẩu phải chứa ít nhất 1 chữ số' })
-      .regex(/[~!@#$%^&*()_+=?]/, { message: 'Mật khẩu phải chứa ít nhất 1 ký tự đặc biệt' }),
+    password: passwordField(),
 
     confirmPassword: z.string().nonempty({ message: 'Vui lòng xác nhận mật khẩu' }),
   })
@@ -47,10 +41,10 @@ export const RegisterSchema = z
 
 export type RegisterFormData = z.infer<typeof RegisterSchema>
 
-export const toRegisterRequest = (data: RegisterFormData): RegisterRequest => ({
+export const toRegisterRequest = (data: RegisterFormData): RegisterCommand => ({
   // firstName: data.firstName,
   // lastName: data.lastName,
-  username: data.username,
+  userName: data.username,
   email: data.email,
   password: data.password,
   confirmPassword: data.confirmPassword,

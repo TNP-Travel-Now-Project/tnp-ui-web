@@ -15,9 +15,8 @@ export default function SidebarBrand({
   onToggleCollapse,
   onClose,
   onBrandClick,
-  changeColorIsHeroVisible
+  changeColorIsHeroVisible,
 }: SidebarBrandProps) {
-  
   return (
     <div className={`mb-8 mt-2 flex items-center gap-2 ${isExpanded ? 'px-2' : 'justify-center'}`}>
       <div className={`flex items-center gap-2 ${isExpanded ? 'flex-1' : ''}`}>
@@ -38,9 +37,15 @@ export default function SidebarBrand({
           >
             <div className='text-lg font-bold whitespace-nowrap leading-none'>
               <span className={`text-tertiary ${changeColorIsHeroVisible}`}>chudu</span>
-              <span className={`text-tertiary font-extrabold uppercase tracking-tight ${changeColorIsHeroVisible}`}>4be</span>
+              <span
+                className={`text-tertiary font-extrabold uppercase tracking-tight ${changeColorIsHeroVisible}`}
+              >
+                4be
+              </span>
             </div>
-            <div className={`text-[8px] font-bold ${changeColorIsHeroVisible} uppercase tracking-widest whitespace-nowrap`}>
+            <div
+              className={`text-[8px] font-bold ${changeColorIsHeroVisible} uppercase tracking-widest whitespace-nowrap`}
+            >
               Đâu đâu cũng là nhà
             </div>
           </motion.div>

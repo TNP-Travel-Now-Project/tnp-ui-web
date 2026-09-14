@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion'
 import { Plus } from 'lucide-react'
 import { ProfileModal } from '@/features/auth/components/ProfileModal'
-import { Loading } from '@/shared/components/feedback/Loading/loading'
+import { Loading } from '@/shared/components/feedback/Loading'
 import { useMainLayoutController } from '@/shared/hooks/useMainLayoutController'
 import Header from './Header'
 import Sidebar from './Sidebar'
@@ -33,7 +33,7 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
     openProfile,
     goHome,
     goToCreateTrip,
-    handleLogout
+    handleLogout,
   } = useMainLayoutController()
 
   if (isLoading && !isAuthenticated) {

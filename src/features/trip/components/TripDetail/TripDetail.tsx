@@ -30,6 +30,7 @@ import {
 } from 'lucide-react'
 import React, { useState } from 'react'
 import { AddPlaceModal } from '@/features/trip/components/AddPlaceModal'
+import { formatCurrencyInput } from '@/lib/format'
 import { Input, Label } from '@/shared/components'
 import {
   DropdownMenu,
@@ -41,8 +42,8 @@ import {
 import { useModalScrollLock } from '@/shared/hooks/useModalScrollLock'
 import { toast } from 'sonner'
 import type { TripDetailData } from '@/shared/types'
-import SplitCostModal from '../SplitCostModal/SplitCostModal'
-import TripExpenseModal from '../TripExpenseModal/TripExpenseModal'
+import SplitCostModal from '@/features/trip/components/SplitCostModal/SplitCostModal'
+import TripExpenseModal from '@/features/trip/components/TripExpenseModal/TripExpenseModal'
 
 interface TripDetailProps {
   trip: TripDetailData
@@ -532,9 +533,7 @@ export default function TripDetail({ trip, onBack, onImminentActivity }: TripDet
               <DropdownMenuSeparator />
               <DropdownMenuItem
                 className='cursor-pointer font-bold gap-2 text-error focus:text-error'
-                onClick={() =>
-                  toast.warning('Yêu cầu xóa chuyến đi đã được gửi tới quản trị viên')
-                }
+                onClick={() => toast.warning('Yêu cầu xóa chuyến đi đã được gửi tới quản trị viên')}
               >
                 <Trash2 size={16} />
                 Xóa chuyến đi
@@ -1044,15 +1043,10 @@ function ActivityEditModal({
   const [amount, setAmount] = useState('')
   const [isCompleteExpanded, setIsCompleteExpanded] = useState(false)
 
-  const formatCurrency = (value: string) => {
-    const numericValue = value.replace(/\D/g, '')
-    return numericValue.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-  }
-
   const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const rawVal = e.target.value.replace(/\D/g, '')
     if (rawVal.length > 9) return
-    setAmount(formatCurrency(rawVal))
+    setAmount(formatCurrencyInput(rawVal))
   }
 
   // Check if 30 mins have passed from the activity time

@@ -4,17 +4,11 @@ import GuestLanding from '@/features/landing/components/GuestLanding/guest-landi
 import { useGuestLanding } from '@/features/landing/hooks/useGuestLanding'
 import { Loading } from '@/shared/components/feedback/Loading'
 import LandingLayout from '@/shared/components/layout/landing-layout'
-import { ThemeSetter } from '@/shared/components/providers/ThemeProvider/theme-setter'
+import { ThemeSetter } from '@/shared/components/providers/ThemeProvider'
 
 export default function LandingPage() {
-  const {
-    isAuthenticated,
-    currentCustomer,
-    totalCustomers,
-    navigate,
-    handleNext,
-    handlePrev,
-  } = useGuestLanding()
+  const { isAuthenticated, currentCustomer, totalCustomers, navigate, handleNext, handlePrev } =
+    useGuestLanding()
 
   // if (isAuthenticated) {
   //   return <Loading fullScreen inline text='Đang xử lý...' />

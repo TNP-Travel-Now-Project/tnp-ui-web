@@ -3,8 +3,8 @@
 import { useMutation } from '@tanstack/react-query'
 import type { CredentialResponse } from '@react-oauth/google'
 import type { LoginResponse } from '@/shared/api'
+import { postApiAuthGoogleLogin } from '@/shared/api'
 import { useAuthStore } from '@/shared/stores/auth-store'
-import { axiosClient } from '@/lib/api-client'
 import { toast } from 'sonner'
 
 export function useGoogleLogin({ onSuccess }: { onSuccess?: () => void } = {}) {
@@ -12,7 +12,10 @@ export function useGoogleLogin({ onSuccess }: { onSuccess?: () => void } = {}) {
 
   const mutation = useMutation({
     mutationFn: async (idToken: string) => {
-      const { data } = await axiosClient.post<LoginResponse>('/auth/google-login', { tokenId: idToken })
+      const { data } = await postApiAuthGoogleLogin({
+        body: { tokenId: idToken },
+        throwOnError: true,
+      })
       return data
     },
 

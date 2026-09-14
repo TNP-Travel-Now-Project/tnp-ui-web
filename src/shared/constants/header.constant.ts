@@ -1,4 +1,5 @@
 import { Bell, Info, MessageSquare, Star } from 'lucide-react'
+import { tripDetailTabs } from './sidebar.constant'
 
 export const navItems = [
   {
@@ -58,4 +59,4 @@ export const currentPageMap: Record<string, string> = {
   '/dashboard': 'dashboard',
 }
 
-export const tripDetailTabs = ['Tổng quan', 'Lịch trình', 'Chi phí', 'Trò chuyện', 'Thành viên']
+export { tripDetailTabs }

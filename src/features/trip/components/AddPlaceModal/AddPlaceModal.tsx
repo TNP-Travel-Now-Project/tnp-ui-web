@@ -18,6 +18,7 @@ import {
   X,
 } from 'lucide-react'
 import { useState } from 'react'
+import { formatCurrencyInput } from '@/lib/format'
 import { Button, Label } from '@/shared/components'
 import { toast } from 'sonner'
 
@@ -568,13 +569,8 @@ function SplitCostModal({
     )
   })
 
-  const formatCurrency = (value: string) => {
-    const numericValue = value.replace(/\D/g, '')
-    return numericValue.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-  }
-
   const handleIndividualChange = (id: number, value: string) => {
-    setIndividualCosts((prev) => ({ ...prev, [id]: formatCurrency(value) }))
+    setIndividualCosts((prev) => ({ ...prev, [id]: formatCurrencyInput(value) }))
   }
 
   const currentTotal = (Object.values(individualCosts) as string[]).reduce(

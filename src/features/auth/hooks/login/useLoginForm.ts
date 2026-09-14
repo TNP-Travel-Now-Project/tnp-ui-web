@@ -4,6 +4,7 @@ import { toast } from 'sonner'
 import { useLogin } from '@/features/auth/hooks/login/useLogin'
 import type { LoginFormData } from '@/features/auth/schemas/login.schema'
 import { LoginSchema } from '@/features/auth/schemas/login.schema'
+import { ApiError } from '@/lib/api-error'
 import { useAuthStore } from '@/shared/stores/auth-store'
 
 export function useLoginForm({ onSuccess }: { onSuccess?: () => void } = {}) {
@@ -38,8 +39,8 @@ export function useLoginForm({ onSuccess }: { onSuccess?: () => void } = {}) {
       form.reset()
       onSuccess?.()
     } catch (error) {
-      const message = error instanceof Error ? error.message : 'Đăng nhập thất bại!'
-      toast.error(message)
+      const apiError = ApiError.fromAxiosError(error)
+      toast.error(apiError.message)
     }
   }
 
@@ -49,4 +50,3 @@ export function useLoginForm({ onSuccess }: { onSuccess?: () => void } = {}) {
     onSubmit,
   }
 }
-    

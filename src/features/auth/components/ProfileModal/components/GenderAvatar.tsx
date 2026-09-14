@@ -33,13 +33,7 @@ export default function GenderAvatar({ gender, onGenderChange, defaultAvatar }: 
           onClick={() => fileInputRef.current?.click()}
           className='w-16 h-16 sm:w-20 sm:h-20 rounded-full overflow-hidden border-4 border-white shadow-xl ring-1 ring-primary/10 relative z-0'
         >
-          {avatar && (
-            <img
-              src={avatar}
-              alt='Profile'
-              className='w-full h-full object-cover'
-            />
-          )}
+          {avatar && <img src={avatar} alt='Profile' className='w-full h-full object-cover' />}
           <div className='absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity'>
             <Camera size={20} className='text-white' />
           </div>

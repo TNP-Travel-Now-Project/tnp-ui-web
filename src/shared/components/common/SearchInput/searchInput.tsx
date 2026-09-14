@@ -1,7 +1,7 @@
 'use client'
 import { Loader2, Search, X } from 'lucide-react'
 import { cn } from '@/lib/utils'
-import Button from '@/shared/components/common/Button/button'
+import { Button } from '@/shared/components/common/Button'
 import { Input as ShadcnInput } from '@/shared/components/ui/form/input'
 
 export interface SearchInputProps extends React.ComponentProps<typeof ShadcnInput> {

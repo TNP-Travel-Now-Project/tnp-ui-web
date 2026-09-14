@@ -25,16 +25,21 @@ export default function SidebarNavigation({
           key={item.id}
           onClick={() => onNavigateItem?.(item.id)}
           whileTap={{ scale: 0.98 }}
-          className={`w-full flex items-center rounded-xl transition-all duration-300 text-left ${isExpanded ? 'px-4 py-3 gap-4' : 'px-0 py-3 justify-center'
-            } ${(isLoggedIn && (item as any).active) || (!isLoggedIn && currentPage === item.id)
+          className={`w-full flex items-center rounded-xl transition-all duration-300 text-left ${
+            isExpanded ? 'px-4 py-3 gap-4' : 'px-0 py-3 justify-center'
+          } ${
+            (isLoggedIn && (item as any).active) || (!isLoggedIn && currentPage === item.id)
               ? 'text-primary bg-leaf font-bold shadow-sm'
               : 'text-sidebar-foreground hover:text-primary hover:bg-sidebar-accent'
-            }`}
+          }`}
         >
           <item.icon
             size={22}
-            className={`shrink-0 ${(isLoggedIn && (item as any).active) || (!isLoggedIn && currentPage === item.id)
-              ? 'text-primary' : ' text-primary group-hover:text-primary'}`}
+            className={`shrink-0 ${
+              (isLoggedIn && (item as any).active) || (!isLoggedIn && currentPage === item.id)
+                ? 'text-primary'
+                : ' text-primary group-hover:text-primary'
+            }`}
           />
           {isExpanded && (
             <motion.span

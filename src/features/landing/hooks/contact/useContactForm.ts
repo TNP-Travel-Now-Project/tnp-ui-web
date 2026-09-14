@@ -7,7 +7,7 @@ import {
   type ContactFormData,
   ContactSchema,
   toContactRequest,
-} from '@/features/landing/schema/contact.schema'
+} from '@/features/landing/schemas/contact.schema'
 
 export default function useContactForm() {
   const mutation = useSendContactInfo()

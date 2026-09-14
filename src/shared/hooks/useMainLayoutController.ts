@@ -35,10 +35,10 @@ export function useMainLayoutController() {
 
   // ngăn chặn người dùng không xác thực truy cập vào các trang bên trong
   useEffect(() => {
-  if (!isLoading && !isAuthenticated) {
-    router.replace('/')
-  }
-}, [isAuthenticated, isLoading, router])
+    if (!isLoading && !isAuthenticated) {
+      router.replace('/')
+    }
+  }, [isAuthenticated, isLoading, router])
 
   const handleTabClick = (tab: string) => {
     const params = new URLSearchParams(searchParams.toString())
@@ -134,6 +134,6 @@ export function useMainLayoutController() {
     openProfile,
     goHome,
     goToCreateTrip,
-    handleLogout
+    handleLogout,
   }
 }

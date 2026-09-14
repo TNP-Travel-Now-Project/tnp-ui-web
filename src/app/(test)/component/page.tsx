@@ -7,9 +7,9 @@ import { toast } from 'sonner'
 // Common Components
 import Avatar from '@/shared/components/common/Avatar/avatar'
 import Badge from '@/shared/components/common/Badge/badge'
-import Button from '@/shared/components/common/Button/button'
+import { Button } from '@/shared/components/common/Button'
 import Input from '@/shared/components/common/Input/input'
-import SearchInput from '@/shared/components/common/SearchInput/searchInput'
+import SearchInput from '@/shared/components/common/SearchInput/SearchInput'
 import ActionDropdown from '@/shared/components/data-display/ActionDropdown/action-dropdown'
 import StatusBadge from '@/shared/components/data-display/StatusBadge/status-badge'
 // Data Display Components

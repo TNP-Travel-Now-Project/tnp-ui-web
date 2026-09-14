@@ -2,16 +2,17 @@
  * Tiện ích định dạng số, chuỗi, tiền tệ
  *
  * Cách dùng:
- *   import { formatCurrency, formatPhone, truncate, capitalize } from '@/lib/format'
+ *   import { formatCurrency, formatCurrencyInput, formatPhone, truncate, capitalize } from '@/lib/format'
  *
  *   formatCurrency(150000)          // "150.000 ₫"
+ *   formatCurrencyInput('150000')   // "150,000"
  *   formatPhone('0981234567')      // "098 123 4567"
  *   truncate('Hello world', 8)     // "Hello wo..."
  *   capitalize('hello')            // "Hello"
  */
 
 /**
- * Định dạng tiền tệ VND
+ * Định dạng tiền tệ VND (dùng cho display)
  *
  * @example formatCurrency(150000) → "150.000 ₫"
  * @example formatCurrency(0) → "0 ₫"
@@ -22,6 +23,18 @@ export function formatCurrency(amount: number | null | undefined): string {
     style: 'currency',
     currency: 'VND',
   }).format(amount)
+}
+
+/**
+ * Định dạng input tiền tệ (string → string)
+ * Loại bỏ ký tự không phải số, thêm dấu phân cách
+ *
+ * @example formatCurrencyInput('150000') → "150,000"
+ * @example formatCurrencyInput('abc') → ""
+ */
+export function formatCurrencyInput(value: string): string {
+  const numericValue = value.replace(/\D/g, '')
+  return numericValue.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
 }
 
 /**

@@ -63,11 +63,7 @@ function getRefreshEndpoint(): string {
 
 function callRefreshApi(): Promise<string> {
   return axios
-    .post<{ accessToken: string }>(
-      getRefreshEndpoint(),
-      {},
-      { withCredentials: true },
-    )
+    .post<{ accessToken: string }>(getRefreshEndpoint(), {}, { withCredentials: true })
     .then((res) => res.data.accessToken)
 }
 
@@ -201,10 +197,7 @@ client.instance.interceptors.response.use(
     const originalRequest = error.config as RetryConfig | undefined
 
     // ── Chỉ xử lý 401 có config ──
-    if (
-      !originalRequest ||
-      error.response?.status !== 401
-    ) {
+    if (!originalRequest || error.response?.status !== 401) {
       return Promise.reject(ApiError.fromAxiosError(error))
     }
 
@@ -232,10 +225,18 @@ client.instance.interceptors.response.use(
   },
 )
 
-export { postApiAuthLogin, postApiAuthLogout } from '@/shared/api/generated/sdk.gen'
+export {
+  postApiAuthLogin,
+  postApiAuthLogout,
+  postApiAuthRegister,
+  postApiAuthGoogleLogin,
+} from '@/shared/api/generated/sdk.gen'
 export type {
+  GoogleLoginCommand,
   LoginCommand,
   LoginResponse,
-  LogoutResponse
+  LogoutResponse,
+  RegisterCommand,
+  RegisterResponse,
 } from '@/shared/api/generated/types.gen'
 export { client, performRefresh, getRefreshEndpoint, callRefreshApi }

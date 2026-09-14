@@ -34,7 +34,7 @@ export default function Sidebar({
   onNavigateItem,
   onBrandClick,
   onLogoutClick,
-  changeColorIsHeroVisible
+  changeColorIsHeroVisible,
 }: SidebarProps) {
   const isExpanded = isOpen || !isCollapsed
 

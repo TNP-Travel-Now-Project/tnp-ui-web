@@ -1,10 +1,9 @@
 'use client'
 
 import { useEffect } from 'react'
-import axios from 'axios'
 
-import { config } from '@/lib/config'
 import { performRefresh } from '@/shared/api'
+import { client } from '@/shared/api/generated/client.gen'
 import { useAuthStore } from '@/shared/stores/auth-store'
 import type { User } from '@/shared/stores/auth-store'
 
@@ -43,7 +42,7 @@ function mapUserFromMeResponse(data: {
 }
 
 /**
- * useAuth — Silent Refresh Hook
+ * useSilentRefresh — Silent Refresh Hook
  *
  * Chạy 1 lần duy nhất khi component mount (App layout).
  * Nếu Zustand chưa có token (F5 / tab mới):
@@ -80,7 +79,7 @@ function mapUserFromMeResponse(data: {
  *                   ├── 401 → interceptor handle → retry
  *                   └── 500 → setLoading(false) → render với user null
  */
-export function useAuth() {
+export function useSilentRefresh() {
   const token = useAuthStore((s) => s.token)
   const user = useAuthStore((s) => s.user)
   const isLoading = useAuthStore((s) => s.isLoading)
@@ -105,18 +104,16 @@ export function useAuth() {
         if (cancelled) return
 
         // ── Có token → fetch user profile ──
-        const { data: meData } = await axios.get(`${config.apiBaseUrl}/auth/me`, {
-          headers: { Authorization: `Bearer ${newToken}` },
-          withCredentials: true,
-        })
+        const { data: meData } = await client.instance.get('/auth/me')
 
         if (cancelled) return
 
         const profile = mapUserFromMeResponse(meData)
         setUser(profile)
-      } catch {
+      } catch (error) {
         // Refresh thất bại → performRefresh đã logout()
         // User profile không có → giữ null
+        console.error('[useAuth] Hydrate failed:', error)
       } finally {
         if (!cancelled) {
           setLoading(false)

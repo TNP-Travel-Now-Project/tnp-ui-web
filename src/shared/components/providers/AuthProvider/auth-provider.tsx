@@ -4,7 +4,7 @@ import { createContext, type ReactNode, useContext, useCallback } from 'react'
 
 import { useAuthStore } from '@/shared/stores/auth-store'
 import type { User } from '@/shared/stores/auth-store'
-import { useAuth as useSilentRefresh } from '@/shared/hooks/useAuth'
+import { useSilentRefresh } from '@/shared/hooks/useAuth'
 
 export interface AuthState {
   user: User | null

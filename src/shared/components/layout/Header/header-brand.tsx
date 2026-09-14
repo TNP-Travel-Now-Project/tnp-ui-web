@@ -33,7 +33,7 @@ export default function HeaderBrand({
         disabled={!showNav || !hiddenLogo}
         className='hidden lg:flex items-center gap-2 overflow-hidden hover:no-underline'
       >
-        {(
+        {
           <div
             className={cn(
               'flex items-center gap-2 transition-all duration-300 ease-in-out',
@@ -47,7 +47,7 @@ export default function HeaderBrand({
               <span className='text-primary font-extrabold uppercase tracking-tight'>4be</span>
             </span>
           </div>
-        )}
+        }
       </Button>
     </div>
   )

@@ -21,10 +21,11 @@ import {
 } from 'lucide-react'
 import type React from 'react'
 import { useEffect, useState } from 'react'
+import { formatCurrencyInput } from '@/lib/format'
 import { Label } from '@/shared/components'
 import { useModalScrollLock } from '@/shared/hooks/useModalScrollLock'
 import { toast } from 'sonner'
-import SplitCostModal from '../SplitCostModal/SplitCostModal'
+import SplitCostModal from '@/features/trip/components/SplitCostModal/SplitCostModal'
 
 interface TripItineraryBuildProps {
   onBack: () => void
@@ -158,22 +159,17 @@ export default function TripItineraryBuild({ onBack }: TripItineraryBuildProps) 
     showConfirmModal
   useModalScrollLock(isAnyModalOpen)
 
-  const formatCurrency = (value: string) => {
-    const numericValue = value.replace(/\D/g, '')
-    return numericValue.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-  }
-
   const handleCostChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const rawVal = e.target.value.replace(/\D/g, '')
     if (rawVal.length > 9) return
-    const formatted = formatCurrency(rawVal)
+    const formatted = formatCurrencyInput(rawVal)
     setEstimatedCost(formatted)
   }
 
   const handleEstimatedCostChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const rawValue = e.target.value.replace(/\D/g, '')
     if (rawValue.length > 9) return
-    const formatted = formatCurrency(rawValue)
+    const formatted = formatCurrencyInput(rawValue)
     setEstimatedCost(formatted)
   }
 
@@ -1252,15 +1248,10 @@ function PlaceScheduleModal({ place, onClose }: { place: any; onClose: () => voi
   const isEdit = place.isExisting
   const isCustom = place.isCustom
 
-  const formatCurrency = (value: string) => {
-    const numericValue = value.replace(/\D/g, '')
-    return numericValue.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-  }
-
   const handleCostChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const rawVal = e.target.value.replace(/\D/g, '')
     if (rawVal.length > 9) return
-    const formatted = formatCurrency(rawVal)
+    const formatted = formatCurrencyInput(rawVal)
     setCost(formatted)
   }
 

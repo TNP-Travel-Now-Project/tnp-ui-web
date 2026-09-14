@@ -1,9 +1,12 @@
 import { useMutation } from '@tanstack/react-query'
-import { registerApi } from '@/features/auth/api/register.api'
-import type { RegisterRequest, RegisterResponse } from '@/features/auth/type'
+import type { RegisterCommand, RegisterResponse } from '@/shared/api'
+import { postApiAuthRegister } from '@/shared/api'
 
 export const useRegister = () => {
-  return useMutation<RegisterResponse, Error, RegisterRequest>({
-    mutationFn: async (data) => registerApi(data),
+  return useMutation<RegisterResponse, Error, RegisterCommand>({
+    mutationFn: async (data) => {
+      const { data: result } = await postApiAuthRegister({ body: data, throwOnError: true })
+      return result
+    },
   })
 }

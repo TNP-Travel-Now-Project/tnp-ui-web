@@ -35,11 +35,7 @@ export const Loading = ({
     </div>
   )
 
-  const scaledCup = (
-    <div style={{ transform: `scale(${sizeScale[size]})` }}>
-      {cup}
-    </div>
-  )
+  const scaledCup = <div style={{ transform: `scale(${sizeScale[size]})` }}>{cup}</div>
 
   if (fullScreen) {
     return (
