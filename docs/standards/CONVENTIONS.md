@@ -46,23 +46,21 @@
 
 ```
 features/{feature}/
-├── type.ts              # Types & interfaces
-├── schemas/             # Zod validation schemas
-├── api/                 # API functions
-├── hooks/               # Custom hooks  
+├── types/               # Types & interfaces (*.types.ts)
+├── schemas/             # Zod validation schemas (*.schema.ts)
+├── hooks/               # Custom hooks (use*.ts)
 ├── components/          # UI components
 └── constants/           # Feature-specific constants (nếu có)
 ```
 
 ### Hiện tại, features không đồng nhất
 
-| Feature | types | schemas | api | hooks | components |
-|---|---|---|---|---|---|
-| `auth` | ✅ | ✅ | ✅ | ✅ | ✅ |
-| `landing` | ✅ | ✅ | ✅ | ✅ | ✅ |
-| `dashboard` | ❌ | ❌ | ❌ | ❌ | ✅ |
-| `trip` | ❌ | ❌ | ❌ | ❌ | ✅ |
-| `user` | ✅ (stub) | ❌ | ❌ | ✅ (empty) | ❌ |
+| Feature | types | schemas | hooks | components |
+|---|---|---|---|---|
+| `auth` | ✅ | ✅ | ✅ | ✅ |
+| `landing` | ✅ | ✅ | ✅ | ✅ |
+| `dashboard` | ❌ | ❌ | ❌ | ✅ |
+| `trip` | ❌ | ❌ | ❌ | ✅ |
 
 ---
 
@@ -103,8 +101,19 @@ const [activeTab, setActiveTab] = useState<'overview' | 'expenses'>('overview')
 ### Auth state
 
 ```typescript
-// Dùng Context API — useAuth()
-const { user, isAuthenticated, login, logout } = useAuth()
+// Dùng useAuth() từ AuthProvider (Context wrapper)
+// AuthProvider internally uses Zustand store
+const { user, isAuthenticated, isLoading, login, logout } = useAuth()
+```
+
+### API calls
+
+```typescript
+// Dùng Generated SDK (OpenAPI generated)
+import { postApiAuthLogin, postApiAuthRegister } from '@/shared/api'
+
+// Hoặc manual API function cho endpoints chưa có SDK
+import { axiosClient } from '@/lib/api-client'
 ```
 
 ---
@@ -168,12 +177,31 @@ import { cn } from '@/lib/utils'
 
 ## API Convention
 
-### File naming
+### Generated SDK (preferred)
 
 ```typescript
-// auth/api/login.api.ts
-export async function loginApi(data: LoginRequest): Promise<LoginResponse> {
-  const response = await axiosClient.post<LoginResponse>(API_ENDPOINTS.LOGIN, data)
+// features/auth/hooks/login/useLogin.ts
+import { postApiAuthLogin } from '@/shared/api'
+import type { LoginCommand, LoginResponse } from '@/shared/api'
+
+export const useLogin = () => {
+  return useMutation<LoginResponse, Error, LoginCommand>({
+    mutationFn: async (data) => {
+      const { data: result } = await postApiAuthLogin({ body: data, throwOnError: true })
+      return result
+    },
+  })
+}
+```
+
+### Manual API (for endpoints without SDK)
+
+```typescript
+// features/landing/api/contact.api.ts
+import { axiosClient } from '@/lib/api-client'
+
+export const contactApi = async (formData: ContactInput): Promise<BaseResponse<ContactOutput>> => {
+  const response = await axiosClient.post('/user/contact', formData)
   return response.data
 }
 ```
@@ -181,14 +209,16 @@ export async function loginApi(data: LoginRequest): Promise<LoginResponse> {
 ### Error handling convention
 
 ```typescript
+import { ApiError } from '@/lib/api-error'
+
 // Trong hook/component
 try {
-  const result = await apiFunction(data)
+  const result = await mutation.mutateAsync(data)
   // success
-} catch (e) {
-  if (e instanceof ApiError) {
-    // structured handling
-  }
+} catch (error) {
+  const apiError = ApiError.fromAxiosError(error)
+  toast.error(apiError.message)
+  // apiError.status, apiError.code, apiError.getFieldError('field')
 }
 ```
 
@@ -201,10 +231,9 @@ app/ → features/ → shared/ → lib/ → (only external libs)
 ```
 
 - **app/** import features, shared
-- **features/** import shared, lib
+- **features/** import shared, lib (có thể import feature khác qua shared)
 - **shared/** import lib
 - **lib/** import only external (axios, clsx, etc.)
-- **entities/** import nothing
 
 ---
 
@@ -216,5 +245,5 @@ app/ → features/ → shared/ → lib/ → (only external libs)
 | Busy component | TripDetail 4300 dòng | Split thành sub-components |
 | Duplicate mock data | Mock trips trong component + page | Centralize trong mock-data.ts |
 | Business logic trong UI | API call trong LoginForm | Dùng hook |
-| alert() thay vì toast | useLogin, useRegister | Dùng useToast |
-| Inconsistent convention | trip không có schemas/ api/ | Thêm vào |
+| Duplicate code | formatCurrency viết lại 8 lần | Dùng lib/format.ts |
+| Deep import | `import Button from '.../Button/button'` | Dùng barrel import |

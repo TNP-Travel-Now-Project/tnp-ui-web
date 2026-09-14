@@ -7,7 +7,7 @@
 | Tầng | Công nghệ | Phạm vi |
 |---|---|---|
 | Server State | TanStack Query v5 | API data fetching & mutations |
-| Auth State | React Context (AuthProvider) | Authentication |
+| Auth State | Zustand + Context API wrapper | Authentication |
 | Local State | `useState` / `useReducer` | UI state (modal, form, tabs) |
 
 ---
@@ -36,54 +36,52 @@ const queryClient = new QueryClient({
 
 ### Mutations (hiện tại)
 
-Chỉ dùng `useMutation`, chưa có `useQuery`:
-
 | Mutation | File | Trigger |
 |---|---|---|
 | `useLogin` | `features/auth/hooks/login/useLogin.ts` | Login form submit |
 | `useRegister` | `features/auth/hooks/register/useRegister.ts` | Register form submit |
+| `useGoogleLogin` | `features/auth/hooks/login/useGoogleLogin.ts` | Google OAuth |
 | `useContact` | `features/landing/hooks/contact/useContact.ts` | Contact form submit |
 
 ### Pattern hiện tại
 
 ```typescript
 // features/auth/hooks/login/useLogin.ts
-export function useLogin() {
-  return useMutation({
-    mutationFn: loginApi,
-    onSuccess: (data) => {
-      alert('Đăng nhập thành công')  // ⚠️ nên dùng toast
-    },
-    onError: (error) => {
-      alert('Đăng nhập thất bại')    // ⚠️ nên dùng toast
+export const useLogin = () => {
+  return useMutation<LoginResponse, Error, LoginCommand>({
+    mutationFn: async (data) => {
+      const { data: result } = await postApiAuthLogin({ body: data, throwOnError: true })
+      return result
     },
   })
 }
 ```
 
 ### Vấn đề
-1. Dùng `alert()` thay vì toast system
-2. Chưa có `useQuery` pattern — không cache dữ liệu
-3. Chưa dùng `@lukemorales/query-key-factory` mặc dù đã cài
+1. Chưa có `useQuery` pattern — không cache dữ liệu
+2. Chưa dùng `@lukemorales/query-key-factory` mặc dù đã cài
 
 ---
 
-## 2. Auth State — Context API
+## 2. Auth State — Zustand + Context API wrapper
 
 ### Cấu trúc
 
 ```typescript
-// AuthProvider (Context API)
+// Zustand store (src/shared/stores/auth-store.ts)
 interface AuthState {
+  token: string | null
   user: User | null
   isAuthenticated: boolean
   isLoading: boolean
-}
-
-interface AuthContextType extends AuthState {
-  login: (user: User, token: string) => void
+  isRefreshing: boolean
+  
+  setToken: (token: string | null) => void
+  setUser: (user: User | null) => void
+  login: (token: string, user: User) => void
   logout: () => void
-  updateUser: (user: Partial<User>) => void
+  setLoading: (isLoading: boolean) => void
+  setRefreshing: (isRefreshing: boolean) => void
 }
 ```
 
@@ -91,22 +89,37 @@ interface AuthContextType extends AuthState {
 
 ```
 AuthProvider (app/provider.tsx)
-  → useAuth() hook (shared/contexts/AuthContext)
-    → LoginForm gọi login()
-      → localStorage.setItem('auth_token', token)
-      → setUser(user)
+  → useSilentRefresh() hook (shared/hooks/useAuth.ts)
+    → performRefresh() — lấy token từ HttpOnly cookie
+      → GET /auth/me — lấy user profile
+        → setUser(user) → Zustand store
 ```
 
 ### Token management
-- Lưu: `localStorage.setItem('auth_token', token)`
-- Xóa: `localStorage.removeItem('auth_token')`
-- Check khi mount: `useEffect` kiểm tra `localStorage.getItem(tokenKey)`
-- **TODO**: Validate token + fetch user info khi refresh page
+- **Access token**: Lưu trong Zustand store (RAM, không persist)
+- **Refresh token**: HttpOnly cookie (browser tự gửi)
+- **Silent refresh**: Khi page refresh, `useSilentRefresh()` gọi `performRefresh()` để lấy access token mới
+- **Auto refresh**: Response interceptor detect 401 → `performRefresh()` → retry request
+
+### Provider chain
+
+```tsx
+// src/app/provider.tsx
+<QueryProvider>
+  <GoogleOAuthProvider>
+    <AuthProvider>
+      <ThemeProvider>
+        {children}
+        <Toaster />
+      </ThemeProvider>
+    </AuthProvider>
+  </GoogleOAuthProvider>
+</QueryProvider>
+```
 
 ### Vấn đề
-- Chưa validate token khi page refresh
-- Chưa fetch user info sau khi có token
-- `User` interface trong AuthProvider khác với `User` trong `entities/user.ts`
+- Chưa có middleware guard cho protected routes
+- `useSilentRefresh()` chạy 1 lần khi mount — OK nhưng cần handle edge cases
 
 ---
 
@@ -146,16 +159,16 @@ graph TD
     end
     
     subgraph "Auth State"
-        AS["useAuth()"]
-        AS --> AT{isAuthenticated?}
+        AS["useAuth() — Context wrapper"]
+        AS --> ZS["Zustand store (RAM)"]
+        ZS --> AT{isAuthenticated?}
         AT -->|true| AP["Access protected routes"]
         AT -->|false| AL["Redirect to landing"]
-        AS --> LS["localStorage token"]
     end
     
     subgraph "Server State"
         MUT["useMutation"]
-        MUT --> API["API Call"]
+        MUT --> API["API Call (Generated SDK)"]
         API -->|success| UI
         API -->|error| ERR["ApiError"]
         ERR --> UI
@@ -170,6 +183,4 @@ graph TD
 
 1. **Dùng `@lukemorales/query-key-factory`** cho query keys chuẩn hóa
 2. **Thêm `useQuery`** cho data fetching (trip list, detail, user info)
-3. **Chuẩn hóa error/success feedback** — dùng toast thay cho alert
-4. **Implement token validation** — fetch user info khi có token
-5. **Thống nhất User type** — giữa AuthProvider và entities/user.ts
+3. **Thêm Next.js middleware** cho route protection

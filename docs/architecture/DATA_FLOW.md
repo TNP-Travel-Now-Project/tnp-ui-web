@@ -124,17 +124,17 @@ graph TD
         UC["User Click/Input"]
         UC --> LH["Local State (useState)"]
         UC --> SH["Server State (TanStack Query mutation)"]
-        UC --> AH["Auth State (Context API)"]
+        UC --> AH["Auth State (useAuth — Zustand wrapper)"]
     end
     
     subgraph "Data Sources"
-        LS["localStorage — token, theme"]
+        ZS["Zustand Store (RAM) — token, user"]
         MS["Mock data — MOCK_TRIPS, MOCK_DETAIL"]
-        API["Backend API (chưa connected)"]
+        API["Backend API (via Generated SDK)"]
     end
     
     SH --> API
-    AH --> LS
+    AH --> ZS
     LH --> MS
 ```
 

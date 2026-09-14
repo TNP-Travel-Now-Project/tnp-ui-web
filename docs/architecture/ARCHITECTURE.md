@@ -17,22 +17,22 @@ graph TD
     RG --> T["(test) — component playground"]
     
     subgraph F["Feature Layer (src/features/)"]
-        AF["auth/"] --> AFAPI["api/ * .api.ts"]
-        AF --> AFSCHEMA["schemas/ * .schema.ts"]
+        AF["auth/"] --> AFSCHEMA["schemas/ *.schema.ts"]
         AF --> AFHOOK["hooks/ use*"]
         AF --> AFCOMP["components/"]
-        LF["landing/"] --> LFHOOK["hooks/ use*"]
+        LF["landing/"] --> LFAPI["api/ contact.api.ts"]
+        LF --> LFHOOK["hooks/ use*"]
         LF --> LFCOMP["components/ (25+ files)"]
         TF["trip/"] --> TFCOMP["components/ (19 files)"]
         DF["dashboard/"] --> DFCOMP["components/"]
-        UF["user/"] --> UFTYPE["type.ts (stub)"]
     end
 
     subgraph S["Shared Layer (src/shared/)"]
         SC["components/ (14 categories)"]
-        SH["hook/ (3 hooks)"]
-        ST["types/ (response, interface)"]
+        SH["hooks/ (useAuth, useModalScrollLock...)"]
+        SS["stores/ (auth-store.ts — Zustand)"]
         SK["constants/ (header, sidebar)"]
+        SA["api/ (generated SDK + interceptors)"]
     end
 
     subgraph I["Infrastructure (src/lib/)"]
@@ -100,12 +100,14 @@ graph LR
 ```tsx
 // src/app/provider.tsx
 <QueryProvider>
-  <AuthProvider>
-    <ThemeProvider>
-      {children}
-      <Toaster />
-    </ThemeProvider>
-  </AuthProvider>
+  <GoogleOAuthProvider>
+    <AuthProvider>
+      <ThemeProvider>
+        {children}
+        <Toaster />
+      </ThemeProvider>
+    </AuthProvider>
+  </GoogleOAuthProvider>
 </QueryProvider>
 ```
 
@@ -115,4 +117,4 @@ graph LR
 2. **God components**: `TripDetail.tsx` (4300 dòng) và `TripExpenseModal.tsx` (2480 dòng) vi phạm Single Responsibility
 3. **Client-heavy**: 100% pages là Client Component — mất lợi thế SSR/RSC của Next.js
 4. **Thiếu data fetching layer**: Chỉ có mutations, chưa có queries pattern
-5. **Inconsistent patterns**: Auth dùng `alert()`, contact dùng `toast()` — thiếu standardization
+5. **Thiếu middleware**: Chưa có Next.js middleware cho route protection

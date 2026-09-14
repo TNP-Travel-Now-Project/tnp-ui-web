@@ -32,8 +32,6 @@ TNP UI Web là ứng dụng web quản lý chuyến đi nhóm (trip management p
 - Real API integration (hiện dùng mock data)
 - `useQuery` cho data fetching (chỉ có `useMutation`)
 - `not-found.tsx` pages
-- `entities/user.ts` (file rỗng)
-- `features/user` hoàn chỉnh
 
 ## Trạng thái dự án
 

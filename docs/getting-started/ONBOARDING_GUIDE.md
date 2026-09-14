@@ -60,11 +60,10 @@ src/
 ├── app/          # Router + Layouts
 ├── features/     # Business logic
 ├── shared/       # Reusable code
-├── lib/          # Infrastructure
-└── entities/     # Domain models
+└── lib/          # Infrastructure
 ```
 
-### 5 features cần biết
+### 4 features cần biết
 
 | Feature | Mô tả | File chính |
 |---|---|---|
@@ -72,7 +71,6 @@ src/
 | landing | Marketing pages | `GuestLanding`, `AboutUs`, `Contact` |
 | dashboard | Tổng quan | `DashboardView`, `WelcomeHero` |
 | trip | Quản lý chuyến đi | `TripDetail`, `TripExpenseModal` |
-| user | User entity | `type.ts` (stub) |
 
 ---
 
@@ -95,11 +93,9 @@ pnpm test         # Vitest
 
 ```bash
 src/features/{new-feature}/
-├── type.ts                 # Types
+├── types/                  # Types (*.types.ts)
 ├── schemas/                # Zod schemas (nếu có form)
 │   └── {name}.schema.ts
-├── api/                    # API calls
-│   └── {name}.api.ts
 ├── hooks/                  # Custom hooks
 │   └── use{Name}.ts
 ├── components/             # UI
@@ -108,6 +104,8 @@ src/features/{new-feature}/
 │       └── index.ts
 └── index.ts                # Barrel export
 ```
+
+**Lưu ý**: Dùng Generated SDK (`postApiAuthLogin`, etc.) thay vì tạo file `api/` thủ công.
 
 ### 2. Tạo route trong app
 

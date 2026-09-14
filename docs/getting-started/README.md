@@ -10,10 +10,10 @@
 | UI Library | React 19 |
 | Ngôn ngữ | TypeScript (strict) |
 | Styling | TailwindCSS v4 + Shadcn |
-| Server State | TanStack Query v5 |
+| State | Zustand (auth) + TanStack Query v5 |
 | Form & Validation | react-hook-form + Zod v4 |
-| HTTP Client | Axios + CSRF |
-| Auth | Context API + next-auth |
+| HTTP | Axios + Generated SDK (@hey-api/openapi-ts) |
+| Auth | JWT (HttpOnly cookies) + Google OAuth |
 | Animation | framer-motion |
 | Package Manager | pnpm |
 | Linting | Biome v2 |
@@ -33,10 +33,9 @@ pnpm test         # Vitest
 ```
 src/
   app/          — Next.js App Router (4 route groups)
-  entities/     — Domain entities
-  features/     — 5 feature modules (auth, dashboard, landing, trip, user)
-  lib/          — Infrastructure (api-client, config, utils)
-  shared/       — Components, hooks, types, constants
+  features/     — 4 feature modules (auth, dashboard, landing, trip)
+  lib/          — Infrastructure (api-client, api-error, config, utils)
+  shared/       — Components, hooks, stores, types, constants, API
 ```
 
 ## Environment

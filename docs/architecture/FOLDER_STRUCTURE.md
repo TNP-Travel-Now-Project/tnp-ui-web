@@ -5,7 +5,6 @@
 ```
 src/
 ├── app/            # Next.js App Router
-├── entities/       # Domain entities thuần
 ├── features/       # Business logic modules
 ├── lib/            # Shared infrastructure
 └── shared/         # Reusable UI + logic
@@ -85,36 +84,31 @@ Chứa toàn bộ logic nghiệp vụ, chia theo domain.
 ```
 features/
 ├── auth/            # Authentication feature
-│   ├── api/         #   API functions (login.api.ts, register.api.ts)
-│   ├── schemas/     #   Zod validation schemas
+│   ├── types/       #   auth.types.ts (RegisterRequest, RegisterResponse)
+│   ├── schemas/     #   Zod validation schemas (login, register, password)
 │   ├── hooks/       #   Custom hooks (useLogin, useRegister, useLoginForm)
-│   ├── components/  #   UI components (AuthModal, ProfileModal, forms)
-│   └── type.ts      #   Types (LoginRequest, LoginResponse...)
+│   └── components/  #   UI components (AuthModal, ProfileModal, forms)
 ├── dashboard/       # Dashboard feature
 │   └── components/  #   DashboardView, WelcomeHero
 ├── landing/         # Marketing pages
 │   ├── api/         #   contact.api.ts
-│   ├── schema/      #   contact.schema.ts
+│   ├── schemas/     #   contact.schema.ts
 │   ├── hooks/       #   useGuestLanding, useContact, useContactForm
 │   ├── constants/   #   Static content (features, FAQs, testimonials)
 │   ├── types/       #   ContactInput/Output, TestimonialItem
 │   └── components/  #   25+ components (Hero, FAQ, Footer...)
-├── trip/            # Trip management
-│   └── components/  #   19 files (TripDetail 4300 dòng!)
-└── user/            # User feature (stub)
-    ├── type.ts      #   User interface
-    └── hooks/       #   useUser.ts (file rỗng)
+└── trip/            # Trip management
+    └── components/  #   19 files (TripDetail, TripExpenseModal...)
 ```
 
 ### Quy tắc cho một feature
 1. Mỗi feature là một module độc lập
 2. Không import feature A vào feature B
-3. Cấu trúc khuyến nghị: `types/` → `schemas/` → `api/` → `hooks/` → `components/`
+3. Cấu trúc khuyến nghị: `types/` → `schemas/` → `hooks/` → `components/`
 4. Barrel export qua `index.ts`
+5. Auth feature dùng Generated SDK thay vì manual API functions
 
 ### Anti-patterns
-- `features/trip` thiếu `types/`, `api/`, `hooks/` — khác với `auth` và `landing`
-- `features/user` không có implement — chỉ là stub
 - Component quá lớn (TripDetail 4300 dòng) vi phạm SRP
 
 ---
@@ -183,17 +177,3 @@ lib/
 ### Tương tác
 - Chỉ import từ thư viện ngoài (axios, clsx, tailwind-merge)
 - Không import từ `@/features/` hay `@/shared/`
-
----
-
-## `src/entities/` — Domain Entities
-
-### Mục đích
-Định nghĩa domain entities thuần (plain objects), không logic.
-
-### Hiện trạng
-- `user.ts` — file rỗng (chưa implement)
-
-### Khi nào dùng
-- Khi cần model hóa domain object không phụ thuộc framework
-- Không chứa hooks, component, API call

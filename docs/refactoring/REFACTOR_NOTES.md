@@ -64,98 +64,47 @@ TripExpenseModal/
 
 ## HIGH
 
-### 3. Sửa typo: AdddPlaceModal → AddPlaceModal
+### 3. ~~Sửa typo: AdddPlaceModal → AddPlaceModal~~ ✅ DONE
 
-**File**: `src/shared/components/layout/AdddPlaceModal/` (3 chữ d)
-
-**Ảnh hưởng**: Import path sai, gây nhầm lẫn.
-
-**Giải pháp**: Rename folder và update tất cả imports.
+Đã xóa duplicate file `shared/components/layout/AdddPlaceModal/`.
 
 ---
 
-### 4. Fix trailing space: register.api.ts
+### 4. ~~Fix trailing space: register.api.ts~~ ✅ DONE
 
-**File**: `src/features/auth/api/register.api.ts`
-
-```typescript
-// ❌ Có trailing space
-const url = '/auth/register '
-
-// ✅ Đúng
-const url = '/auth/register'
-```
-
-**Ảnh hưởng**: API call fail với 400 Bad Request.
+File `register.api.ts` đã được xóa — auth API giờ dùng Generated SDK.
 
 ---
 
-### 5. Fix import sai: register-form.tsx
+### 5. ~~Fix import sai: register-form.tsx~~ ✅ DONE
 
-**File**: `src/features/auth/components/register/register-form.tsx`
-
-```typescript
-// ❌ Import sai
-import { useLoginForm } from '../../hooks/login/useLoginForm'
-
-// ✅ Import đúng
-import { useRegister } from '../../hooks/register/useRegister'
-```
-
-**Ảnh hưởng**: Register form gọi login logic → sai business.
+`register-form.tsx` giờ import đúng `useRegisterForm`.
 
 ---
 
 ## MEDIUM
 
-### 6. Thay thế alert() bằng toast system
+### 6. ~~Thay thế alert() bằng toast system~~ ✅ DONE
 
-**Files**: `useLogin.ts`, `useRegister.ts`
-
-```typescript
-// ❌ Hiện tại
-onSuccess: () => alert('Đăng nhập thành công')
-onError: (e) => alert(e.message)
-
-// ✅ Nên dùng
-onSuccess: () => toast.success('Đăng nhập thành công')
-onError: (e) => toast.error(e.message)
-```
-
-**Lợi ích**: UI nhất quán, trải nghiệm người dùng tốt hơn.
+Tất cả form hooks giờ dùng `toast.success()` / `toast.error()` với `ApiError`.
 
 ---
 
-### 7. Giảm redundant hook calls: landing-page.tsx
+### 7. ~~Giảm redundant hook calls: landing-page.tsx~~ ✅ DONE
 
-**File**: `src/features/landing/components/landing-page.tsx`
-
-```typescript
-// ❌ Gọi 2 lần
-const authState = useGuestLanding()    // auth check
-const carouselState = useGuestLanding() // carousel
-
-// ✅ Gọi 1 lần, destructure cả 2
-const { isAuthenticated, carouselIndex, ... } = useGuestLanding()
-```
+`landing-page.tsx` giờ gọi `useGuestLanding()` 1 lần.
 
 ---
 
-### 8. Implement entities/user.ts và useUser.ts
+### 8. ~~Implement entities/user.ts và useUser.ts~~ ✅ REMOVED
 
-**Files**: `src/entities/user.ts` (rỗng), `src/features/user/hooks/useUser.ts` (rỗng)
-
-**Giải pháp**:
-- Đồng bộ `User` interface giữa `AuthProvider` và `entities/user.ts`
-- Implement `useUser` hook với `useQuery` để fetch user info
+`entities/` directory đã được xóa. User state quản lý qua Zustand store.
 
 ---
 
-### 9. Không đồng nhất feature structure
+### 9. ~~Không đồng nhất feature structure~~ ✅ DONE
 
-`features/trip` thiếu `types/`, `api/`, `hooks/` — khác với `auth` và `landing`.
-
-**Giải pháp**: Thêm cấu trúc chuẩn cho trip feature.
+Features đã standardized: `types/`, `schemas/`, `hooks/`, `components/`.
 
 ---
 
@@ -192,35 +141,19 @@ const { isAuthenticated, carouselIndex, ... } = useGuestLanding()
 
 ---
 
-### 13. Standardize form component structure
-
-`Form.tsx` đặt ở `form/Form.tsx` trong khi các component khác có thư mục riêng.
-
-**Giải pháp**: Move `Form.tsx` vào `form/Form/Form.tsx`.
-
----
-
-### 14. Clean up duplicate component systems
-
-`shared/components/ui/` tồn tại song song với `shared/components/` — chứa sub-categories trùng lặp (`ui/actions/`, `ui/feedback/`, `ui/form/`...).
-
-**Giải pháp**: Xác định hệ thống nào đang được dùng, xóa hệ thống kia hoặc merge.
-
----
-
 ## Prioritized Action Plan
 
 | # | Task | Effort | Impact | Priority |
 |---|---|---|---|---|
 | 1 | Tách TripDetail | 3 days | High | CRITICAL |
 | 2 | Tách TripExpenseModal | 2 days | High | CRITICAL |
-| 3 | Fix typo AdddPlaceModal | 30 min | Medium | HIGH |
-| 4 | Fix trailing space register API | 5 min | High | HIGH |
-| 5 | Fix import register-form | 5 min | High | HIGH |
-| 6 | Replace alert() with toast | 1 day | Medium | MEDIUM |
-| 7 | Fix redundant hook calls | 30 min | Low | MEDIUM |
-| 8 | Implement entities/user | 4 hours | Medium | MEDIUM |
-| 9 | Standardize feature structure | 2 days | Medium | MEDIUM |
+| 3 | ~~Fix typo AdddPlaceModal~~ | ✅ | ✅ | DONE |
+| 4 | ~~Fix trailing space register API~~ | ✅ | ✅ | DONE |
+| 5 | ~~Fix import register-form~~ | ✅ | ✅ | DONE |
+| 6 | ~~Replace alert() with toast~~ | ✅ | ✅ | DONE |
+| 7 | ~~Fix redundant hook calls~~ | ✅ | ✅ | DONE |
+| 8 | ~~Implement entities/user~~ | ✅ | ✅ | REMOVED |
+| 9 | ~~Standardize feature structure~~ | ✅ | ✅ | DONE |
 | 10 | Add not-found pages | 1 hour | Low | LOW |
 | 11 | API integration | 1 week | High | LOW* |
 | 12 | Convert to Server Components | 2 days | Medium | LOW |

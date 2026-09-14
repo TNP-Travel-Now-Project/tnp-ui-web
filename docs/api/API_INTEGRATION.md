@@ -2,12 +2,10 @@
 
 ## Tổng quan
 
-Có **2 pattern** song song:
-
 | Pattern | Công nghệ | Trạng thái |
 |---------|-----------|-----------|
-| **Generated SDK** (mới) | `@hey-api/openapi-ts` gen từ OpenAPI spec BE | Đang dùng cho login |
-| **Manual API functions** (cũ) | `axiosClient.post()` viết tay | Đang dùng cho register, contact |
+| **Generated SDK** | `@hey-api/openapi-ts` gen từ OpenAPI spec BE | Auth endpoints (login, register, google) |
+| **Manual API functions** | `axiosClient.post()` viết tay | Contact endpoint |
 
 ---
 
@@ -279,29 +277,15 @@ graph LR
 
 ---
 
-## Feature API Functions (Pattern cũ)
+## Feature API Functions (Manual — chỉ cho endpoints chưa có SDK)
 
 ### Pattern
 
-Mỗi feature có thư mục `api/` riêng:
+Chỉ dùng manual API cho endpoints chưa có generated SDK:
 
 ```
-features/auth/api/
-├── login.api.ts       # POST /auth/login
-└── register.api.ts    # POST /auth/register[space] ⚠️
-
 features/landing/api/
 └── contact.api.ts     # POST /user/contact
-```
-
-### Login API
-
-```typescript
-// features/auth/api/login.api.ts
-export async function loginApi(data: LoginRequest): Promise<LoginResponse> {
-  const response = await axiosClient.post<LoginResponse>(API_ENDPOINTS.LOGIN, data)
-  return response.data
-}
 ```
 
 ### Contact API
@@ -378,9 +362,7 @@ export const HTTP_STATUS = {
 - ❌ Không duplicate endpoint string (dùng `API_ENDPOINTS`)
 - ❌ Không để logic API trong component (dùng hooks)
 
-## Anti-patterns hiện tại
+## Anti-patterns còn lại
 
-1. **Chỉ có mutations, chưa có queries** — không cache dữ liệu
-2. **Auth hooks dùng `alert()`** — thay vì throw ApiError để component xử lý
-3. **Trailing space** trong endpoint register
-4. **Mock data coupling** — chưa chuyển sang real API
+1. **Chỉ có mutations, chưa có queries** — không cache dữ liệu cho endpoints GET
+2. **Mock data coupling** — Dashboard và trips vẫn dùng mock data

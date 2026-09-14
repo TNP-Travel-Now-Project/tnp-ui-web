@@ -4,77 +4,54 @@
 
 Hệ thống auth gồm 3 phần:
 
-1. **AuthProvider** — Context API cho auth state (`auth-provider.tsx`)
-2. **Login / Register mutations** — TanStack Query (`useLogin`, `useRegister`)
-3. **Redirect mechanism** — `useEffect` phản ứng khi `isAuthenticated` thay đổi
+1. **Zustand store** — Auth state management (`auth-store.ts`)
+2. **AuthProvider** — Context API wrapper cho React components (`auth-provider.tsx`)
+3. **Silent refresh** — Auto refresh token khi page refresh (`useAuth.ts`)
 
 ---
 
-## AuthProvider
+## Provider chain
 
-### Vị trí
+```
+RootLayout → Providers → QueryProvider → GoogleOAuthProvider → AuthProvider → ThemeProvider → children
+```
 
-`src/shared/components/providers/AuthProvider/auth-provider.tsx`
+## Auth State Architecture
 
-### Interface
+### Zustand Store (RAM)
 
 ```typescript
+// src/shared/stores/auth-store.ts
 interface AuthState {
+  token: string | null        // JWT access token (in-memory only)
   user: User | null
   isAuthenticated: boolean
   isLoading: boolean
-}
-
-interface AuthContextType extends AuthState {
-  login: (user: User, token: string) => void
-  logout: () => void
-  updateUser: (user: Partial<User>) => void
+  isRefreshing: boolean
 }
 ```
 
-### User type
+### Token Management
 
-```typescript
-interface User {
-  id: string
-  email: string
-  name: string
-  avatar?: string
-  role?: string
-}
-```
-
-### Provider chain
-
-```
-RootLayout → Providers → QueryProvider → AuthProvider → ThemeProvider → children
-```
+- **Access token**: Lưu trong Zustand store (RAM, không persist)
+- **Refresh token**: HttpOnly cookie (browser tự gửi, không access được từ JS)
+- **Silent refresh**: Khi F5/page refresh → `useSilentRefresh()` gọi `performRefresh()` → POST `/auth/refresh-token` → lấy access token mới
+- **Auto refresh**: Response interceptor detect 401 → `performRefresh()` → retry request
 
 ### Lifecycle
 
 ```
-Mounted → useEffect → Kiểm tra localStorage('tnp_token')
-  ├── Có token → setIsLoading(false) [TODO: validate + fetch user]
-  └── Không token → setIsLoading(false)
+Mounted → useSilentRefresh()
+  ├── Đã có token (SPA navigate) → setLoading(false) → render ngay
+  └── Chưa có token (F5 / tab mới)
+      → performRefresh() (POST /auth/refresh-token)
+        ├── Refresh OK → GET /auth/me → setUser() → setLoading(false)
+        └── Refresh fail → logout() → setLoading(false) → render login
 ```
-
-### `login()` function
-
-```typescript
-const login = (newUser: User, token: string) => {
-  localStorage.setItem('tnp_token', token)   // lưu JWT
-  setUser(newUser)                            // set user state → isAuthenticated = true
-  onLogin?.(newUser, token)                   // callback (không được dùng)
-}
-```
-
-Sau khi `setUser(newUser)`:
-- `isAuthenticated` chuyển từ `false` → `true`
-- `useEffect` redirect ở component cha phát hiện thay đổi → `router.replace('/dashboard')`
 
 ---
 
-## Login Flow (đã fix)
+## Login Flow
 
 ### Sequence Diagram
 
@@ -87,10 +64,10 @@ sequenceDiagram
     participant FormHook as useLoginForm
     participant Mut as useLogin
     participant API as postApiAuthLogin
-    participant Axios as axiosClient
+    participant SDK as Generated SDK
     participant Backend as .NET Backend
     participant Auth as AuthProvider
-    participant Parent as LandingPage / useGuestLanding
+    participant Store as Zustand Store
 
     User->>Page: Click "Đăng nhập" hoặc truy cập /login
     Page->>Modal: Render AuthModal
@@ -103,239 +80,79 @@ sequenceDiagram
     else Validation pass
         FormHook->>Mut: mutateAsync({ email, password })
         Mut->>API: postApiAuthLogin({ body: data, throwOnError: true })
-        API->>Axios: POST /api/auth/login + X-CSRF-TOKEN
-        Axios->>Backend: HTTP request
+        API->>SDK: POST /api/auth/login + X-CSRF-TOKEN
+        SDK->>Backend: HTTP request
 
         alt Thành công (200)
-            Backend-->>Axios: { userId, email, role, accessToken }
-            Axios-->>API: response.data
+            Backend-->>SDK: { userId, email, roles, accessToken }
+            SDK-->>API: response.data
             API-->>Mut: { data: result }
             Mut-->>FormHook: result
 
-            FormHook->>Auth: login({ id, email, name, role }, accessToken)
-            Auth->>Auth: setUser(user) → isAuthenticated = true
-            Auth->>Auth: localStorage.setItem('tnp_token', token)
+            FormHook->>Store: login(accessToken, user)
+            Store->>Store: token = accessToken, user = user, isAuthenticated = true
             FormHook->>FormHook: form.reset()
             FormHook->>FormHook: onSuccess?.()
             FormHook->>FormHook: toast.success('Đăng nhập thành công.')
 
-            Note over Auth,Parent: React re-render
-            Parent->>Parent: useEffect phát hiện isAuthenticated = true
-            Parent->>Page: router.replace('/dashboard')
-
-            opt Nếu dùng standalone /login page
-                Modal->>Page: onSuccess callback → router.push('/dashboard')
-            end
+            Note over Store,Page: React re-render
+            Page->>Page: useEffect/router.push → redirect
 
         else Thất bại (401, 422, 500)
-            Backend-->>Axios: Error response
-            Axios-->>Axios: ApiError.fromAxiosError()
-            Axios-->>API: throw error
+            Backend-->>SDK: Error response
+            SDK-->>API: ApiError.fromAxiosError()
+            API-->>Mut: throw error
             Mut-->>FormHook: throw error (catch)
-            FormHook->>FormHook: toast.error(error.message)
-            Note over FormHook,Auth: Không gọi login() → không redirect
+            FormHook->>FormHook: ApiError.fromAxiosError()
+            FormHook->>FormHook: toast.error(apiError.message)
+            Note over FormHook,Store: Không gọi login() → không redirect
         end
     end
 ```
 
-### Luồng chi tiết
-
-```
-Click "Đăng nhập"
-  → goLogin() mở AuthModal
-    → User nhập email/password, submit
-      → useLoginForm.onSubmit()
-        → mutation.mutateAsync(data)  // gọi API
-          
-          ├── Thành công:
-          │   → AuthProvider.login(user, token)
-          │     → localStorage.setItem('tnp_token', token)
-          │     → setUser(newUser) → isAuthenticated = true
-          │       → useEffect ở component cha
-          │         → router.replace('/dashboard')
-          │
-          └── Thất bại (401):
-              → catch(error)
-                → toast.error(error.message)
-                → KHÔNG gọi login()
-                → KHÔNG redirect
-                → Modal vẫn mở, user ở lại
-```
-
-### File tham chiếu
-
-| Bước | File | Dòng |
-|------|------|------|
-| Click login → mở modal | `useLandingLayoutController.ts` | 89-92 |
-| Form submit | `useLoginForm.ts` | 23-45 |
-| Gọi API | `useLogin.ts` | 6-11 |
-| Auth state | `auth-provider.tsx` | 63-67 |
-| Redirect useEffect (landing page) | `useGuestLanding.ts` | 12-16 |
-| Redirect useEffect (landing layout) | `useLandingLayoutController.ts` | 46-50 |
-| LandingPage render null khi auth | `landing-page.tsx` | 17 |
-| LandingLayout render null khi auth | `landing-layout.tsx` | 38 |
-
 ---
 
-### Register Flow
+## Register Flow
 
 Tương tự login, nhưng:
-- Dùng `useRegister` mutation thay vì `useLogin`
-- POST `/api/auth/register`
+- Dùng `useRegister` mutation (generated SDK `postApiAuthRegister`)
 - Schema có thêm `username`, `confirmPassword`
-- Sau register thành công → tự động gọi `login()` → redirect `/dashboard`
+- Password validation dùng shared `passwordField()` schema
+- Sau register thành công → toast success → redirect về login page
 
 ---
 
-## Auth Modal Component
+## Google OAuth Flow
 
-### Vị trí
+```mermaid
+sequenceDiagram
+    participant User
+    participant Google as Google OAuth
+    participant Hook as useGoogleLogin
+    participant API as postApiAuthGoogleLogin
+    participant Store as Zustand Store
 
-`src/features/auth/components/AuthModal/AuthModal.tsx`
-
-### Cấu trúc
-
-```
-AuthModal
-├── Gradient header (Chào mừng bạn quay lại / Tạo tài khoản mới)
-├── Tabs: Đăng nhập | Đăng ký
-├── Tab content
-│   ├── Đăng nhập → LoginForm(onSuccess)
-│   └── Đăng ký → RegisterForm(onSuccess)
-└── Dialog (shadcn/ui)
-```
-
-### Props
-
-```typescript
-interface AuthModalProps {
-  isOpen: boolean
-  onClose: () => void
-  onSuccess: () => void      // Gọi sau khi login/register thành công (trước đây là dead code)
-  activeTab: 'login' | 'register'
-  onTabChange: (tab: 'login' | 'register') => void
-}
-```
-
-### Cách dùng
-
-```tsx
-// Landing page (modal)
-<AuthModal
-  isOpen={isAuthModalOpen}
-  onClose={() => setIsAuthModalOpen(false)}
-  onSuccess={navigate.refresh}
-  activeTab={authInitialTab}
-  onTabChange={setAuthInitialTab}
-/>
-
-// Standalone /login page
-<AuthModal
-  isOpen={true}
-  onClose={() => router.push('/')}
-  onSuccess={() => router.push('/dashboard')}
-  activeTab='login'
-  onTabChange={() => {}}
-/>
+    User->>Google: Click "Sign in with Google"
+    Google-->>Hook: credentialResponse (idToken)
+    Hook->>API: postApiAuthGoogleLogin({ body: { tokenId } })
+    API-->>Hook: { accessToken, userId, email, roles }
+    Hook->>Store: login(accessToken, user)
 ```
 
 ---
 
-## LoginForm & useLoginForm
-
-### Vị trí
-
-- Component: `src/features/auth/components/login/login-form.tsx`
-- Hook: `src/features/auth/hooks/login/useLoginForm.ts`
-
-### Props
+## Error Handling
 
 ```typescript
-interface LoginFormProps {
-  onSuccess?: () => void    // Callback sau login thành công
-}
-```
-
-### Flow xử lý submit
-
-```typescript
-const onSubmit = async (data: LoginFormData) => {
-  try {
-    const result = await mutation.mutateAsync(data)  // API call
-
-    toast.success('Đăng nhập thành công.')
-
-    login(                                            // AuthProvider.login()
-      { id: result.userId!, email, name, role },
-      result.accessToken,
-    )
-
-    form.reset()
-    onSuccess?.()                                     // đóng modal / redirect
-  } catch (error) {
-    const message = error instanceof Error ? error.message : 'Đăng nhập thất bại!'
-    toast.error(message)                              // chỉ toast, không login, không redirect
-  }
-}
-```
-
----
-
-## Redirect Mechanism
-
-Có **2 cơ chế redirect** song song:
-
-### 1. `useEffect` reactive (dùng cho Landing page)
-
-**File**: `useGuestLanding.ts:12-16` và `useLandingLayoutController.ts:46-50`
-
-```typescript
-useEffect(() => {
-  if (!isLoading && isAuthenticated) {
-    router.replace('/dashboard')
-  }
-}, [isAuthenticated, isLoading, router])
-```
-
-Khi `AuthProvider.login()` gọi `setUser()` → React re-render → `isAuthenticated = true` → `useEffect` chạy → redirect.
-
-### 2. `onSuccess` callback (dùng cho standalone /login, /register pages)
-
-- `AuthModal.onSuccess` được truyền xuống `LoginForm`/`RegisterForm`
-- Được gọi sau khi `login()` thành công trong `useLoginForm`/`useRegisterForm`
-- Ví dụ: `onSuccess={() => router.push('/dashboard')}`
-
----
-
-## Error Handling (đã fix)
-
-### Vấn đề cũ (BUG)
-
-Dùng `toast.promise()` từ sonner v2 → trả về `{ unwrap: fn }` (object), không phải Promise.
-
-```typescript
-// ❌ BUG: toast.promise trả về object, không phải Promise
-const result = await (toast.promise(mutation.mutateAsync(data), {
-  success: '...',
-  error: (error) => error.message,
-}) as unknown as Promise<LoginResponse>)
-
-// result = { unwrap: fn }  (await non-Promise resolves ngay)
-// result.userId = undefined
-// login({ id: undefined!, ... }) vẫn chạy → user truthy → isAuthenticated = true → redirect
-```
-
-### Cách fix
-
-```typescript
-// ✅ try/catch — chỉ login khi API thành công
+// Trong form hooks — dùng ApiError class
 try {
   const result = await mutation.mutateAsync(data)
-  toast.success('Đăng nhập thành công.')
-  login(...)
-  onSuccess?.()
+  // success handling
 } catch (error) {
-  toast.error(error.message)   // không gọi login, không redirect
+  const apiError = ApiError.fromAxiosError(error)
+  toast.error(apiError.message)
+  // apiError.status — HTTP status code
+  // apiError.getFieldError('email') — validation field error
 }
 ```
 
@@ -343,57 +160,40 @@ try {
 
 ## CSRF Protection
 
-### Cơ chế
-
 ```typescript
-// src/lib/csrf.ts
-export function getCSRFToken(): string | null {
-  const value = `; ${document.cookie}`
-  const parts = value.split(`; CSRF-TOKEN=`)
-  if (parts.length === 2) {
-    return parts.pop()?.split(';')[0] || null
-  }
-  return null
-}
-```
-
-### Axios interceptor (`src/shared/api/index.ts`)
-
-```typescript
-client.instance.interceptors.request.use((config) => {
+// Request interceptor — tự động gắn CSRF token
+client.instance.interceptors.request.use((reqConfig) => {
   const csrf = getCSRFToken()
   if (csrf) {
-    config.headers['X-CSRF-TOKEN'] = csrf
+    reqConfig.headers['X-CSRF-TOKEN'] = csrf
   }
-  return config
+  return reqConfig
 })
-
-client.instance.interceptors.response.use(
-  (response) => response,
-  (error) => Promise.reject(ApiError.fromAxiosError(error)),
-)
 ```
 
 ---
 
 ## Route Protection
 
-### Cơ chế hiện tại
+### Hiện tại
 
-1. **Landing page** (`landing-page.tsx:17` và `landing-layout.tsx:38`):
+1. **Landing page** (`landing-page.tsx` và `landing-layout.tsx`):
    ```typescript
    if (isAuthenticated) return null
    ```
-   Không render nội dung landing nếu đã đăng nhập. Kết hợp với `useEffect` redirect.
+   Không render nội dung landing nếu đã đăng nhập.
 
-2. **Protected routes** `(main)/`:
-   - `MainLayout` không kiểm tra auth
-   - Chưa có middleware guard
-   - User chưa login vẫn có thể truy cập `/dashboard`, `/trips` bằng URL trực tiếp
+2. **Main layout** (`useMainLayoutController.ts`):
+   ```typescript
+   useEffect(() => {
+     if (!isLoading && !isAuthenticated) {
+       router.replace('/')
+     }
+   }, [isAuthenticated, isLoading, router])
+   ```
+   Redirect về landing nếu chưa đăng nhập.
 
 ### TODO
 
 - [ ] Thêm Next.js middleware cho route protection
-- [ ] Validate token khi page refresh
-- [ ] Fetch user info khi có token
 - [ ] Add `not-found.tsx`
