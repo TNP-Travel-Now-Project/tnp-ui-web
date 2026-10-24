@@ -1,5 +1,7 @@
 import axios from 'axios'
 
+import { translateApiError, translateFieldErrors } from '@/lib/error-messages'
+
 /**
  * Lỗi API có cấu trúc
  *
@@ -36,16 +38,19 @@ export class ApiError extends Error {
     this.name = 'ApiError'
   }
 
-  /** Parse lỗi từ Axios thành ApiError */
+  /** Parse lỗi từ Axios thành ApiError, tự động dịch sang tiếng Việt */
   static fromAxiosError(error: unknown): ApiError {
     if (axios.isAxiosError(error)) {
       const response = error.response?.data as Record<string, unknown> | undefined
+      const code = (response?.code as string) ?? 'UNKNOWN'
+      const rawMessage = (response?.message as string) ?? error.message
+      const rawDetails = response?.errors as Record<string, string[]> | undefined
 
       return new ApiError(
         error.response?.status ?? 0,
-        (response?.code as string) ?? 'UNKNOWN',
-        (response?.message as string) ?? error.message,
-        response?.errors as Record<string, string[]> | undefined,
+        code,
+        translateApiError(code, rawMessage),
+        translateFieldErrors(rawDetails),
       )
     }
 
